@@ -1,0 +1,8 @@
+# Handle line endings automatically by default
+* text=auto
+
+# Ensure the Linux/macOS wrapper script always uses LF
+mvnw text eol=lf
+
+# Ensure the Windows wrapper script always uses CRLF
+mvnw.cmd text eol=crlf
