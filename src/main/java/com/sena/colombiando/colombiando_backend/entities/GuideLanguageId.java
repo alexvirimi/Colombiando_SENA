@@ -14,7 +14,7 @@ public class GuideLanguageId implements Serializable {
     private UUID guideId;
 
     @Column(name = "language_id")
-    private String languageId;
+    private UUID languageId;
 
     public GuideLanguageId() {}
 
@@ -28,11 +28,11 @@ public class GuideLanguageId implements Serializable {
         this.guideId = guideId;
     }
 
-    public String getLanguageId() {
+    public UUID getLanguageId() {
         return languageId;
     }
 
-    public void setLanguageId(String languageId) {
+    public void setLanguageId(UUID languageId) {
         this.languageId = languageId;
     }
 

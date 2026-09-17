@@ -1,6 +1,6 @@
 package com.sena.colombiando.colombiando_backend.entities;
 
-public enum UserIdTypeEnum {
+public enum UserDocumentTypeEnum {
     CC,
     CE,
     TI,

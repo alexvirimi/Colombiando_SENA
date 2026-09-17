@@ -31,7 +31,7 @@ public class BookingEscortsEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "id_type", nullable = false)
-    private UserIdTypeEnum status;
+    private UserDocumentTypeEnum status;
 
     @Column(name = "id_number", length = 45)
     private String idNumber;
@@ -71,11 +71,11 @@ public class BookingEscortsEntity {
         this.lastName = lastName;
     }
 
-    public UserIdTypeEnum getStatus() {
+    public UserDocumentTypeEnum getStatus() {
         return status;
     }
 
-    public void setStatus(UserIdTypeEnum status) {
+    public void setStatus(UserDocumentTypeEnum status) {
         this.status = status;
     }
 

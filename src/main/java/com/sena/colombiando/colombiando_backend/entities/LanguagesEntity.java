@@ -9,6 +9,9 @@ import java.util.UUID;
 public class LanguagesEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
     @Column(length = 2, columnDefinition = "CHAR(2)", nullable = false, unique = true)
     private String code;
 
@@ -21,6 +24,10 @@ public class LanguagesEntity {
     public LanguagesEntity() {}
 
     // Getters & Setters
+
+    public UUID getId() {
+        return id;
+    }
 
     public String getCode() {
         return code;

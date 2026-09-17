@@ -69,7 +69,7 @@ public class GuideLanguageEntity {
 
     public void setLanguage(LanguagesEntity language) {
         this.language = language;
-        this.id.setLanguageId(language != null ? language.getCode() : null);
+        this.id.setLanguageId(language != null ? language.getId() : null);
     }
 
     public GuideLanguagesLevelEnum getLevel() {
