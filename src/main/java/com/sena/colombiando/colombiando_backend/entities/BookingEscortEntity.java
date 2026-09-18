@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "booking_escorts")
-public class BookingEscortsEntity {
+public class BookingEscortEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -39,7 +39,7 @@ public class BookingEscortsEntity {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    public BookingEscortsEntity() {}
+    public BookingEscortEntity() {}
 
     // Getters & Setters
 
