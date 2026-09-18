@@ -30,10 +30,10 @@ public class BookingEscortEntity {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "id_type", nullable = false)
-    private UserDocumentTypeEnum status;
+    @Column(name = "document_type", nullable = false)
+    private UserDocumentTypeEnum documentType;
 
-    @Column(name = "id_number", length = 45)
+    @Column(name = "id_number", length = 45, nullable = false)
     private String idNumber;
 
     @Column(name = "birth_date")
@@ -71,12 +71,12 @@ public class BookingEscortEntity {
         this.lastName = lastName;
     }
 
-    public UserDocumentTypeEnum getStatus() {
-        return status;
+    public UserDocumentTypeEnum getDocumentType() {
+        return documentType;
     }
 
-    public void setStatus(UserDocumentTypeEnum status) {
-        this.status = status;
+    public void setDocumentType(UserDocumentTypeEnum documentType) {
+        this.documentType = documentType;
     }
 
     public String getIdNumber() {

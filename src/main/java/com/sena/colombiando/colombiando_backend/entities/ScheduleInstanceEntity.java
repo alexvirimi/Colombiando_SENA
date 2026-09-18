@@ -42,7 +42,6 @@ public class ScheduleInstanceEntity {
     )
     private ScheduleEntity schedule;
 
-    @CreationTimestamp
     @Column(name = "date", nullable = false, updatable = false)
     private LocalDate date;
 

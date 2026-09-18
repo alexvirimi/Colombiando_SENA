@@ -37,12 +37,12 @@ public class PaymentEntity {
     )
     private BookingEntity booking;
 
-    @Column(name = "paid_amount", precision = 12, scale = 2, nullable = false)
-    private BigDecimal paidAmount;
+    @Column(name = "amount_to_pay", precision = 12, scale = 2, nullable = false)
+    private BigDecimal amountToPay;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private PaymentMethodEnum method;
+    private PaymentMethodEnum paymentMethod;
 
     @Column(length = 3, nullable = false)
     private String currency = "COP";
@@ -73,19 +73,19 @@ public class PaymentEntity {
     }
 
     public BigDecimal getPaidAmount() {
-        return paidAmount;
+        return amountToPay;
     }
 
-    public void setPaidAmount(BigDecimal paidAmount) {
-        this.paidAmount = paidAmount;
+    public void setPaidAmount(BigDecimal amountToPay) {
+        this.amountToPay = amountToPay;
     }
 
     public PaymentMethodEnum getMethod() {
-        return method;
+        return paymentMethod;
     }
 
-    public void setMethod(PaymentMethodEnum method) {
-        this.method = method;
+    public void setMethod(PaymentMethodEnum paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public String getCurrency() {
