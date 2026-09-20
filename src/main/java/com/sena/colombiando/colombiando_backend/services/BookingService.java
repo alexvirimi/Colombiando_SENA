@@ -18,23 +18,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class BookingService {
 
     private final BookingMapper bookingMapper;
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
     private final ScheduleInstanceRepository scheduleInstanceRepository;
+    private final ScheduleInstanceService scheduleInstanceService;
 
     public BookingService(
             BookingMapper bookingMapper,
             BookingRepository bookingRepository,
             UserRepository userRepository,
-            ScheduleInstanceRepository scheduleInstanceRepository
+            ScheduleInstanceRepository scheduleInstanceRepository,
+            ScheduleInstanceService scheduleInstanceService
     ) {
         this.bookingMapper = bookingMapper;
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
         this.scheduleInstanceRepository = scheduleInstanceRepository;
+        this.scheduleInstanceService = scheduleInstanceService;
     }
 
     private List<BookingDto.Response> responses(List<BookingEntity> bookings){
@@ -52,11 +56,18 @@ public class BookingService {
     @Transactional
     public BookingDto.Response createBooking(BookingDto.Create request){
         UserEntity user = userRepository.getReferenceById(request.userId());
-        ScheduleInstanceEntity scheduleInstance = scheduleInstanceRepository.getReferenceById(request.scheduleInstanceId());
+        ScheduleInstanceEntity scheduleInstance = scheduleInstanceRepository.findById(request.scheduleInstanceId())
+                .orElseThrow(() -> new EntityNotFoundException("Instancia de horario no encontrada."));
+
+        scheduleInstanceService.bookSlots(request.scheduleInstanceId(), request.numPeople());
+
+        BigDecimal totalPrice = scheduleInstance.getSchedule().getPricePerPerson()
+                .multiply(BigDecimal.valueOf(request.numPeople()));
 
         BookingEntity booking = bookingMapper.toEntity(request);
         booking.setUser(user);
         booking.setScheduleInstance(scheduleInstance);
+        booking.setTotalPrice(totalPrice);
 
         bookingRepository.save(booking);
         return bookingMapper.toDto(booking);
@@ -84,8 +95,12 @@ public class BookingService {
         BookingEntity booking = bookingRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Reserva no encontrada"));
 
-        booking.setStatus(BookingStatusEnum.CANCELLED);
-        bookingRepository.save(booking);
+        if (booking.getStatus() != BookingStatusEnum.CANCELLED) {
+            scheduleInstanceService.releaseSlots(booking.getScheduleInstance().getId(), booking.getNumPeople());
+            booking.setStatus(BookingStatusEnum.CANCELLED);
+            bookingRepository.save(booking);
+        }
+
         return bookingMapper.toDto(booking);
     }
 
