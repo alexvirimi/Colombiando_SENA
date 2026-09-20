@@ -35,7 +35,7 @@ public class PlacesEntity {
     private AddressEntity address;
 
     @Column(columnDefinition = "TEXT")
-    private String header_img;
+    private String headerImg;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -73,12 +73,12 @@ public class PlacesEntity {
         this.address = address;
     }
 
-    public String getHeader_img() {
-        return header_img;
+    public String getHeaderImg() {
+        return headerImg;
     }
 
-    public void setHeader_img(String header_img) {
-        this.header_img = header_img;
+    public void setHeaderImg(String headerImg) {
+        this.headerImg = headerImg;
     }
 
     public LocalDateTime getCreatedAt() {

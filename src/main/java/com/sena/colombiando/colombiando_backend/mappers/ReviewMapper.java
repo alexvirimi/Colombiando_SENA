@@ -1,0 +1,66 @@
+package com.sena.colombiando.colombiando_backend.mappers;
+
+import com.sena.colombiando.colombiando_backend.dto.ReviewDto;
+import com.sena.colombiando.colombiando_backend.entities.BookingEntity;
+import com.sena.colombiando.colombiando_backend.entities.ReviewEntity;
+import com.sena.colombiando.colombiando_backend.entities.UserEntity;
+import com.sena.colombiando.colombiando_backend.repositories.BookingRepository;
+import com.sena.colombiando.colombiando_backend.repositories.UserRepository;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ReviewMapper {
+
+    private final UserMapper userMapper;
+    private final BookingMapper bookingMapper;
+
+    private final UserRepository userRepository;
+    private final BookingRepository bookingRepository;
+
+    public ReviewMapper(
+            UserMapper userMapper,
+            BookingMapper bookingMapper,
+            UserRepository userRepository,
+            BookingRepository bookingRepository
+    ) {
+        this.userMapper = userMapper;
+        this.bookingMapper = bookingMapper;
+        this.userRepository = userRepository;
+        this.bookingRepository = bookingRepository;
+    }
+
+    public ReviewEntity toEntity(ReviewDto.Create request) {
+        var entity = new ReviewEntity();
+        var dataBase = request.data();
+
+        UserEntity user = userRepository.getReferenceById(request.userId());
+        BookingEntity booking = bookingRepository.getReferenceById(request.bookingId());
+
+        entity.setUser(user);
+        entity.setBooking(booking);
+        entity.setRating(dataBase.rating());
+        entity.setReview(dataBase.review());
+
+        return entity;
+    }
+
+    public ReviewDto.Response toDto(ReviewEntity entity) {
+        if (entity == null){
+            return null;
+        }
+
+        var dataBase = new ReviewDto.Base(
+                entity.getRating(),
+                entity.getReview()
+        );
+
+        return new ReviewDto.Response(
+                entity.getId(),
+                userMapper.toPublicDto(entity.getUser()),
+                bookingMapper.toPublicDto(entity.getBooking()),
+                dataBase,
+                entity.getCreatedAt()
+        );
+    }
+
+}

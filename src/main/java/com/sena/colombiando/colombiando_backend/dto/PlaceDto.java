@@ -13,7 +13,7 @@ public interface PlacesDto {
 
             String description,
 
-            String header_img
+            String headerImg
     ) {}
 
     public record Create(
