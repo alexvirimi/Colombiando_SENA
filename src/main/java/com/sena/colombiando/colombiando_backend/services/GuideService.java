@@ -7,6 +7,7 @@ import com.sena.colombiando.colombiando_backend.mappers.GuideMapper;
 import com.sena.colombiando.colombiando_backend.repositories.GuideRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;

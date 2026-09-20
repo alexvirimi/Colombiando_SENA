@@ -10,6 +10,7 @@ import com.sena.colombiando.colombiando_backend.repositories.ReviewRepository;
 import com.sena.colombiando.colombiando_backend.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;

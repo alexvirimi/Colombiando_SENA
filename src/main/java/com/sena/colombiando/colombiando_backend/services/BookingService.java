@@ -11,7 +11,9 @@ import com.sena.colombiando.colombiando_backend.repositories.ScheduleInstanceRep
 import com.sena.colombiando.colombiando_backend.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
