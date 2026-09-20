@@ -7,17 +7,17 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 public interface ScheduleInstanceRepository extends JpaRepository<ScheduleInstanceEntity, UUID> {
     public List<ScheduleInstanceEntity> findByScheduleId(UUID scheduleId);
-    public List<ScheduleInstanceEntity> findByScheduleIdAndDate(UUID scheduleId, Date date);
-    public List<ScheduleInstanceEntity> findByDate(Date date);
-    public List<ScheduleInstanceEntity> findByDateBetween(Date date1, Date date2);
+    public List<ScheduleInstanceEntity> findByScheduleIdAndDate(UUID scheduleId, LocalDate date);
+    public List<ScheduleInstanceEntity> findByDate(LocalDate date);
+    public List<ScheduleInstanceEntity> findByDateBetween(LocalDate date1, LocalDate date2);
     public List<ScheduleInstanceEntity> findByStateAndAvailableCapacityGreaterThan(ScheduleInstanceStateEnum state, int capacity);
-    public List<ScheduleInstanceEntity> findBySchedule_PlaceIdAndDateBetweenAndState(UUID placeId, Date date1, Date date2, ScheduleInstanceStateEnum state);
+    public List<ScheduleInstanceEntity> findBySchedule_PlaceIdAndDateBetweenAndState(UUID placeId, LocalDate date1, LocalDate date2, ScheduleInstanceStateEnum state);
 
     @Modifying
     @Query("UPDATE ScheduleInstanceEntity s " +

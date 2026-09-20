@@ -29,6 +29,11 @@ public class UserEntity {
     @Column(length = 255,  nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @org.hibernate.annotations.ColumnDefault("'ACTIVE'")
+    private UserStatusEnum status;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -77,12 +82,27 @@ public class UserEntity {
         return password;
     }
 
+    public UserStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatusEnum status) {
+        this.status = status;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setNameLastNamePhonePasswordToNull() {
+        this.name = null;
+        this.lastName = null;
+        this.phone = null;
+        this.password = null;
     }
 
 }

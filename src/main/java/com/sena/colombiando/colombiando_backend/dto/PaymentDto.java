@@ -32,6 +32,9 @@ public interface PaymentDto {
     }
 
     public record Update(
+            BigDecimal amountToPay,
+            String currency,
+            PaymentMethodEnum paymentMethod,
             PaymentStatusEnum status
     ) {}
 

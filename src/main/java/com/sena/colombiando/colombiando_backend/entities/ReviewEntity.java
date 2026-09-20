@@ -16,7 +16,7 @@ import java.util.UUID;
                 )
         }
 )
-public class ReviewsEntity {
+public class ReviewEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -28,7 +28,7 @@ public class ReviewsEntity {
             nullable = false,
             foreignKey = @ForeignKey(
                     name = "fk_review_user",
-                    foreignKeyDefinition = "FOREIGN KEY user_id " +
+                    foreignKeyDefinition = "FOREIGN KEY (user_id) " +
                             "REFERENCES users(id) " +
                             "ON UPDATE CASCADE " +
                             "ON DELETE RESTRICT"
@@ -42,7 +42,7 @@ public class ReviewsEntity {
             nullable = false,
             foreignKey = @ForeignKey(
                     name = "fk_review_booking",
-                    foreignKeyDefinition = "FOREIGN KEY booking_id " +
+                    foreignKeyDefinition = "FOREIGN KEY (booking_id) " +
                             "REFERENCES bookings(id) " +
                             "ON UPDATE CASCADE " +
                             "ON DELETE RESTRICT"
@@ -51,7 +51,7 @@ public class ReviewsEntity {
     private BookingEntity booking;
 
     @Column(nullable = false, columnDefinition = "SMALLINT")
-    private Integer rating;
+    private int rating;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String review;
@@ -60,7 +60,7 @@ public class ReviewsEntity {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public ReviewsEntity() {}
+    public ReviewEntity() {}
 
     // Getters & Setters
 
@@ -84,11 +84,11 @@ public class ReviewsEntity {
         this.booking = booking;
     }
 
-    public Integer getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 

@@ -19,12 +19,11 @@ public interface BookingDto {
 
                 @NotNull(message = "El número de personas es obligatorio.")
                 @Min(value = 1, message = "Mínimo 1 persona.")
-                Integer numPeople
+                int numPeople
         ) {}
 
         public record Update(
-                @Min(value = 1, message = "Mínimo 1 persona.")
-                Integer numPeople,
+                int numPeople,
 
                 BookingStatusEnum status
         ) {}
@@ -37,10 +36,10 @@ public interface BookingDto {
 
         public record Response(
                 UUID id,
-                Integer numPeople,
+                int numPeople,
                 UserDto.UserPublic user,
                 BigDecimal totalPrice,
-                // InstanceSummary scheduleInstance,
+                ScheduleInstanceDto.Response scheduleInstance,
                 BookingStatusEnum status,
                 LocalDateTime createdAt
         ) {}

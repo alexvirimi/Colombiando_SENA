@@ -72,19 +72,19 @@ public class PaymentEntity {
         this.booking = booking;
     }
 
-    public BigDecimal getPaidAmount() {
+    public BigDecimal getAmountToPay() {
         return amountToPay;
     }
 
-    public void setPaidAmount(BigDecimal amountToPay) {
+    public void setAmountToPay(BigDecimal amountToPay) {
         this.amountToPay = amountToPay;
     }
 
-    public PaymentMethodEnum getMethod() {
+    public PaymentMethodEnum getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setMethod(PaymentMethodEnum paymentMethod) {
+    public void setPaymentMethod(PaymentMethodEnum paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 

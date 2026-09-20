@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.UUID;
 
-public interface BookingEscortsRepository extends JpaRepository<BookingEscortEntity, UUID> {
+public interface BookingEscortRepository extends JpaRepository<BookingEscortEntity, UUID> {
     public List<BookingEscortEntity> findByBookingId(UUID bookingId);
     public int countByBookingId(UUID bookingId);
 

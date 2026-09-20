@@ -28,6 +28,11 @@ public interface BookingEscortDto {
     public record Create(
             @NotNull(message = "El ID de la reserva es obligatorio.")
             UUID bookingId,
+
+            Base data
+    ){}
+
+    public record Update(
             Base data
     ){}
 

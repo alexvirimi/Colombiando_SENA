@@ -10,7 +10,7 @@ public interface ScheduleInstanceDto {
     public record Base(
             LocalDate date,
 
-            Integer maxCapacity
+            int maxCapacity
     ){}
 
     public record Create(
@@ -19,8 +19,7 @@ public interface ScheduleInstanceDto {
     ) {}
 
     public record Update(
-            Integer availableCapacity,
-
+            int maxCapacity,
             ScheduleInstanceStateEnum state
     ) {}
 
@@ -28,7 +27,7 @@ public interface ScheduleInstanceDto {
             UUID id,
             ScheduleDto.Response schedule,
             Base data,
-            Integer availableCapacity,
+            int availableCapacity,
             ScheduleInstanceStateEnum state
     ) {}
 }

@@ -37,7 +37,7 @@ public class GuideLanguageEntity {
                             "ON DELETE CASCADE"
             )
     )
-    private LanguagesEntity language;
+    private LanguageEntity language;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -63,11 +63,11 @@ public class GuideLanguageEntity {
         this.id.setGuideId(guide != null ? guide.getId() : null);
     }
 
-    public LanguagesEntity getLanguage() {
+    public LanguageEntity getLanguage() {
         return language;
     }
 
-    public void setLanguage(LanguagesEntity language) {
+    public void setLanguage(LanguageEntity language) {
         this.language = language;
         this.id.setLanguageId(language != null ? language.getId() : null);
     }

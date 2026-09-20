@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "places")
-public class PlacesEntity {
+public class PlaceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -41,7 +41,7 @@ public class PlacesEntity {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public PlacesEntity() {}
+    public PlaceEntity() {}
 
     // Getters & Setters
 

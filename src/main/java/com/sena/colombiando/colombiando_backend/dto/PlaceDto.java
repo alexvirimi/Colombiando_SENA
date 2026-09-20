@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public interface PlacesDto {
+public interface PlaceDto {
 
     public record Base(
             @NotNull(message = "El nombre del lugar es obligatorio.")
@@ -27,7 +27,7 @@ public interface PlacesDto {
             Base data
     ) {}
 
-    public record PlacesPublic(
+    public record PlacePublic(
             UUID id,
             Base data,
             AddressDto.Response address

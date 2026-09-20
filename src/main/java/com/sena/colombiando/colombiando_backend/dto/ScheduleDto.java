@@ -25,7 +25,7 @@ public interface ScheduleDto {
             LocalDate endDate,
 
             @Min(value = 1, message = "La capacidad máxima debe ser mayor a 1.")
-            Integer maxCapacity,
+            int maxCapacity,
 
             @Min(value = 1, message = "La capacidad máxima debe ser mayor a 1.")
             BigDecimal pricePerPerson
@@ -43,14 +43,13 @@ public interface ScheduleDto {
 
     public record Update(
             Base data,
-
             ScheduleStatusEnum status
     ) {}
 
     public record Response(
             UUID id,
             GuideDto.GuidePublic guide,
-            PlacesDto.PlacesPublic place,
+            PlaceDto.PlacePublic place,
             Base data,
             ScheduleStatusEnum status
     ) {}

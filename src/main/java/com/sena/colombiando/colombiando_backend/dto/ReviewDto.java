@@ -6,11 +6,11 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public interface ReviewsDto {
+public interface ReviewDto {
 
     public record Base(
             @Size(min = 0, max = 5, message = "La calificación debe estar entre 0 y 5.")
-            Integer rating,
+            int rating,
 
             @NotNull(message = "El comentario es obligatorio.")
             String review

@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "languages")
-public class LanguagesEntity {
+public class LanguageEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -21,7 +21,7 @@ public class LanguagesEntity {
     @Column(name = "native_name", length = 100, nullable = false)
     private String nativeName;
 
-    public LanguagesEntity() {}
+    public LanguageEntity() {}
 
     // Getters & Setters
 

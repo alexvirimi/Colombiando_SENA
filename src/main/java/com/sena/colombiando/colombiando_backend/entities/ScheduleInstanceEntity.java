@@ -46,10 +46,10 @@ public class ScheduleInstanceEntity {
     private LocalDate date;
 
     @Column(name = "max_capacity", nullable = false)
-    private Integer maxCapacity = 1;
+    private int maxCapacity = 1;
 
     @Column(name = "available_capacity", nullable = false)
-    private Integer availableCapacity = 1;
+    private int availableCapacity = 1;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
@@ -76,19 +76,19 @@ public class ScheduleInstanceEntity {
         this.date = date;
     }
 
-    public Integer getMaxCapacity() {
+    public int getMaxCapacity() {
         return maxCapacity;
     }
 
-    public void setMaxCapacity(Integer maxCapacity) {
+    public void setMaxCapacity(int maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 
-    public Integer getAvailableCapacity() {
+    public int getAvailableCapacity() {
         return availableCapacity;
     }
 
-    public void setAvailableCapacity(Integer availableCapacity) {
+    public void setAvailableCapacity(int availableCapacity) {
         this.availableCapacity = availableCapacity;
     }
 

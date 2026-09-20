@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface GuideLanguageRepository extends JpaRepository<GuideLanguageEntity, GuideLanguageId> {
     public List<GuideLanguageEntity> findByGuideId(UUID guideId);
     public List<GuideLanguageEntity> findByLanguageId(UUID languageId);
-    public List<GuideLanguageEntity> findByGuideIdAndLanguageId(UUID guideId, UUID languageId);
+    public GuideLanguageEntity findByGuideIdAndLanguageId(UUID guideId, UUID languageId);
 
     @Transactional
     void deleteByGuideIdAndLanguageId(UUID guideId, UUID languageId);

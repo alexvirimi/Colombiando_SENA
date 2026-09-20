@@ -1,5 +1,7 @@
 package com.sena.colombiando.colombiando_backend.dto;
 
+import com.sena.colombiando.colombiando_backend.entities.UserStatusEnum;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -25,17 +27,19 @@ public interface UserDto {
     ) {}
 
     public record Update(
-            Base data
+            Base data,
+            UserStatusEnum status
     ) {}
 
     public record ChangePassword(
-            String oldPassword,
+            String currentPassword,
             String newPassword
     ) {}
 
     public record Response(
             UUID id,
             Base data,
+            UserStatusEnum status,
             LocalDateTime createdAt
     ) {}
 }

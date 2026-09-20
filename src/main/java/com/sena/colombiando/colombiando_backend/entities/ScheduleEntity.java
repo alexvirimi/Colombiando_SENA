@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
@@ -57,7 +56,7 @@ public class ScheduleEntity {
     @org.hibernate.annotations.OnDelete(
             action = org.hibernate.annotations.OnDeleteAction.RESTRICT
     )
-    private PlacesEntity place;
+    private PlaceEntity place;
 
     @Column(name = "start_time", nullable = false)
     private LocalTime startTime;
@@ -72,7 +71,7 @@ public class ScheduleEntity {
     private LocalDate endDate;
 
     @Column(name = "max_capacity", nullable = false)
-    private Integer maxCapacity = 1;
+    private int maxCapacity = 1;
 
     @Column(name = "price_per_person", nullable = false, precision = 10, scale = 2)
     private BigDecimal pricePerPerson;
@@ -98,11 +97,11 @@ public class ScheduleEntity {
         this.guide = guide;
     }
 
-    public PlacesEntity getPlace() {
+    public PlaceEntity getPlace() {
         return place;
     }
 
-    public void setPlace(PlacesEntity place) {
+    public void setPlace(PlaceEntity place) {
         this.place = place;
     }
 
@@ -138,11 +137,11 @@ public class ScheduleEntity {
         this.endDate = endDate;
     }
 
-    public Integer getMaxCapacity() {
+    public int getMaxCapacity() {
         return maxCapacity;
     }
 
-    public void setMaxCapacity(Integer maxCapacity) {
+    public void setMaxCapacity(int maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 
