@@ -1,5 +1,6 @@
 package com.sena.colombiando.colombiando_backend.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -8,6 +9,7 @@ import java.util.UUID;
 
 public interface ReviewDto {
 
+    @Schema(name = "ReviewBase")
     public record Base(
             @Size(min = 0, max = 5, message = "La calificación debe estar entre 0 y 5.")
             Integer rating,
@@ -15,6 +17,7 @@ public interface ReviewDto {
             String review
     ) {}
 
+    @Schema(name = "ReviewCreate")
     public record Create(
             @NotNull(message = "El ID del usuario es obligatorio.")
             UUID userId,
@@ -29,10 +32,12 @@ public interface ReviewDto {
             String review
     ) {}
 
+    @Schema(name = "ReviewUpdate")
     public record Update(
             Base data
     ) {}
 
+    @Schema(name = "ReviewResponse")
     public record Response(
             UUID id,
             UserDto.UserPublic user,

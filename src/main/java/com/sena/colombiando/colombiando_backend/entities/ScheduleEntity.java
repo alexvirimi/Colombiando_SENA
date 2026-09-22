@@ -53,9 +53,6 @@ public class ScheduleEntity {
                             "ON DELETE RESTRICT"
             )
     )
-    @org.hibernate.annotations.OnDelete(
-            action = org.hibernate.annotations.OnDeleteAction.RESTRICT
-    )
     private PlaceEntity place;
 
     @Column(name = "start_time", nullable = false)

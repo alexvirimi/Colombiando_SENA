@@ -2,6 +2,7 @@ package com.sena.colombiando.colombiando_backend.dto;
 
 import com.sena.colombiando.colombiando_backend.entities.PaymentMethodEnum;
 import com.sena.colombiando.colombiando_backend.entities.PaymentStatusEnum;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 public interface PaymentDto {
 
+    @Schema(name = "PaymentCreate")
     public record Create(
             @NotNull(message = "El ID de la reserva es obligatorio.")
             UUID bookingId,
@@ -31,6 +33,7 @@ public interface PaymentDto {
         }
     }
 
+    @Schema(name = "PaymentUpdate")
     public record Update(
             BigDecimal amountToPay,
             String currency,
@@ -38,6 +41,7 @@ public interface PaymentDto {
             PaymentStatusEnum status
     ) {}
 
+    @Schema(name = "PaymentResponse")
     public record Response(
             UUID id,
             BookingDto.BookingPublic booking,

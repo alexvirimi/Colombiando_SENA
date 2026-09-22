@@ -16,9 +16,7 @@ import java.util.UUID;
 public class GuideController {
 
     private final GuideService guideService;
-    private GuideController guideController;
-    public GuideController(GuideController guideController, GuideService guideService) {
-        this.guideController = guideController;
+    public GuideController(GuideService guideService) {
         this.guideService = guideService;
     }
 

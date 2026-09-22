@@ -32,7 +32,7 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @org.hibernate.annotations.ColumnDefault("'ACTIVE'")
-    private UserStatusEnum status;
+    private UserStatusEnum status = UserStatusEnum.ACTIVE;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -32,7 +32,7 @@ public class GuideLanguageEntity {
             foreignKey = @ForeignKey(
                     name = "fk_guidelanguages_language",
                     foreignKeyDefinition = "FOREIGN KEY (language_id) " +
-                            "REFERENCES languages(code) " +
+                            "REFERENCES languages(id) " +
                             "ON UPDATE CASCADE " +
                             "ON DELETE CASCADE"
             )
@@ -41,7 +41,7 @@ public class GuideLanguageEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @org.hibernate.annotations.ColumnDefault("native")
+    @org.hibernate.annotations.ColumnDefault("'NATIVE'")
     private GuideLanguagesLevelEnum level = GuideLanguagesLevelEnum.NATIVE;
 
     public GuideLanguageEntity() {}

@@ -117,6 +117,9 @@ public class UserService {
     @Transactional
     public UserDto.Response getUserByEmail(String email) {
         UserEntity user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new EntityNotFoundException("Usuario no encontrado.");
+        }
         return userMapper.toDto(user);
     }
 

@@ -1,6 +1,7 @@
 package com.sena.colombiando.colombiando_backend.dto;
 
 import com.sena.colombiando.colombiando_backend.entities.ScheduleStatusEnum;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 public interface ScheduleDto {
 
+    @Schema(name = "ScheduleBase")
     public record Base(
             @NotNull(message = "El tiempo de inicio es obligatorio.")
             LocalTime startTime,
@@ -25,6 +27,7 @@ public interface ScheduleDto {
             LocalDate endDate
     ) {}
 
+    @Schema(name = "ScheduleCreate")
     public record Create(
             @NotNull(message = "El ID del guía es obligatorio.")
             UUID guideId,
@@ -43,6 +46,7 @@ public interface ScheduleDto {
             Base data
     ) {}
 
+    @Schema(name = "ScheduleUpdate")
     public record Update(
             Base data,
 
@@ -55,6 +59,7 @@ public interface ScheduleDto {
             ScheduleStatusEnum status
     ) {}
 
+    @Schema(name = "ScheduleResponse")
     public record Response(
             UUID id,
             GuideDto.GuidePublic guide,

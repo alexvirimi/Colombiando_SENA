@@ -1,6 +1,7 @@
 package com.sena.colombiando.colombiando_backend.dto;
 
 import com.sena.colombiando.colombiando_backend.entities.UserStatusEnum;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -21,11 +22,13 @@ public interface UserDto {
             String email
     ) {}
 
+    @Schema(name = "UserCreate")
     public record Create(
             Base data,
             String password
     ) {}
 
+    @Schema(name = "UserUpdate")
     public record Update(
             Base data,
             UserStatusEnum status
