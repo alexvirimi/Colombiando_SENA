@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface BookingEscortRepository extends JpaRepository<BookingEscortEntity, UUID> {
     public List<BookingEscortEntity> findByBookingId(UUID bookingId);
-    public int countByBookingId(UUID bookingId);
+    public Integer countByBookingId(UUID bookingId);
 
     @Transactional
     void deleteByBookingId(UUID bookingId);

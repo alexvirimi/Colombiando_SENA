@@ -40,8 +40,8 @@ public class ScheduleMapper {
         entity.setEndTime(baseData.endTime());
         entity.setStartDate(baseData.startDate());
         entity.setEndDate(baseData.endDate());
-        entity.setMaxCapacity(baseData.maxCapacity());
-        entity.setPricePerPerson(baseData.pricePerPerson());
+        entity.setMaxCapacity(request.maxCapacity());
+        entity.setPricePerPerson(request.pricePerPerson());
         entity.setGuide(guide);
         entity.setPlace(place);
 
@@ -57,9 +57,7 @@ public class ScheduleMapper {
                 entity.getStartTime(),
                 entity.getEndTime(),
                 entity.getStartDate(),
-                entity.getEndDate(),
-                entity.getMaxCapacity(),
-                entity.getPricePerPerson()
+                entity.getEndDate()
         );
 
         return new ScheduleDto.Response(
@@ -67,6 +65,8 @@ public class ScheduleMapper {
                 guideMapper.toPublicDto(entity.getGuide()),
                 placeMapper.toPublicDto(entity.getPlace()),
                 baseData,
+                entity.getMaxCapacity(),
+                entity.getPricePerPerson(),
                 entity.getStatus()
         );
     }

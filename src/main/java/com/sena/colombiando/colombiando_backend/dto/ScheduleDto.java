@@ -22,13 +22,7 @@ public interface ScheduleDto {
             LocalDate startDate,
 
             @NotNull(message = "La fecha de finalización es obligatoria.")
-            LocalDate endDate,
-
-            @Min(value = 1, message = "La capacidad máxima debe ser mayor a 1.")
-            int maxCapacity,
-
-            @Min(value = 1, message = "La capacidad máxima debe ser mayor a 1.")
-            BigDecimal pricePerPerson
+            LocalDate endDate
     ) {}
 
     public record Create(
@@ -38,11 +32,26 @@ public interface ScheduleDto {
             @NotNull(message = "El ID del lugar es obligatorio.")
             UUID placeId,
 
+            @NotNull()
+            @Min(value = 1, message = "La capacidad máxima debe ser mayor a 1.")
+            Integer maxCapacity,
+
+            @NotNull()
+            @Min(value = 1, message = "La capacidad máxima debe ser mayor a 1.")
+            BigDecimal pricePerPerson,
+
             Base data
     ) {}
 
     public record Update(
             Base data,
+
+            @Min(value = 1, message = "La capacidad máxima debe ser mayor a 1.")
+            Integer maxCapacity,
+
+            @Min(value = 1, message = "La capacidad máxima debe ser mayor a 1.")
+            BigDecimal pricePerPerson,
+
             ScheduleStatusEnum status
     ) {}
 
@@ -51,6 +60,8 @@ public interface ScheduleDto {
             GuideDto.GuidePublic guide,
             PlaceDto.PlacePublic place,
             Base data,
+            Integer maxCapacity,
+            BigDecimal pricePerPerson,
             ScheduleStatusEnum status
     ) {}
 

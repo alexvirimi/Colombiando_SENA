@@ -31,15 +31,14 @@ public class ReviewMapper {
 
     public ReviewEntity toEntity(ReviewDto.Create request) {
         var entity = new ReviewEntity();
-        var dataBase = request.data();
 
         UserEntity user = userRepository.getReferenceById(request.userId());
         BookingEntity booking = bookingRepository.getReferenceById(request.bookingId());
 
         entity.setUser(user);
         entity.setBooking(booking);
-        entity.setRating(dataBase.rating());
-        entity.setReview(dataBase.review());
+        entity.setRating(request.rating());
+        entity.setReview(request.review());
 
         return entity;
     }

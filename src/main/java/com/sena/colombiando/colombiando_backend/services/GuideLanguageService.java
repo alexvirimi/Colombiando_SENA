@@ -90,20 +90,10 @@ public class GuideLanguageService {
     }
 
     @Transactional
-    public List<GuideLanguageDto.Response> getGuideLanguages() {
+    public List<GuideLanguageDto.Response> searchGuideLanguages(
+            UUID guideId, UUID languageId
+    ) {
         List<GuideLanguageEntity>  guideLanguages = guideLanguageRepository.findAll();
-        return responses(guideLanguages);
-    }
-
-    @Transactional
-    public List<GuideLanguageDto.Response> getGuideLanguagesByGuideID(UUID guideId) {
-        List<GuideLanguageEntity> guideLanguages = guideLanguageRepository.findByGuideId(guideId);
-        return responses(guideLanguages);
-    }
-
-    @Transactional
-    public List<GuideLanguageDto.Response> getGuideLanguagesByLanguageID(UUID languageId) {
-        List<GuideLanguageEntity> guideLanguages = guideLanguageRepository.findByLanguageId(languageId);
         return responses(guideLanguages);
     }
 
@@ -112,6 +102,9 @@ public class GuideLanguageService {
             UUID guideId, UUID languageId
     ) {
         GuideLanguageEntity guideLanguage = guideLanguageRepository.findByGuideIdAndLanguageId(guideId, languageId);
+        if  (guideLanguage == null) {
+            return null;
+        }
         return guideLanguageMapper.toDto(guideLanguage);
     }
 

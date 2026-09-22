@@ -69,7 +69,7 @@ public class PlaceService {
     }
 
     @Transactional
-    public List<PlaceDto.Response> getPlaces() {
+    public List<PlaceDto.Response> getAllPlaces() {
         List<PlaceEntity> places = placeRepository.findAll();
         List<PlaceDto.Response> response = new ArrayList<>();
 

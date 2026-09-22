@@ -33,7 +33,7 @@ public class BookingEscortService {
     }
 
     @Transactional
-    public BookingEscortDto.Response createBooking(BookingEscortDto.Create request) {
+    public BookingEscortDto.Response createBookingEscort(BookingEscortDto.Create request) {
         var dataBase = request.data();
         BookingEntity booking = bookingRepository.getReferenceById(request.bookingId());
 
@@ -69,14 +69,14 @@ public class BookingEscortService {
     }
 
     @Transactional
-    public BookingEscortDto.Response getBooking(UUID id) {
+    public BookingEscortDto.Response getBookingEscort(UUID id) {
         BookingEscortEntity bookingEscort = bookingEscortRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Acompañante de reserva no encontrado."));
         return bookingEscortMapper.toDto(bookingEscort);
     }
 
     @Transactional
-    public List<BookingEscortDto.Response> getAllBooking() {
+    public List<BookingEscortDto.Response> getAllBookingEscorts() {
         List<BookingEscortEntity> bookingEscorts = bookingEscortRepository.findAll();
         List<BookingEscortDto.Response> responses = new ArrayList<>();
 
@@ -88,7 +88,7 @@ public class BookingEscortService {
     }
 
     @Transactional
-    public List<BookingEscortDto.Response> findByBookingId(UUID bookingId) {
+    public List<BookingEscortDto.Response> getAllBookingsByBookingId(UUID bookingId) {
         List<BookingEscortEntity> bookingEscorts = bookingEscortRepository.findByBookingId(bookingId);
         List<BookingEscortDto.Response> responses = new ArrayList<>();
 
@@ -100,13 +100,13 @@ public class BookingEscortService {
     }
 
     @Transactional
-    public int countEscortsByBookingId(UUID bookingId) {
+    public Integer countEscortsByBookingId(UUID bookingId) {
         return bookingEscortRepository.countByBookingId(bookingId);
     }
 
     @Transactional
     public List<BookingEscortDto.Response> deleteEscortsByBookingId(UUID bookingId) {
-        List<BookingEscortDto.Response> escortsEliminated = findByBookingId(bookingId);
+        List<BookingEscortDto.Response> escortsEliminated = getAllBookingsByBookingId(bookingId);
         bookingEscortRepository.deleteByBookingId(bookingId);
         return escortsEliminated.isEmpty() ? null : escortsEliminated;
     }

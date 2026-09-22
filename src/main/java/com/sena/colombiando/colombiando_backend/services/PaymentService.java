@@ -33,16 +33,6 @@ public class PaymentService {
         this.bookingRepository = bookingRepository;
     }
 
-    private List<PaymentDto.Response> responses(List<PaymentEntity> payments) {
-        List<PaymentDto.Response> responses = new ArrayList<>();
-
-        for (PaymentEntity payment : payments) {
-            responses.add(paymentMapper.toDto(payment));
-        }
-
-        return responses;
-    }
-
     @Transactional
     public PaymentDto.Response createPayment(PaymentDto.Create request){
         BookingEntity booking = bookingRepository.getReferenceById(request.bookingId());
@@ -86,29 +76,17 @@ public class PaymentService {
     }
 
     @Transactional
-    public List<PaymentDto.Response> getPayments(){
-        List<PaymentEntity> payments = paymentRepository.findAll();
-        return responses(payments);
-    }
-
-    @Transactional
-    public List<PaymentDto.Response> getPaymentsByBooking(UUID id){
-        List<PaymentEntity> payments = paymentRepository.findByBookingId(id);
-        return responses(payments);
-    }
-
-    @Transactional
-    public List<PaymentDto.Response> getPaymentsByBookingAndStatus(
+    public List<PaymentDto.Response> searchPayments(
             UUID bookingId, PaymentStatusEnum status
     ){
-        List<PaymentEntity> payments = paymentRepository.findByBookingIdAndStatus(bookingId, status);
-        return responses(payments);
-    }
+        List<PaymentEntity> payments = paymentRepository.findAll();
+        List<PaymentDto.Response> responses = new ArrayList<>();
 
-    @Transactional
-    public List<PaymentDto.Response> getPaymentByStatus(PaymentStatusEnum status){
-        List<PaymentEntity> payments = paymentRepository.findByStatus(status);
-        return responses(payments);
+        for (PaymentEntity payment : payments) {
+            responses.add(paymentMapper.toDto(payment));
+        }
+
+        return responses;
     }
 
 }

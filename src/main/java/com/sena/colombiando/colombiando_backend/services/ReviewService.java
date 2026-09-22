@@ -12,6 +12,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -86,15 +87,14 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewDto.Response updateReview(UUID id, ReviewDto.Create request){
+    public ReviewDto.Response updateReview(UUID id, ReviewDto.Update request){
         var dataBase = request.data();
 
         ReviewEntity review = reviewRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Reseña no encontrado."));
 
-        if (dataBase.rating() > 0){
-            review.setRating(dataBase.rating());
-        }
+
+        Optional.ofNullable(dataBase.rating()).ifPresent(review::setRating);
         Optional.ofNullable(dataBase.review()).ifPresent(review::setReview);
 
         reviewRepository.save(review);

@@ -57,7 +57,7 @@ public class LanguageService {
     }
 
     @Transactional
-    public List<LanguageDto.Response> getAllLanguages(UUID id) {
+    public List<LanguageDto.Response> getAllLanguages() {
         List<LanguageEntity> languages = languageRepository.findAll();
         List<LanguageDto.Response> responses = new ArrayList<>();
 

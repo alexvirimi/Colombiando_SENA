@@ -39,16 +39,6 @@ public class ScheduleService {
         this.placeRepository = placeRepository;
     }
 
-    private List<ScheduleDto.Response> responses(List<ScheduleEntity> schedules) {
-        List<ScheduleDto.Response> responses = new ArrayList<>();
-
-        for (ScheduleEntity schedule : schedules) {
-            responses.add(scheduleMapper.toDto(schedule));
-        }
-
-        return responses;
-    }
-
     @Transactional
     public ScheduleDto.Response createSchedule(ScheduleDto.Create request) {
         GuideEntity guide = guideRepository.getReferenceById(request.guideId());
@@ -70,12 +60,12 @@ public class ScheduleService {
                 .orElseThrow(() -> new EntityNotFoundException("Horario no encontrado."));
 
         Optional.ofNullable(request.status()).ifPresent(schedule::setStatus);
+        Optional.ofNullable(request.maxCapacity()).ifPresent(schedule::setMaxCapacity);
+        Optional.ofNullable(request.pricePerPerson()).ifPresent(schedule::setPricePerPerson);
         Optional.ofNullable(dataBase.startTime()).ifPresent(schedule::setStartTime);
         Optional.ofNullable(dataBase.endTime()).ifPresent(schedule::setEndTime);
         Optional.ofNullable(dataBase.startDate()).ifPresent(schedule::setStartDate);
         Optional.ofNullable(dataBase.endDate()).ifPresent(schedule::setEndDate);
-        Optional.ofNullable(dataBase.maxCapacity()).ifPresent(schedule::setMaxCapacity);
-        Optional.ofNullable(dataBase.pricePerPerson()).ifPresent(schedule::setPricePerPerson);
 
         scheduleRepository.save(schedule);
         return scheduleMapper.toDto(schedule);
@@ -100,51 +90,16 @@ public class ScheduleService {
     }
 
     @Transactional
-    public List<ScheduleDto.Response> getAllSchedules() {
-        List<ScheduleEntity> schedules = scheduleRepository.findAll();
-        return responses(schedules);
-    }
-
-    @Transactional
-    public List<ScheduleDto.Response> getAllByGuideId(UUID id) {
-        List<ScheduleEntity> schedules = scheduleRepository.findByGuideId(id);
-        return responses(schedules);
-    }
-
-    @Transactional
-    public List<ScheduleDto.Response> getAllByPlaceId(UUID id) {
-        List<ScheduleEntity> schedules = scheduleRepository.findByPlaceId(id);
-        return responses(schedules);
-    }
-
-    @Transactional
-    public List<ScheduleDto.Response> getAllByStatus(ScheduleStatusEnum status) {
-        List<ScheduleEntity> schedules = scheduleRepository.findByStatus(status);
-        return responses(schedules);
-    }
-
-    @Transactional
-    public List<ScheduleDto.Response> getAllByGuideIdAndStatus(UUID guideId, ScheduleStatusEnum status, UUID id) {
-        List<ScheduleEntity> schedules = scheduleRepository.findByGuideIdAndStatus(guideId, status);
-        return responses(schedules);
-    }
-
-    @Transactional
-    public List<ScheduleDto.Response> getAllByPlaceIdAndStartDate(UUID placeId, LocalDate startDate) {
-        List<ScheduleEntity> schedules = scheduleRepository.findByPlaceIdAndStartDate(placeId, startDate);
-        return responses(schedules);
-    }
-
-    @Transactional
-    public List<ScheduleDto.Response> getAllByPlaceIdAndStartDateAndStatus(UUID placeId, LocalDate startDate, ScheduleStatusEnum status) {
-        List<ScheduleEntity> schedules = scheduleRepository.findByPlaceIdAndStartDateAndStatus(placeId, startDate, status);
-        return responses(schedules);
-    }
-
-    @Transactional
-    public List<ScheduleDto.Response> getAllByStartDateLessThanEqualAndEndDateGreaterThanEqual(LocalDate startDate, LocalDate endDate) {
-        List<ScheduleEntity> schedules = scheduleRepository.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(startDate, endDate);
-        return responses(schedules);
+    public List<ScheduleDto.Response> searchSchedules(
+            UUID guideId, UUID placeId, ScheduleStatusEnum status,
+            LocalDate startDate, LocalDate endDate
+    ) {
+        List<ScheduleEntity> schedules = scheduleRepository.search(guideId, placeId, status, startDate, endDate);
+        List<ScheduleDto.Response> responses = new ArrayList<>();
+        for (ScheduleEntity schedule : schedules) {
+            responses.add(scheduleMapper.toDto(schedule));
+        }
+        return responses;
     }
 
 }

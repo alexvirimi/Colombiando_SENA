@@ -10,9 +10,8 @@ public interface ReviewDto {
 
     public record Base(
             @Size(min = 0, max = 5, message = "La calificación debe estar entre 0 y 5.")
-            int rating,
+            Integer rating,
 
-            @NotNull(message = "El comentario es obligatorio.")
             String review
     ) {}
 
@@ -23,7 +22,11 @@ public interface ReviewDto {
             @NotNull(message = "El ID de la reserva es obligatorio.")
             UUID bookingId,
 
-            Base data
+            @NotNull()
+            @Size(min = 0, max = 5, message = "La calificación debe estar entre 0 y 5.")
+            Integer rating,
+
+            String review
     ) {}
 
     public record Update(

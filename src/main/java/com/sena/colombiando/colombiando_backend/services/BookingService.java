@@ -80,12 +80,7 @@ public class BookingService {
         BookingEntity booking = bookingRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Reserva no encontrada"));
 
-        if (request.numPeople() > 0) {
-            booking.setNumPeople(request.numPeople());
-        }
-        else {
-            throw new IllegalArgumentException("Los cupos a reservar deben ser mayor a cero.");
-        }
+        Optional.ofNullable(request.numPeople()).ifPresent(booking::setNumPeople);
         Optional.ofNullable(request.status()).ifPresent(booking::setStatus);
 
         bookingRepository.save(booking);
@@ -114,44 +109,13 @@ public class BookingService {
     }
 
     @Transactional
-    public List<BookingDto.Response> getAllBooking(){
-        List<BookingEntity> bookings = bookingRepository.findAll();
-        return responses(bookings);
-    }
-
-    @Transactional
-    public List<BookingDto.Response> getAllBookingByUserId(UUID id){
-        List<BookingEntity> bookings = bookingRepository.findByUserId(id);
-        return responses(bookings);
-    }
-
-    @Transactional
-    public List<BookingDto.Response> getAllBookingByScheduleInstanceId(UUID id){
-        List<BookingEntity> bookings = bookingRepository.findByScheduleInstanceId(id);
-        return responses(bookings);
-    }
-
-    @Transactional
-    public List<BookingDto.Response> getAllBookingByStatus(BookingStatusEnum status){
-        List<BookingEntity> bookings = bookingRepository.findByStatus(status);
-        return responses(bookings);
-    }
-
-    @Transactional
-    public List<BookingDto.Response> getAllBookingByUserIdAndStatus(UUID id, BookingStatusEnum status){
-        List<BookingEntity> bookings = bookingRepository.findByUserIdAndStatus(id, status);
-        return responses(bookings);
-    }
-
-    @Transactional
-    public List<BookingDto.Response> getAllBookingByScheduleInstanceIdAndStatus(UUID id, BookingStatusEnum status){
-        List<BookingEntity> bookings = bookingRepository.findByScheduleInstanceIdAndStatus(id, status);
-        return responses(bookings);
-    }
-
-    @Transactional
-    public List<BookingDto.Response> getAllBookingByCreatedAtBetween(LocalDate from, LocalDate to){
-        List<BookingEntity> bookings = bookingRepository.findByCreatedAtBetween(from, to);
+    public List<BookingDto.Response> searchBookings(
+            UUID userId, UUID scheduleInstanceId, BookingStatusEnum status,
+            LocalDate fromDate, LocalDate toDate
+    ){
+        List<BookingEntity> bookings = bookingRepository.search(
+                userId, scheduleInstanceId, status, fromDate, toDate
+        );
         return responses(bookings);
     }
 

@@ -1,6 +1,8 @@
 package com.sena.colombiando.colombiando_backend.dto;
 
 import com.sena.colombiando.colombiando_backend.entities.ScheduleInstanceStateEnum;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -8,9 +10,11 @@ import java.util.UUID;
 public interface ScheduleInstanceDto {
 
     public record Base(
+            @NotNull()
             LocalDate date,
 
-            int maxCapacity
+            @Min(0)
+            Integer maxCapacity
     ){}
 
     public record Create(
@@ -19,7 +23,7 @@ public interface ScheduleInstanceDto {
     ) {}
 
     public record Update(
-            int maxCapacity,
+            Integer maxCapacity,
             ScheduleInstanceStateEnum state
     ) {}
 
