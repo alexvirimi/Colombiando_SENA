@@ -10,6 +10,7 @@ import com.sena.colombiando.colombiando_backend.repositories.ScheduleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,12 +18,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class ScheduleInstanceService {
 
     private final ScheduleInstanceMapper scheduleInstanceMapper;
     private final ScheduleInstanceRepository scheduleInstanceRepository;
     private final ScheduleRepository scheduleRepository;
 
+/** Inicializa la instancia.
+ * @param scheduleInstanceMapper parametro de entrada.
+ * @param scheduleInstanceRepository parametro de entrada.
+ * @param scheduleRepository parametro de entrada.
+ */
     public ScheduleInstanceService(
             ScheduleInstanceMapper scheduleInstanceMapper,
             ScheduleInstanceRepository scheduleInstanceRepository,
@@ -33,20 +40,10 @@ public class ScheduleInstanceService {
         this.scheduleRepository = scheduleRepository;
     }
 
-    private List<ScheduleInstanceDto.Response> responses(List<ScheduleInstanceEntity> scheduleInstances) {
-        if (scheduleInstances.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        List<ScheduleInstanceDto.Response> responses = new ArrayList<>();
-
-        for (ScheduleInstanceEntity scheduleInstance : scheduleInstances) {
-            responses.add(scheduleInstanceMapper.toDto(scheduleInstance));
-        }
-
-        return responses;
-    }
-
+/** Crea schedule instace.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleInstanceDto.Response createScheduleInstace(ScheduleInstanceDto.Create request) {
         var dataBase = request.data();
@@ -59,12 +56,17 @@ public class ScheduleInstanceService {
         return scheduleInstanceMapper.toDto(scheduleInstance);
     }
 
+/** Actualiza schedule instance.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleInstanceDto.Response updateScheduleInstance(UUID id, ScheduleInstanceDto.Update request) {
         ScheduleInstanceEntity scheduleInstance = scheduleInstanceRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Instancia de horario no encontrada."));
 
-        if (request.maxCapacity() > 0) {
+        if (request.maxCapacity() != null) {
             int currentMaxCapacity = scheduleInstance.getMaxCapacity();
             int currentAvailableCapacity = scheduleInstance.getAvailableCapacity();
 
@@ -88,6 +90,10 @@ public class ScheduleInstanceService {
         return scheduleInstanceMapper.toDto(scheduleInstance);
     }
 
+/** Elimina schedule instance.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleInstanceDto.Response deleteScheduleInstance(UUID id) {
         ScheduleInstanceEntity scheduleInstance = scheduleInstanceRepository.findById(id)
@@ -98,6 +104,10 @@ public class ScheduleInstanceService {
         return scheduleInstanceMapper.toDto(scheduleInstance);
     }
 
+/** Consulta schedule instance.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleInstanceDto.Response getScheduleInstance(UUID id) {
         ScheduleInstanceEntity scheduleInstance = scheduleInstanceRepository.findById(id)
@@ -105,52 +115,40 @@ public class ScheduleInstanceService {
         return scheduleInstanceMapper.toDto(scheduleInstance);
     }
 
+/** Consulta search schedule instances.
+ * @param scheduleID parametro de entrada.
+ * @param placeId parametro de entrada.
+ * @param state parametro de entrada.
+ * @param fromDate parametro de entrada.
+ * @param toDate parametro de entrada.
+ * @param minCapacity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
-    public List<ScheduleInstanceDto.Response> getScheduleInstances() {
-        List<ScheduleInstanceEntity> scheduleInstances = scheduleInstanceRepository.findAll();
-        return responses(scheduleInstances);
-    }
-
-    @Transactional
-    public List<ScheduleInstanceDto.Response> getByScheduleId(UUID scheduleId) {
-        List<ScheduleInstanceEntity> scheduleInstances = scheduleInstanceRepository.findByScheduleId(scheduleId);
-        return responses(scheduleInstances);
-    }
-
-    @Transactional
-    public List<ScheduleInstanceDto.Response> getByScheduleIdAndDate(UUID scheduleId, LocalDate date) {
-        List<ScheduleInstanceEntity> scheduleInstances = scheduleInstanceRepository.findByScheduleIdAndDate(scheduleId, date);
-        return responses(scheduleInstances);
-    }
-
-    @Transactional
-    public List<ScheduleInstanceDto.Response> getByDate(LocalDate date) {
-        List<ScheduleInstanceEntity> scheduleInstances = scheduleInstanceRepository.findByDate(date);
-        return responses(scheduleInstances);
-    }
-
-    @Transactional
-    public List<ScheduleInstanceDto.Response> getByDateBetween(LocalDate date1, LocalDate date2) {
-        List<ScheduleInstanceEntity> scheduleInstances = scheduleInstanceRepository.findByDateBetween(date1, date2);
-        return responses(scheduleInstances);
-    }
-
-    @Transactional
-    public List<ScheduleInstanceDto.Response> getByStateAndAvailableCapacityGreaterThan(ScheduleInstanceStateEnum state, int capacity) {
-        List<ScheduleInstanceEntity> scheduleInstances = scheduleInstanceRepository.findByStateAndAvailableCapacityGreaterThan(state, capacity);
-        return responses(scheduleInstances);
-    }
-
-    @Transactional
-    public List<ScheduleInstanceDto.Response> getBySchedule_PlaceIdAndDateBetweenAndState(
-            UUID placeId, LocalDate date1, LocalDate date2, ScheduleInstanceStateEnum state
+    public List<ScheduleInstanceDto.Response> searchScheduleInstances(
+            UUID scheduleID, UUID placeId, ScheduleInstanceStateEnum state,
+            LocalDate fromDate, LocalDate toDate, Integer minCapacity
     ) {
-        List<ScheduleInstanceEntity> scheduleInstances = scheduleInstanceRepository.findBySchedule_PlaceIdAndDateBetweenAndState(
-                placeId, date1, date2, state
+        List<ScheduleInstanceEntity> scheduleInstances = scheduleInstanceRepository.search(
+                scheduleID, placeId, state, fromDate, toDate, minCapacity
         );
-        return responses(scheduleInstances);
+        if (scheduleInstances.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<ScheduleInstanceDto.Response> responses = new ArrayList<>();
+
+        for (ScheduleInstanceEntity scheduleInstance : scheduleInstances) {
+            responses.add(scheduleInstanceMapper.toDto(scheduleInstance));
+        }
+
+        return responses;
     }
 
+/** Reserva slots.
+ * @param id parametro de entrada.
+ * @param slots parametro de entrada.
+ */
     @Transactional
     public void bookSlots(UUID id, int slots) {
         if (slots <= 0) {
@@ -164,6 +162,10 @@ public class ScheduleInstanceService {
         }
     }
 
+/** Libera slots.
+ * @param id parametro de entrada.
+ * @param slots parametro de entrada.
+ */
     @Transactional
     public void releaseSlots(UUID id, int slots) {
         if (slots <= 0) {

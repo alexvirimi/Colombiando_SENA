@@ -19,6 +19,10 @@ public class AddressService {
     private final AddressRepository addressRepository;
     private final AddressMapper addressMapper;
 
+/** Inicializa la instancia.
+ * @param addressRepository parametro de entrada.
+ * @param addressMapper parametro de entrada.
+ */
     public AddressService(
             AddressRepository addressRepository,
             AddressMapper addressMapper
@@ -27,6 +31,10 @@ public class AddressService {
         this.addressMapper = addressMapper;
     }
 
+/** Crea address.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public AddressDto.Response createAddress(AddressDto.Create request){
         AddressEntity address = addressMapper.toEntity(request);
@@ -34,6 +42,11 @@ public class AddressService {
         return addressMapper.toDto(address);
     }
 
+/** Actualiza address.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public AddressDto.Response updateAddress(UUID id, AddressDto.Update request) {
         var dataRequest = request.data();
@@ -56,6 +69,10 @@ public class AddressService {
         return addressMapper.toDto(updated);
     }
 
+/** Elimina address.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public AddressDto.Response deleteAddress(UUID id){
         AddressEntity address = addressRepository.findById(id)
@@ -64,6 +81,10 @@ public class AddressService {
         return addressMapper.toDto(address);
     }
 
+/** Consulta address.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public AddressDto.Response getAddress(UUID id){
         AddressEntity address = addressRepository.findById(id)
@@ -71,6 +92,9 @@ public class AddressService {
         return addressMapper.toDto(address);
     }
 
+/** Consulta all addresses.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<AddressDto.Response> getAllAddresses(){
         List<AddressEntity> addressEntities = addressRepository.findAll();
@@ -83,6 +107,10 @@ public class AddressService {
         return responses;
     }
 
+/** Consulta all addresses by country code.
+ * @param countryCode parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<AddressDto.Response> getAllAddressesByCountryCode(String countryCode){
         List<AddressEntity> addressEntities = addressRepository.findByCountryCode(countryCode);
@@ -95,6 +123,10 @@ public class AddressService {
         return responses;
     }
 
+/** Consulta all addresses by municipality.
+ * @param municipality parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<AddressDto.Response> getAllAddressesByMunicipality(String municipality){
         List<AddressEntity> addressEntities = addressRepository.findByMunicipality(municipality);

@@ -9,18 +9,25 @@ import com.sena.colombiando.colombiando_backend.repositories.BookingRepository;
 import com.sena.colombiando.colombiando_backend.repositories.PaymentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final PaymentMapper paymentMapper;
     private final BookingRepository bookingRepository;
 
+/** Inicializa la instancia.
+ * @param paymentRepository parametro de entrada.
+ * @param paymentMapper parametro de entrada.
+ * @param bookingRepository parametro de entrada.
+ */
     public PaymentService(
             PaymentRepository paymentRepository,
             PaymentMapper paymentMapper,
@@ -31,16 +38,10 @@ public class PaymentService {
         this.bookingRepository = bookingRepository;
     }
 
-    private List<PaymentDto.Response> responses(List<PaymentEntity> payments) {
-        List<PaymentDto.Response> responses = new ArrayList<>();
-
-        for (PaymentEntity payment : payments) {
-            responses.add(paymentMapper.toDto(payment));
-        }
-
-        return responses;
-    }
-
+/** Crea payment.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PaymentDto.Response createPayment(PaymentDto.Create request){
         BookingEntity booking = bookingRepository.getReferenceById(request.bookingId());
@@ -52,6 +53,11 @@ public class PaymentService {
         return paymentMapper.toDto(payment);
     }
 
+/** Actualiza payment.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PaymentDto.Response updatePayment(UUID id, PaymentDto.Update request){
         PaymentEntity payment = paymentRepository.findById(id)
@@ -66,6 +72,10 @@ public class PaymentService {
         return paymentMapper.toDto(payment);
     }
 
+/** Elimina payment.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PaymentDto.Response deletePayment(UUID id){
         PaymentEntity payment = paymentRepository.findById(id)
@@ -76,6 +86,10 @@ public class PaymentService {
         return paymentMapper.toDto(payment);
     }
 
+/** Consulta payment.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PaymentDto.Response getPayment(UUID id){
         PaymentEntity payment = paymentRepository.findById(id)
@@ -83,30 +97,23 @@ public class PaymentService {
         return paymentMapper.toDto(payment);
     }
 
+/** Consulta search payments.
+ * @param bookingId parametro de entrada.
+ * @param status parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
-    public List<PaymentDto.Response> getPayments(){
-        List<PaymentEntity> payments = paymentRepository.findAll();
-        return responses(payments);
-    }
-
-    @Transactional
-    public List<PaymentDto.Response> getPaymentsByBooking(UUID id){
-        List<PaymentEntity> payments = paymentRepository.findByBookingId(id);
-        return responses(payments);
-    }
-
-    @Transactional
-    public List<PaymentDto.Response> getPaymentsByBookingAndStatus(
+    public List<PaymentDto.Response> searchPayments(
             UUID bookingId, PaymentStatusEnum status
     ){
-        List<PaymentEntity> payments = paymentRepository.findByBookingIdAndStatus(bookingId, status);
-        return responses(payments);
-    }
+        List<PaymentEntity> payments = paymentRepository.findAll();
+        List<PaymentDto.Response> responses = new ArrayList<>();
 
-    @Transactional
-    public List<PaymentDto.Response> getPaymentByStatus(PaymentStatusEnum status){
-        List<PaymentEntity> payments = paymentRepository.findByStatus(status);
-        return responses(payments);
+        for (PaymentEntity payment : payments) {
+            responses.add(paymentMapper.toDto(payment));
+        }
+
+        return responses;
     }
 
 }

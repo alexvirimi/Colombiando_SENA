@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class LanguageMapper {
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public LanguageEntity toEntity(LanguageDto.Create request) {
         LanguageEntity entity = new LanguageEntity();
 
@@ -17,6 +21,10 @@ public class LanguageMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public LanguageDto.Response toDto(LanguageEntity entity) {
         var dataBase = new LanguageDto.Create(
                 entity.getCode(),

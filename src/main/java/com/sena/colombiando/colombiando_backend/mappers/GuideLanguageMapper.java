@@ -17,6 +17,12 @@ public class GuideLanguageMapper {
     private final LanguageRepository languageRepository;
     private final GuideRepository guideRepository;
 
+/** Inicializa la instancia.
+ * @param languageMapper parametro de entrada.
+ * @param guideMapper parametro de entrada.
+ * @param languageRepository parametro de entrada.
+ * @param guideRepository parametro de entrada.
+ */
     public GuideLanguageMapper(
             LanguageMapper languageMapper,
             GuideMapper guideMapper,
@@ -28,6 +34,10 @@ public class GuideLanguageMapper {
         this.guideRepository = guideRepository;
     }
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public GuideLanguageEntity toEntity(GuideLanguageDto.Create request) {
         var entity  = new GuideLanguageEntity();
 
@@ -41,6 +51,10 @@ public class GuideLanguageMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public GuideLanguageDto.Response toDto(GuideLanguageEntity entity) {
         if (entity == null) {
             return null;

@@ -12,6 +12,10 @@ public class ScheduleInstanceMapper {
     private final ScheduleMapper scheduleMapper;
     private final ScheduleRepository scheduleRepository;
 
+/** Inicializa la instancia.
+ * @param scheduleMapper parametro de entrada.
+ * @param scheduleRepository parametro de entrada.
+ */
     public ScheduleInstanceMapper(
             ScheduleMapper scheduleMapper,
             ScheduleRepository scheduleRepository) {
@@ -19,6 +23,10 @@ public class ScheduleInstanceMapper {
         this.scheduleRepository = scheduleRepository;
     }
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public ScheduleInstanceEntity toEntity(ScheduleInstanceDto.Create request) {
         var entity = new ScheduleInstanceEntity();
         var dataBase = request.data();
@@ -33,6 +41,10 @@ public class ScheduleInstanceMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public ScheduleInstanceDto.Response toDto(ScheduleInstanceEntity entity) {
         if (entity == null) {
             return null;

@@ -12,11 +12,19 @@ public class PaymentMapper {
     private final BookingMapper bookingMapper;
     private final BookingRepository bookingRepository;
 
+/** Inicializa la instancia.
+ * @param bookingMapper parametro de entrada.
+ * @param bookingRepository parametro de entrada.
+ */
     public PaymentMapper(BookingMapper bookingMapper, BookingRepository bookingRepository) {
         this.bookingMapper = bookingMapper;
         this.bookingRepository = bookingRepository;
     }
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public PaymentEntity toEntity(PaymentDto.Create request) {
         var entity = new PaymentEntity();
 
@@ -30,6 +38,10 @@ public class PaymentMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public PaymentDto.Response toDto(PaymentEntity entity) {
         if (entity == null) {
             return null;

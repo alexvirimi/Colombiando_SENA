@@ -16,6 +16,11 @@ import java.util.UUID;
                 )
         },
         uniqueConstraints = {
+/** Ejecuta la operacion unique constraint.
+ * @param uq_instance_schedule_date parametro de entrada.
+ * @param schedule_id parametro de entrada.
+ * @param date parametro de entrada.
+ */
                 @UniqueConstraint(
                         name = "uq_instance_schedule_date",
                         columnNames = {"schedule_id", "date"}
@@ -56,46 +61,79 @@ public class ScheduleInstanceEntity {
     @org.hibernate.annotations.ColumnDefault("'ACTIVE'")
     private ScheduleInstanceStateEnum state =  ScheduleInstanceStateEnum.ACTIVE;
 
+/** Consulta id.
+ * @return resultado de la operacion.
+ */
     public UUID getId() {
         return id;
     }
 
+/** Consulta schedule.
+ * @return resultado de la operacion.
+ */
     public ScheduleEntity getSchedule() {
         return schedule;
     }
 
+/** Actualiza schedule.
+ * @param schedule parametro de entrada.
+ */
     public void setSchedule(ScheduleEntity schedule) {
         this.schedule = schedule;
     }
 
+/** Consulta date.
+ * @return resultado de la operacion.
+ */
     public LocalDate getDate() {
         return date;
     }
 
+/** Actualiza date.
+ * @param date parametro de entrada.
+ */
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
+/** Consulta max capacity.
+ * @return resultado de la operacion.
+ */
     public int getMaxCapacity() {
         return maxCapacity;
     }
 
+/** Actualiza max capacity.
+ * @param maxCapacity parametro de entrada.
+ */
     public void setMaxCapacity(int maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 
+/** Consulta available capacity.
+ * @return resultado de la operacion.
+ */
     public int getAvailableCapacity() {
         return availableCapacity;
     }
 
+/** Actualiza available capacity.
+ * @param availableCapacity parametro de entrada.
+ */
     public void setAvailableCapacity(int availableCapacity) {
         this.availableCapacity = availableCapacity;
     }
 
+/** Consulta state.
+ * @return resultado de la operacion.
+ */
     public ScheduleInstanceStateEnum getState() {
         return state;
     }
 
+/** Actualiza state.
+ * @param state parametro de entrada.
+ */
     public void setState(ScheduleInstanceStateEnum state) {
         this.state = state;
     }

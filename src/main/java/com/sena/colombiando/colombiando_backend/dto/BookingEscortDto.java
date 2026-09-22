@@ -1,6 +1,7 @@
 package com.sena.colombiando.colombiando_backend.dto;
 
 import com.sena.colombiando.colombiando_backend.entities.UserDocumentTypeEnum;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -8,6 +9,7 @@ import java.util.UUID;
 
 public interface BookingEscortDto {
 
+    @Schema(name = "BookingEscortBase")
     public record Base(
             @NotNull(message = "Los nombres del acompañante es obligatorio.")
             String name,
@@ -25,6 +27,7 @@ public interface BookingEscortDto {
             LocalDate birthDate
     ){}
 
+    @Schema(name = "BookingEscortCreate")
     public record Create(
             @NotNull(message = "El ID de la reserva es obligatorio.")
             UUID bookingId,
@@ -32,10 +35,12 @@ public interface BookingEscortDto {
             Base data
     ){}
 
+    @Schema(name = "BookingEscortUpdate")
     public record Update(
             Base data
     ){}
 
+    @Schema(name = "BookingEscortResponse")
     public record Response(
             UUID id,
             Base data,

@@ -12,6 +12,10 @@ public class BookingEscortMapper {
     private final BookingMapper bookingMapper;
     private final BookingRepository bookingRepository;
 
+/** Inicializa la instancia.
+ * @param bookingMapper parametro de entrada.
+ * @param bookingRepository parametro de entrada.
+ */
     public BookingEscortMapper(
             BookingMapper bookingMapper,
             BookingRepository bookingRepository) {
@@ -19,6 +23,10 @@ public class BookingEscortMapper {
         this.bookingRepository = bookingRepository;
     }
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public BookingEscortEntity toEntity(BookingEscortDto.Create request) {
         var entity = new BookingEscortEntity();
         var dataBase = request.data();
@@ -35,6 +43,10 @@ public class BookingEscortMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public BookingEscortDto.Response toDto(BookingEscortEntity entity) {
         if (entity == null) {
             return null;

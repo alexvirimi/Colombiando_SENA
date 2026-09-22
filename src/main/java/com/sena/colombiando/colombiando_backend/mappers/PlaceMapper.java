@@ -12,12 +12,20 @@ public class PlaceMapper {
     private final AddressRepository addressRepository;
     private final AddressMapper addressMapper;
 
+/** Inicializa la instancia.
+ * @param addressRepository parametro de entrada.
+ * @param addressMapper parametro de entrada.
+ */
     public PlaceMapper(AddressRepository addressRepository,
                        AddressMapper addressMapper) {
         this.addressRepository = addressRepository;
         this.addressMapper = addressMapper;
     }
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public PlaceEntity toEntity(PlaceDto.Create request) {
         var entity = new PlaceEntity();
         var baseData = request.data();
@@ -32,6 +40,10 @@ public class PlaceMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to public dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public PlaceDto.PlacePublic toPublicDto(PlaceEntity entity) {
         if (entity == null) {
             return null;
@@ -50,6 +62,10 @@ public class PlaceMapper {
         );
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public PlaceDto.Response toDto(PlaceEntity entity) {
         if (entity == null) {
             return null;

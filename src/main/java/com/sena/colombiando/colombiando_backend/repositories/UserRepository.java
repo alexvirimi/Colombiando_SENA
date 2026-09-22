@@ -7,6 +7,14 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<UserEntity, UUID> {
+/** Consulta find by email.
+ * @param email parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public UserEntity findByEmail(String email);
+/** Ejecuta la operacion exists by email.
+ * @param email parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public boolean existsByEmail(String email);
 }
