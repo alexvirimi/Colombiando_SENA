@@ -25,6 +25,11 @@ public class ScheduleInstanceService {
     private final ScheduleInstanceRepository scheduleInstanceRepository;
     private final ScheduleRepository scheduleRepository;
 
+/** Inicializa la instancia.
+ * @param scheduleInstanceMapper parametro de entrada.
+ * @param scheduleInstanceRepository parametro de entrada.
+ * @param scheduleRepository parametro de entrada.
+ */
     public ScheduleInstanceService(
             ScheduleInstanceMapper scheduleInstanceMapper,
             ScheduleInstanceRepository scheduleInstanceRepository,
@@ -35,6 +40,10 @@ public class ScheduleInstanceService {
         this.scheduleRepository = scheduleRepository;
     }
 
+/** Crea schedule instace.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleInstanceDto.Response createScheduleInstace(ScheduleInstanceDto.Create request) {
         var dataBase = request.data();
@@ -47,6 +56,11 @@ public class ScheduleInstanceService {
         return scheduleInstanceMapper.toDto(scheduleInstance);
     }
 
+/** Actualiza schedule instance.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleInstanceDto.Response updateScheduleInstance(UUID id, ScheduleInstanceDto.Update request) {
         ScheduleInstanceEntity scheduleInstance = scheduleInstanceRepository.findById(id)
@@ -76,6 +90,10 @@ public class ScheduleInstanceService {
         return scheduleInstanceMapper.toDto(scheduleInstance);
     }
 
+/** Elimina schedule instance.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleInstanceDto.Response deleteScheduleInstance(UUID id) {
         ScheduleInstanceEntity scheduleInstance = scheduleInstanceRepository.findById(id)
@@ -86,6 +104,10 @@ public class ScheduleInstanceService {
         return scheduleInstanceMapper.toDto(scheduleInstance);
     }
 
+/** Consulta schedule instance.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleInstanceDto.Response getScheduleInstance(UUID id) {
         ScheduleInstanceEntity scheduleInstance = scheduleInstanceRepository.findById(id)
@@ -93,6 +115,15 @@ public class ScheduleInstanceService {
         return scheduleInstanceMapper.toDto(scheduleInstance);
     }
 
+/** Consulta search schedule instances.
+ * @param scheduleID parametro de entrada.
+ * @param placeId parametro de entrada.
+ * @param state parametro de entrada.
+ * @param fromDate parametro de entrada.
+ * @param toDate parametro de entrada.
+ * @param minCapacity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<ScheduleInstanceDto.Response> searchScheduleInstances(
             UUID scheduleID, UUID placeId, ScheduleInstanceStateEnum state,
@@ -114,6 +145,10 @@ public class ScheduleInstanceService {
         return responses;
     }
 
+/** Reserva slots.
+ * @param id parametro de entrada.
+ * @param slots parametro de entrada.
+ */
     @Transactional
     public void bookSlots(UUID id, int slots) {
         if (slots <= 0) {
@@ -127,6 +162,10 @@ public class ScheduleInstanceService {
         }
     }
 
+/** Libera slots.
+ * @param id parametro de entrada.
+ * @param slots parametro de entrada.
+ */
     @Transactional
     public void releaseSlots(UUID id, int slots) {
         if (slots <= 0) {

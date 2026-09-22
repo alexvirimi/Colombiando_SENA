@@ -19,6 +19,14 @@ public interface BookingRepository extends JpaRepository<BookingEntity, UUID> {
       AND (CAST(:fromDate AS date) IS NULL OR b.createdAt >= :fromDate)
       AND (CAST(:toDate AS date) IS NULL OR b.createdAt <= :toDate)
     """)
+/** Consulta search.
+ * @param userId parametro de entrada.
+ * @param scheduleInstanceId parametro de entrada.
+ * @param status parametro de entrada.
+ * @param fromDate parametro de entrada.
+ * @param toDate parametro de entrada.
+ * @return resultado de la operacion.
+ */
     List<BookingEntity> search(
             @Param("userId") UUID userId,
             @Param("scheduleInstanceId") UUID scheduleInstanceId,

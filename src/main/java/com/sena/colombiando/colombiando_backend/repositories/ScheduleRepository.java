@@ -19,6 +19,14 @@ public interface ScheduleRepository extends JpaRepository<ScheduleEntity, UUID> 
       AND (:startDate IS NULL OR s.startDate <= :startDate)
       AND (:endDate IS NULL OR s.endDate >= :endDate)
     """)
+/** Consulta search.
+ * @param guideId parametro de entrada.
+ * @param placeId parametro de entrada.
+ * @param status parametro de entrada.
+ * @param startDate parametro de entrada.
+ * @param endDate parametro de entrada.
+ * @return resultado de la operacion.
+ */
     List<ScheduleEntity> search(
             @Param("guideId") UUID guideId,
             @Param("placeId") UUID placeId,

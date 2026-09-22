@@ -20,11 +20,19 @@ public class GuideService {
     private final GuideMapper guideMapper;
     private final GuideRepository guideRepository;
 
+/** Inicializa la instancia.
+ * @param guideMapper parametro de entrada.
+ * @param guideRepository parametro de entrada.
+ */
     public GuideService(GuideMapper guideMapper, GuideRepository guideRepository) {
         this.guideMapper = guideMapper;
         this.guideRepository = guideRepository;
     }
 
+/** Crea guide.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public GuideDto.Response createGuide(GuideDto.Create request) {
         GuideEntity guide = guideMapper.toEntity(request);
@@ -32,6 +40,11 @@ public class GuideService {
         return guideMapper.toDto(guide);
     }
 
+/** Actualiza guide.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public GuideDto.Response updateGuide(UUID id, GuideDto.Update request) {
         var dataRequest = request.data();
@@ -56,6 +69,10 @@ public class GuideService {
         return guideMapper.toDto(guide);
     }
 
+/** Elimina guide.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public GuideDto.Response deleteGuide(UUID id) {
         GuideEntity guide = guideRepository.findById(id)
@@ -67,6 +84,10 @@ public class GuideService {
         return guideMapper.toDto(guide);
     }
 
+/** Consulta guide.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public GuideDto.Response getGuide(UUID id) {
         GuideEntity guide = guideRepository.findById(id)
@@ -74,6 +95,9 @@ public class GuideService {
         return guideMapper.toDto(guide);
     }
 
+/** Ejecuta la operacion get all guides.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<GuideDto.Response> GetAllGuides() {
         List<GuideEntity> guides = guideRepository.findAll();
@@ -86,6 +110,11 @@ public class GuideService {
         return responses;
     }
 
+/** Consulta guide by name and last name.
+ * @param name parametro de entrada.
+ * @param lastName parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<GuideDto.Response> getGuideByNameAndLastName(String name, String lastName) {
         List<GuideEntity> guides = guideRepository.findByNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(name, lastName);
@@ -98,6 +127,10 @@ public class GuideService {
         return responses;
     }
 
+/** Consulta guide by status.
+ * @param status parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<GuideDto.Response> getGuideByStatus(GuideStatusEnum status) {
         List<GuideEntity> guides = guideRepository.findByStatus(status);

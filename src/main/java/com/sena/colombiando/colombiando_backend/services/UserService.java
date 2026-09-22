@@ -23,6 +23,11 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
+/** Inicializa la instancia.
+ * @param userRepository parametro de entrada.
+ * @param userMapper parametro de entrada.
+ * @param passwordEncoder parametro de entrada.
+ */
     public UserService(
             UserRepository userRepository,
             UserMapper userMapper,
@@ -33,6 +38,10 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+/** Crea user.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public UserDto.Response createUser(UserDto.Create request) {
         var dataRequest = request.data();
@@ -49,6 +58,11 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
+/** Actualiza user.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public UserDto.Response updateUser(UUID id, UserDto.Update request) {
         var dataRequest = request.data();
@@ -71,6 +85,11 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
+/** Cambia password.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public UserDto.Response changePassword(UUID id, UserDto.ChangePassword request) {
         UserEntity user = userRepository.findById(id)
@@ -88,6 +107,10 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
+/** Elimina user.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public UserDto.Response deleteUser(UUID id) {
         UserEntity user = userRepository.findById(id)
@@ -107,6 +130,10 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
+/** Consulta user.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public UserDto.Response getUser(UUID id) {
         UserEntity user = userRepository.findById(id)
@@ -114,6 +141,10 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
+/** Consulta user by email.
+ * @param email parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public UserDto.Response getUserByEmail(String email) {
         UserEntity user = userRepository.findByEmail(email);
@@ -123,6 +154,9 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
+/** Consulta all users.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<UserDto.Response> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();

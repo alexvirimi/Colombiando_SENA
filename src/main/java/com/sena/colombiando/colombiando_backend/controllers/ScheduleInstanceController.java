@@ -16,10 +16,22 @@ import java.util.UUID;
 public class ScheduleInstanceController {
 
     private final ScheduleInstanceService scheduleInstanceService;
+/** Inicializa la instancia.
+ * @param scheduleInstanceService parametro de entrada.
+ */
     public ScheduleInstanceController(ScheduleInstanceService scheduleInstanceService) {
         this.scheduleInstanceService = scheduleInstanceService;
     }
 
+/** Consulta all schedule instances.
+ * @param scheduleID parametro de entrada.
+ * @param placeId parametro de entrada.
+ * @param state parametro de entrada.
+ * @param fromDate parametro de entrada.
+ * @param toDate parametro de entrada.
+ * @param minCapacity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @GetMapping
     public ResponseEntity<List<ScheduleInstanceDto.Response>> getAllScheduleInstances(
             @RequestParam(required = false) UUID scheduleID,
@@ -37,6 +49,10 @@ public class ScheduleInstanceController {
         );
     }
 
+/** Crea .
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @PostMapping
     public ResponseEntity<ScheduleInstanceDto.Response> create(
             @RequestBody ScheduleInstanceDto.Create request
@@ -45,6 +61,13 @@ public class ScheduleInstanceController {
         return ResponseEntity.created(URI.create("/api/schedule-instances/" + created.id())).body(created);
     }
 
+/** Ejecuta la operacion get mapping.
+ * @param id parametro de entrada.
+ */
+/** Consulta schedule instance.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleInstanceDto.Response> getScheduleInstance(
             @PathVariable UUID id
@@ -52,6 +75,14 @@ public class ScheduleInstanceController {
         return ResponseEntity.ok(scheduleInstanceService.getScheduleInstance(id));
     }
 
+/** Ejecuta la operacion patch mapping.
+ * @param id parametro de entrada.
+ */
+/** Actualiza .
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @PatchMapping("/{id}")
     public ResponseEntity<ScheduleInstanceDto.Response> update(
             @PathVariable UUID id,
@@ -62,6 +93,13 @@ public class ScheduleInstanceController {
         );
     }
 
+/** Ejecuta la operacion delete mapping.
+ * @param id parametro de entrada.
+ */
+/** Elimina schedule instance.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @DeleteMapping("/{id}")
     public ResponseEntity<ScheduleInstanceDto.Response> deleteScheduleInstance(
             @PathVariable UUID id

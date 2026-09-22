@@ -56,54 +56,92 @@ public class PaymentEntity {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+/** Inicializa la instancia.
+ */
     public PaymentEntity() {}
 
     // Getters & Setters
 
+/** Consulta id.
+ * @return resultado de la operacion.
+ */
     public UUID getId() {
         return id;
     }
 
+/** Consulta booking.
+ * @return resultado de la operacion.
+ */
     public BookingEntity getBooking() {
         return booking;
     }
 
+/** Actualiza booking.
+ * @param booking parametro de entrada.
+ */
     public void setBooking(BookingEntity booking) {
         this.booking = booking;
     }
 
+/** Consulta amount to pay.
+ * @return resultado de la operacion.
+ */
     public BigDecimal getAmountToPay() {
         return amountToPay;
     }
 
+/** Actualiza amount to pay.
+ * @param amountToPay parametro de entrada.
+ */
     public void setAmountToPay(BigDecimal amountToPay) {
         this.amountToPay = amountToPay;
     }
 
+/** Consulta payment method.
+ * @return resultado de la operacion.
+ */
     public PaymentMethodEnum getPaymentMethod() {
         return paymentMethod;
     }
 
+/** Actualiza payment method.
+ * @param paymentMethod parametro de entrada.
+ */
     public void setPaymentMethod(PaymentMethodEnum paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
+/** Consulta currency.
+ * @return resultado de la operacion.
+ */
     public String getCurrency() {
         return currency;
     }
 
+/** Actualiza currency.
+ * @param currency parametro de entrada.
+ */
     public void setCurrency(String currency) {
         this.currency = currency;
     }
 
+/** Consulta status.
+ * @return resultado de la operacion.
+ */
     public PaymentStatusEnum getStatus() {
         return status;
     }
 
+/** Actualiza status.
+ * @param status parametro de entrada.
+ */
     public void setStatus(PaymentStatusEnum status) {
         this.status = status;
     }
 
+/** Consulta created at.
+ * @return resultado de la operacion.
+ */
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

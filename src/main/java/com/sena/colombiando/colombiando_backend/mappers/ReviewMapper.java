@@ -17,6 +17,12 @@ public class ReviewMapper {
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
 
+/** Inicializa la instancia.
+ * @param userMapper parametro de entrada.
+ * @param bookingMapper parametro de entrada.
+ * @param userRepository parametro de entrada.
+ * @param bookingRepository parametro de entrada.
+ */
     public ReviewMapper(
             UserMapper userMapper,
             BookingMapper bookingMapper,
@@ -29,6 +35,10 @@ public class ReviewMapper {
         this.bookingRepository = bookingRepository;
     }
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public ReviewEntity toEntity(ReviewDto.Create request) {
         var entity = new ReviewEntity();
 
@@ -43,6 +53,10 @@ public class ReviewMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public ReviewDto.Response toDto(ReviewEntity entity) {
         if (entity == null){
             return null;

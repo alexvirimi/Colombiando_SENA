@@ -21,6 +21,15 @@ public interface ScheduleInstanceRepository extends JpaRepository<ScheduleInstan
       AND (CAST(:date2 AS date) IS NULL OR si.date <= :date2)
       AND (:minCapacity IS NULL OR si.availableCapacity > :minCapacity)
     """)
+/** Consulta search.
+ * @param scheduleId parametro de entrada.
+ * @param placeId parametro de entrada.
+ * @param state parametro de entrada.
+ * @param date1 parametro de entrada.
+ * @param date2 parametro de entrada.
+ * @param minCapacity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     List<ScheduleInstanceEntity> search(
             @Param("scheduleId") UUID scheduleId,
             @Param("placeId") UUID placeId,
@@ -34,11 +43,21 @@ public interface ScheduleInstanceRepository extends JpaRepository<ScheduleInstan
     @Query("UPDATE ScheduleInstanceEntity s " +
             "SET s.availableCapacity = s.availableCapacity - :n " +
             "WHERE s.id = :id AND s.availableCapacity >= :n")
+/** Ejecuta la operacion decrease capacity.
+ * @param id parametro de entrada.
+ * @param n parametro de entrada.
+ * @return resultado de la operacion.
+ */
     int decreaseCapacity(@Param("id") UUID id, @Param("n") int n);
 
     @Modifying
     @Query("UPDATE ScheduleInstanceEntity s " +
             "SET s.availableCapacity = s.availableCapacity + :n " +
             "WHERE s.id = :id")
+/** Ejecuta la operacion restore capacity.
+ * @param id parametro de entrada.
+ * @param n parametro de entrada.
+ * @return resultado de la operacion.
+ */
     int restoreCapacity(@Param("id") UUID id, @Param("n") int n);
 }

@@ -16,10 +16,18 @@ import java.util.UUID;
 public class PaymentController {
 
     private final PaymentService paymentService;
+/** Inicializa la instancia.
+ * @param paymentService parametro de entrada.
+ */
     public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
 
+/** Consulta payments.
+ * @param bookingId parametro de entrada.
+ * @param status parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @GetMapping
     public ResponseEntity<List<PaymentDto.Response>> getPayments(
             @RequestParam(required = false) UUID bookingId,
@@ -28,6 +36,10 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.searchPayments(bookingId, status));
     }
 
+/** Crea payment.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @PostMapping
     public ResponseEntity<PaymentDto.Response> createPayment(
             @RequestBody PaymentDto.Create request
@@ -36,6 +48,13 @@ public class PaymentController {
         return ResponseEntity.created(URI.create("/api/payments/" + created.id())).body(created);
     }
 
+/** Ejecuta la operacion get mapping.
+ * @param id parametro de entrada.
+ */
+/** Consulta payment.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @GetMapping("/{id}")
     public ResponseEntity<PaymentDto.Response> getPayment(
             @PathVariable UUID id
@@ -43,6 +62,14 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.getPayment(id));
     }
 
+/** Ejecuta la operacion patch mapping.
+ * @param id parametro de entrada.
+ */
+/** Actualiza .
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @PatchMapping("/{id}")
     public ResponseEntity<PaymentDto.Response> update(
             @PathVariable UUID id,
@@ -51,6 +78,13 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.updatePayment(id, request));
     }
 
+/** Ejecuta la operacion delete mapping.
+ * @param id parametro de entrada.
+ */
+/** Elimina payment.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @DeleteMapping("/{id}")
     public ResponseEntity<PaymentDto.Response> deletePayment(
             @PathVariable UUID id

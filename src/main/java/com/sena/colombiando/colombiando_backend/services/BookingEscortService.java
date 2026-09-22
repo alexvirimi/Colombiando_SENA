@@ -22,6 +22,11 @@ public class BookingEscortService {
     private BookingEscortRepository bookingEscortRepository;
     private BookingRepository bookingRepository;
 
+/** Inicializa la instancia.
+ * @param bookingEscortMapper parametro de entrada.
+ * @param bookingEscortRepository parametro de entrada.
+ * @param bookingRepository parametro de entrada.
+ */
     public BookingEscortService(
             BookingEscortMapper bookingEscortMapper,
             BookingEscortRepository bookingEscortRepository,
@@ -32,6 +37,10 @@ public class BookingEscortService {
         this.bookingRepository = bookingRepository;
     }
 
+/** Crea booking escort.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public BookingEscortDto.Response createBookingEscort(BookingEscortDto.Create request) {
         var dataBase = request.data();
@@ -44,6 +53,11 @@ public class BookingEscortService {
         return bookingEscortMapper.toDto(bookingEscort);
     }
 
+/** Actualiza booking.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public BookingEscortDto.Response updateBooking(UUID id, BookingEscortDto.Update request) {
         var dataBase = request.data();
@@ -60,6 +74,10 @@ public class BookingEscortService {
         return bookingEscortMapper.toDto(bookingEscort);
     }
 
+/** Elimina booking.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public BookingEscortDto.Response deleteBooking(UUID id) {
         BookingEscortEntity bookingEscort = bookingEscortRepository.findById(id)
@@ -68,6 +86,10 @@ public class BookingEscortService {
         return bookingEscortMapper.toDto(bookingEscort);
     }
 
+/** Consulta booking escort.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public BookingEscortDto.Response getBookingEscort(UUID id) {
         BookingEscortEntity bookingEscort = bookingEscortRepository.findById(id)
@@ -75,6 +97,9 @@ public class BookingEscortService {
         return bookingEscortMapper.toDto(bookingEscort);
     }
 
+/** Consulta all booking escorts.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<BookingEscortDto.Response> getAllBookingEscorts() {
         List<BookingEscortEntity> bookingEscorts = bookingEscortRepository.findAll();
@@ -87,6 +112,10 @@ public class BookingEscortService {
         return responses;
     }
 
+/** Consulta all bookings by booking id.
+ * @param bookingId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<BookingEscortDto.Response> getAllBookingsByBookingId(UUID bookingId) {
         List<BookingEscortEntity> bookingEscorts = bookingEscortRepository.findByBookingId(bookingId);
@@ -99,11 +128,19 @@ public class BookingEscortService {
         return responses;
     }
 
+/** Cuenta escorts by booking id.
+ * @param bookingId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public Integer countEscortsByBookingId(UUID bookingId) {
         return bookingEscortRepository.countByBookingId(bookingId);
     }
 
+/** Elimina escorts by booking id.
+ * @param bookingId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<BookingEscortDto.Response> deleteEscortsByBookingId(UUID bookingId) {
         List<BookingEscortDto.Response> escortsEliminated = getAllBookingsByBookingId(bookingId);

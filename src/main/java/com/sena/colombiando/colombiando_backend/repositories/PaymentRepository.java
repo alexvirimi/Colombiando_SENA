@@ -15,6 +15,11 @@ public interface PaymentRepository extends JpaRepository<PaymentEntity, UUID> {
     WHERE (:bookingId IS NULL OR p.booking.id = :bookingId)
       AND (:status IS NULL OR p.status = :status)
     """)
+/** Consulta search.
+ * @param bookingId parametro de entrada.
+ * @param status parametro de entrada.
+ * @return resultado de la operacion.
+ */
     List<PaymentEntity> search(
             @Param("bookingId") UUID bookingId,
             @Param("status") PaymentStatusEnum status

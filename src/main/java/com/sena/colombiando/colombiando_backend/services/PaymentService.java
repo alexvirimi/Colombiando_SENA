@@ -23,6 +23,11 @@ public class PaymentService {
     private final PaymentMapper paymentMapper;
     private final BookingRepository bookingRepository;
 
+/** Inicializa la instancia.
+ * @param paymentRepository parametro de entrada.
+ * @param paymentMapper parametro de entrada.
+ * @param bookingRepository parametro de entrada.
+ */
     public PaymentService(
             PaymentRepository paymentRepository,
             PaymentMapper paymentMapper,
@@ -33,6 +38,10 @@ public class PaymentService {
         this.bookingRepository = bookingRepository;
     }
 
+/** Crea payment.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PaymentDto.Response createPayment(PaymentDto.Create request){
         BookingEntity booking = bookingRepository.getReferenceById(request.bookingId());
@@ -44,6 +53,11 @@ public class PaymentService {
         return paymentMapper.toDto(payment);
     }
 
+/** Actualiza payment.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PaymentDto.Response updatePayment(UUID id, PaymentDto.Update request){
         PaymentEntity payment = paymentRepository.findById(id)
@@ -58,6 +72,10 @@ public class PaymentService {
         return paymentMapper.toDto(payment);
     }
 
+/** Elimina payment.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PaymentDto.Response deletePayment(UUID id){
         PaymentEntity payment = paymentRepository.findById(id)
@@ -68,6 +86,10 @@ public class PaymentService {
         return paymentMapper.toDto(payment);
     }
 
+/** Consulta payment.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PaymentDto.Response getPayment(UUID id){
         PaymentEntity payment = paymentRepository.findById(id)
@@ -75,6 +97,11 @@ public class PaymentService {
         return paymentMapper.toDto(payment);
     }
 
+/** Consulta search payments.
+ * @param bookingId parametro de entrada.
+ * @param status parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<PaymentDto.Response> searchPayments(
             UUID bookingId, PaymentStatusEnum status

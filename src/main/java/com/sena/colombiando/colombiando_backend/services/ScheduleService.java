@@ -27,6 +27,12 @@ public class ScheduleService {
     private final GuideRepository guideRepository;
     private final PlaceRepository placeRepository;
 
+/** Inicializa la instancia.
+ * @param scheduleRepository parametro de entrada.
+ * @param scheduleMapper parametro de entrada.
+ * @param guideRepository parametro de entrada.
+ * @param placeRepository parametro de entrada.
+ */
     public ScheduleService(
             ScheduleRepository scheduleRepository,
             ScheduleMapper scheduleMapper,
@@ -39,6 +45,10 @@ public class ScheduleService {
         this.placeRepository = placeRepository;
     }
 
+/** Crea schedule.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleDto.Response createSchedule(ScheduleDto.Create request) {
         GuideEntity guide = guideRepository.getReferenceById(request.guideId());
@@ -52,6 +62,11 @@ public class ScheduleService {
         return scheduleMapper.toDto(scheduleEntity);
     }
 
+/** Actualiza schedule.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleDto.Response updateSchedule(UUID id, ScheduleDto.Update request) {
         var dataBase = request.data();
@@ -71,6 +86,10 @@ public class ScheduleService {
         return scheduleMapper.toDto(schedule);
     }
 
+/** Elimina schedule.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleDto.Response deleteSchedule(UUID id) {
         var schedule = scheduleRepository.findById(id)
@@ -82,6 +101,10 @@ public class ScheduleService {
         return scheduleMapper.toDto(schedule);
     }
 
+/** Consulta schedule.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public ScheduleDto.Response getSchedule(UUID id) {
         var schedule = scheduleRepository.findById(id)
@@ -89,6 +112,14 @@ public class ScheduleService {
         return scheduleMapper.toDto(schedule);
     }
 
+/** Consulta search schedules.
+ * @param guideId parametro de entrada.
+ * @param placeId parametro de entrada.
+ * @param status parametro de entrada.
+ * @param startDate parametro de entrada.
+ * @param endDate parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<ScheduleDto.Response> searchSchedules(
             UUID guideId, UUID placeId, ScheduleStatusEnum status,

@@ -17,6 +17,12 @@ public class ScheduleMapper {
     private final GuideRepository guideRepository;
     private final PlaceRepository placeRepository;
 
+/** Inicializa la instancia.
+ * @param guideMapper parametro de entrada.
+ * @param placeMapper parametro de entrada.
+ * @param guideRepository parametro de entrada.
+ * @param placeRepository parametro de entrada.
+ */
     public ScheduleMapper(
             GuideMapper guideMapper,
             PlaceMapper placeMapper,
@@ -29,6 +35,10 @@ public class ScheduleMapper {
         this.placeRepository = placeRepository;
     }
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public ScheduleEntity toEntity(ScheduleDto.Create request) {
         var entity = new ScheduleEntity();
         var baseData = request.data();
@@ -48,6 +58,10 @@ public class ScheduleMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public ScheduleDto.Response toDto(ScheduleEntity entity) {
         if (entity == null) {
             return null;

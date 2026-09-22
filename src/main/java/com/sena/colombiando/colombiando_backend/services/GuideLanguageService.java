@@ -26,6 +26,12 @@ public class GuideLanguageService {
     private final GuideRepository guideRepository;
     private final LanguageRepository languageRepository;
 
+/** Inicializa la instancia.
+ * @param guideLanguageMapper parametro de entrada.
+ * @param guideLanguageRepository parametro de entrada.
+ * @param guideRepository parametro de entrada.
+ * @param languageRepository parametro de entrada.
+ */
     public GuideLanguageService(
             GuideLanguageMapper guideLanguageMapper,
             GuideLanguageRepository guideLanguageRepository,
@@ -38,6 +44,10 @@ public class GuideLanguageService {
         this.languageRepository = languageRepository;
     }
 
+/** Ejecuta la operacion responses.
+ * @param guideLanguages parametro de entrada.
+ * @return resultado de la operacion.
+ */
     private List<GuideLanguageDto.Response> responses(List<GuideLanguageEntity> guideLanguages) {
         List<GuideLanguageDto.Response> responses = new ArrayList<>();
 
@@ -48,6 +58,10 @@ public class GuideLanguageService {
         return responses;
     }
 
+/** Crea guide language.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public GuideLanguageDto.Response createGuideLanguage(GuideLanguageDto.Create request) {
         GuideEntity guide = guideRepository.getReferenceById(request.guideId());
@@ -61,6 +75,11 @@ public class GuideLanguageService {
         return guideLanguageMapper.toDto(guideLanguage);
     }
 
+/** Actualiza guide language.
+ * @param guideLanguageId parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public GuideLanguageDto.Response updateGuideLanguage(
             GuideLanguageId guideLanguageId, GuideLanguageDto.Update request
@@ -74,6 +93,10 @@ public class GuideLanguageService {
         return guideLanguageMapper.toDto(guideLanguage);
     }
 
+/** Elimina guide language.
+ * @param guideLanguageId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public GuideLanguageDto.Response deleteGuideLanguage(GuideLanguageId guideLanguageId) {
         GuideLanguageEntity guideLanguage = guideLanguageRepository
@@ -82,6 +105,10 @@ public class GuideLanguageService {
         return guideLanguageMapper.toDto(guideLanguage);
     }
 
+/** Consulta guide language.
+ * @param guideLanguageId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public GuideLanguageDto.Response getGuideLanguage(GuideLanguageId guideLanguageId) {
         GuideLanguageEntity guideLanguage = guideLanguageRepository
@@ -89,6 +116,11 @@ public class GuideLanguageService {
         return guideLanguageMapper.toDto(guideLanguage);
     }
 
+/** Consulta search guide languages.
+ * @param guideId parametro de entrada.
+ * @param languageId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<GuideLanguageDto.Response> searchGuideLanguages(
             UUID guideId, UUID languageId
@@ -97,6 +129,11 @@ public class GuideLanguageService {
         return responses(guideLanguages);
     }
 
+/** Consulta guide language by guide id and language id.
+ * @param guideId parametro de entrada.
+ * @param languageId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public GuideLanguageDto.Response getGuideLanguageByGuideIdAndLanguageId(
             UUID guideId, UUID languageId
@@ -108,6 +145,11 @@ public class GuideLanguageService {
         return guideLanguageMapper.toDto(guideLanguage);
     }
 
+/** Elimina guide language by guide id and language id.
+ * @param guideId parametro de entrada.
+ * @param languageId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public GuideLanguageDto.Response deleteGuideLanguageByGuideIdAndLanguageId(UUID guideId, UUID languageId) {
         GuideLanguageDto.Response guideLanguageToBeDeleted = getGuideLanguageByGuideIdAndLanguageId(guideId, languageId);

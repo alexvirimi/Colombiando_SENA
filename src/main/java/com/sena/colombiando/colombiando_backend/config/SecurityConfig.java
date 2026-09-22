@@ -10,6 +10,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+/** Ejecuta la operacion security filter chain.
+ * @param http parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -21,6 +25,9 @@ public class SecurityConfig {
         return http.build();
     }
 
+/** Ejecuta la operacion password encoder.
+ * @return resultado de la operacion.
+ */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

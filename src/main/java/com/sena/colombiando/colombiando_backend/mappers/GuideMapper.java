@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class GuideMapper {
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public GuideEntity toEntity(GuideDto.Create request) {
         var entity = new GuideEntity();
         var baseData = request.data();
@@ -20,6 +24,10 @@ public class GuideMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to public dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public GuideDto.GuidePublic toPublicDto(GuideEntity entity) {
         if(entity == null) {
             return null;
@@ -35,6 +43,10 @@ public class GuideMapper {
         );
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public GuideDto.Response toDto(GuideEntity entity) {
         if (entity == null) {
             return null;

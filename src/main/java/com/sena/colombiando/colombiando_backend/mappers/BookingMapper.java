@@ -17,6 +17,12 @@ public class BookingMapper {
     private final UserMapper userMapper;
     private final ScheduleInstanceMapper scheduleInstanceMapper;
 
+/** Inicializa la instancia.
+ * @param userRepository parametro de entrada.
+ * @param scheduleInstanceRepository parametro de entrada.
+ * @param userMapper parametro de entrada.
+ * @param scheduleInstanceMapper parametro de entrada.
+ */
     public BookingMapper(UserRepository userRepository,
                          ScheduleInstanceRepository scheduleInstanceRepository,
                          UserMapper userMapper,
@@ -27,6 +33,10 @@ public class BookingMapper {
         this.scheduleInstanceMapper = scheduleInstanceMapper;
     }
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public BookingEntity toEntity(BookingDto.Create request) {
         var entity = new BookingEntity();
         UserEntity user = userRepository.getReferenceById(request.userId());
@@ -39,6 +49,10 @@ public class BookingMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to public dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public BookingDto.BookingPublic toPublicDto(BookingEntity entity) {
         if(entity == null) {
             return null;
@@ -51,6 +65,10 @@ public class BookingMapper {
         );
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public BookingDto.Response toDto(BookingEntity entity) {
         if (entity == null) {
             return null;

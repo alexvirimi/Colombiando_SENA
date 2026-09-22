@@ -22,12 +22,21 @@ public class PlaceService {
     private final PlaceRepository placeRepository;
     private final AddressRepository addressRepository;
 
+/** Inicializa la instancia.
+ * @param placeMapper parametro de entrada.
+ * @param placeRepository parametro de entrada.
+ * @param addressRepository parametro de entrada.
+ */
     public PlaceService(PlaceMapper placeMapper, PlaceRepository placeRepository, AddressRepository addressRepository) {
         this.placeMapper = placeMapper;
         this.placeRepository = placeRepository;
         this.addressRepository = addressRepository;
     }
 
+/** Crea place.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PlaceDto.Response createPlace(PlaceDto.Create request) {
         PlaceEntity placeEntity = placeMapper.toEntity(request);
@@ -40,6 +49,11 @@ public class PlaceService {
         return placeMapper.toDto(placeEntity);
     }
 
+/** Actualiza place.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PlaceDto.Response updatePlace(UUID id, PlaceDto.Update request) {
         var dataBase = request.data();
@@ -54,6 +68,10 @@ public class PlaceService {
         return placeMapper.toDto(place);
     }
 
+/** Elimina place.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PlaceDto.Response deletePlace(UUID id) {
         PlaceEntity place = placeRepository.findById(id)
@@ -62,6 +80,10 @@ public class PlaceService {
         return placeMapper.toDto(place);
     }
 
+/** Consulta place.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PlaceDto.Response getPlace(UUID id) {
         PlaceEntity place = placeRepository.findById(id)
@@ -69,6 +91,9 @@ public class PlaceService {
         return placeMapper.toDto(place);
     }
 
+/** Consulta all places.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<PlaceDto.Response> getAllPlaces() {
         List<PlaceEntity> places = placeRepository.findAll();
@@ -81,6 +106,10 @@ public class PlaceService {
         return response;
     }
 
+/** Consulta place by address id.
+ * @param addressId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public PlaceDto.Response getPlaceByAddressId(UUID addressId) {
         PlaceEntity place = placeRepository.findByAddressId(addressId);
@@ -92,6 +121,10 @@ public class PlaceService {
         return placeMapper.toDto(place);
     }
 
+/** Consulta place by name containing.
+ * @param name parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<PlaceDto.Response> getPlaceByNameContaining(String name) {
         List<PlaceEntity> place = placeRepository.findByNameContainingIgnoreCase(name);

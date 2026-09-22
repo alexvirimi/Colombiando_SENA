@@ -41,46 +41,78 @@ public class PlaceEntity {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+/** Inicializa la instancia.
+ */
     public PlaceEntity() {}
 
     // Getters & Setters
 
+/** Consulta id.
+ * @return resultado de la operacion.
+ */
     public UUID getId() {
         return id;
     }
 
+/** Consulta name.
+ * @return resultado de la operacion.
+ */
     public String getName() {
         return name;
     }
 
+/** Actualiza name.
+ * @param name parametro de entrada.
+ */
     public void setName(String name) {
         this.name = name;
     }
 
+/** Consulta description.
+ * @return resultado de la operacion.
+ */
     public String getDescription() {
         return description;
     }
 
+/** Actualiza description.
+ * @param description parametro de entrada.
+ */
     public void setDescription(String description) {
         this.description = description;
     }
 
+/** Consulta address.
+ * @return resultado de la operacion.
+ */
     public AddressEntity getAddress() {
         return address;
     }
 
+/** Actualiza address.
+ * @param address parametro de entrada.
+ */
     public void setAddress(AddressEntity address) {
         this.address = address;
     }
 
+/** Consulta header img.
+ * @return resultado de la operacion.
+ */
     public String getHeaderImg() {
         return headerImg;
     }
 
+/** Actualiza header img.
+ * @param headerImg parametro de entrada.
+ */
     public void setHeaderImg(String headerImg) {
         this.headerImg = headerImg;
     }
 
+/** Consulta created at.
+ * @return resultado de la operacion.
+ */
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

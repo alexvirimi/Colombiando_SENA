@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AddressMapper {
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public AddressEntity toEntity(AddressDto.Create request) {
         var entity = new AddressEntity();
         var baseData = request.data();
@@ -20,6 +24,10 @@ public class AddressMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public AddressDto.Response toDto(AddressEntity entity) {
         if(entity == null) {
             return null;

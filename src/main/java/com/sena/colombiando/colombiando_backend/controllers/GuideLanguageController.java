@@ -16,10 +16,18 @@ import java.util.UUID;
 public class GuideLanguageController {
 
     private final GuideLanguageService guideLanguageService;
+/** Inicializa la instancia.
+ * @param guideLanguageService parametro de entrada.
+ */
     public GuideLanguageController(GuideLanguageService guideLanguageService) {
         this.guideLanguageService = guideLanguageService;
     }
 
+/** Consulta all.
+ * @param guideId parametro de entrada.
+ * @param languageId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @GetMapping
     public ResponseEntity<List<GuideLanguageDto.Response>> getAll(
             @RequestParam(required = false) UUID guideId,
@@ -28,6 +36,10 @@ public class GuideLanguageController {
         return ResponseEntity.ok(guideLanguageService.searchGuideLanguages(guideId, languageId));
     }
 
+/** Crea .
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @PostMapping
     public ResponseEntity<GuideLanguageDto.Response> create(
             @RequestBody GuideLanguageDto.Create request
@@ -36,6 +48,13 @@ public class GuideLanguageController {
         return ResponseEntity.created(URI.create("/api/guide-languages/" + created.id())).body(created);
     }
 
+/** Ejecuta la operacion get mapping.
+ * @param id parametro de entrada.
+ */
+/** Consulta one.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @GetMapping("/{id}")
     public ResponseEntity<GuideLanguageDto.Response> getOne(
             @PathVariable GuideLanguageId id
@@ -43,6 +62,14 @@ public class GuideLanguageController {
         return ResponseEntity.ok(guideLanguageService.getGuideLanguage(id));
     }
 
+/** Ejecuta la operacion get mapping.
+ * @param languageId parametro de entrada.
+ */
+/** Consulta by guide and language.
+ * @param guideId parametro de entrada.
+ * @param languageId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @GetMapping("/by-guide/{guideId}/by-language/{languageId}")
     public ResponseEntity<GuideLanguageDto.Response> getByGuideAndLanguage(
             @PathVariable UUID guideId,
@@ -53,6 +80,14 @@ public class GuideLanguageController {
         );
     }
 
+/** Ejecuta la operacion patch mapping.
+ * @param id parametro de entrada.
+ */
+/** Actualiza .
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @PatchMapping("/{id}")
     public ResponseEntity<GuideLanguageDto.Response> update(
             @PathVariable GuideLanguageId id,
@@ -63,6 +98,13 @@ public class GuideLanguageController {
         ));
     }
 
+/** Ejecuta la operacion delete mapping.
+ * @param id parametro de entrada.
+ */
+/** Elimina .
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @DeleteMapping("/{id}")
     public ResponseEntity<GuideLanguageDto.Response> delete(
             @PathVariable GuideLanguageId id
@@ -70,6 +112,14 @@ public class GuideLanguageController {
         return ResponseEntity.ok(guideLanguageService.deleteGuideLanguage(id));
     }
 
+/** Ejecuta la operacion delete mapping.
+ * @param languageId parametro de entrada.
+ */
+/** Elimina by guide and language.
+ * @param guideId parametro de entrada.
+ * @param languageId parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @DeleteMapping("/by-guide/{guideId}/by-language/{languageId}")
     public ResponseEntity<GuideLanguageDto.Response> deleteByGuideAndLanguage(
             @PathVariable UUID guideId,

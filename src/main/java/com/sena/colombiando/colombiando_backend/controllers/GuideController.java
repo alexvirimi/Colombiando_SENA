@@ -16,10 +16,19 @@ import java.util.UUID;
 public class GuideController {
 
     private final GuideService guideService;
+/** Inicializa la instancia.
+ * @param guideService parametro de entrada.
+ */
     public GuideController(GuideService guideService) {
         this.guideService = guideService;
     }
 
+/** Consulta find all.
+ * @param name parametro de entrada.
+ * @param lastName parametro de entrada.
+ * @param guideStatus parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @GetMapping
     public ResponseEntity<List<GuideDto.Response>> findAll(
             @RequestParam(required = false) String name,
@@ -39,6 +48,10 @@ public class GuideController {
         return ResponseEntity.ok(guideService.GetAllGuides());
     }
 
+/** Crea .
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @PostMapping
     public ResponseEntity<GuideDto.Response> create(
             @Valid @RequestBody GuideDto.Create request
@@ -47,6 +60,14 @@ public class GuideController {
         return ResponseEntity.created(URI.create("/api/guides/" + created.id())).body(created);
     }
 
+/** Ejecuta la operacion get mapping.
+ * @param id parametro de entrada.
+ */
+/** Actualiza .
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @GetMapping("/{id}")
     public ResponseEntity<GuideDto.Response> update(
             @PathVariable UUID id,
@@ -55,6 +76,13 @@ public class GuideController {
         return ResponseEntity.ok(guideService.updateGuide(id, request));
     }
 
+/** Ejecuta la operacion delete mapping.
+ * @param id parametro de entrada.
+ */
+/** Elimina .
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @DeleteMapping("/{id}")
     public ResponseEntity<GuideDto.Response> delete(
             @PathVariable UUID id

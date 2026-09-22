@@ -19,11 +19,19 @@ public class LanguageService {
     private final LanguageMapper languageMapper;
     private final LanguageRepository languageRepository;
 
+/** Inicializa la instancia.
+ * @param languageMapper parametro de entrada.
+ * @param languageRepository parametro de entrada.
+ */
     public LanguageService(LanguageMapper languageMapper, LanguageRepository languageRepository) {
         this.languageMapper = languageMapper;
         this.languageRepository = languageRepository;
     }
 
+/** Crea language.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public LanguageDto.Response createLanguage(LanguageDto.Create request) {
         if (languageRepository.existsByCode(request.code())) {
@@ -35,6 +43,10 @@ public class LanguageService {
         return languageMapper.toDto(entity);
     }
 
+/** Elimina language.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public LanguageDto.Response deleteLanguage(UUID id) {
         var entity = languageRepository.findById(id)
@@ -43,12 +55,20 @@ public class LanguageService {
         return languageMapper.toDto(entity);
     }
 
+/** Consulta find by code.
+ * @param code parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public LanguageDto.Response findByCode(String code) {
         var entity = languageRepository.findByCode(code);
         return languageMapper.toDto(entity);
     }
 
+/** Consulta by id.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public LanguageDto.Response getById(UUID id) {
         var entity = languageRepository.findById(id)
@@ -56,6 +76,9 @@ public class LanguageService {
         return languageMapper.toDto(entity);
     }
 
+/** Consulta all languages.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<LanguageDto.Response> getAllLanguages() {
         List<LanguageEntity> languages = languageRepository.findAll();

@@ -29,6 +29,13 @@ public class BookingService {
     private final ScheduleInstanceRepository scheduleInstanceRepository;
     private final ScheduleInstanceService scheduleInstanceService;
 
+/** Inicializa la instancia.
+ * @param bookingMapper parametro de entrada.
+ * @param bookingRepository parametro de entrada.
+ * @param userRepository parametro de entrada.
+ * @param scheduleInstanceRepository parametro de entrada.
+ * @param scheduleInstanceService parametro de entrada.
+ */
     public BookingService(
             BookingMapper bookingMapper,
             BookingRepository bookingRepository,
@@ -43,6 +50,10 @@ public class BookingService {
         this.scheduleInstanceService = scheduleInstanceService;
     }
 
+/** Ejecuta la operacion responses.
+ * @param bookings parametro de entrada.
+ * @return resultado de la operacion.
+ */
     private List<BookingDto.Response> responses(List<BookingEntity> bookings){
         if (bookings.isEmpty()){
             return new ArrayList<>();
@@ -55,6 +66,10 @@ public class BookingService {
         return responses;
     }
 
+/** Crea booking.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public BookingDto.Response createBooking(BookingDto.Create request){
         UserEntity user = userRepository.getReferenceById(request.userId());
@@ -75,6 +90,11 @@ public class BookingService {
         return bookingMapper.toDto(booking);
     }
 
+/** Actualiza booking.
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public BookingDto.Response updateBooking(UUID id, BookingDto.Update request){
         BookingEntity booking = bookingRepository.findById(id)
@@ -87,6 +107,10 @@ public class BookingService {
         return bookingMapper.toDto(booking);
     }
 
+/** Elimina booking.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public BookingDto.Response deleteBooking(UUID id){
         BookingEntity booking = bookingRepository.findById(id)
@@ -101,6 +125,10 @@ public class BookingService {
         return bookingMapper.toDto(booking);
     }
 
+/** Consulta booking.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public BookingDto.Response getBooking(UUID id){
         BookingEntity booking = bookingRepository.findById(id)
@@ -108,6 +136,14 @@ public class BookingService {
         return bookingMapper.toDto(booking);
     }
 
+/** Consulta search bookings.
+ * @param userId parametro de entrada.
+ * @param scheduleInstanceId parametro de entrada.
+ * @param status parametro de entrada.
+ * @param fromDate parametro de entrada.
+ * @param toDate parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @Transactional
     public List<BookingDto.Response> searchBookings(
             UUID userId, UUID scheduleInstanceId, BookingStatusEnum status,

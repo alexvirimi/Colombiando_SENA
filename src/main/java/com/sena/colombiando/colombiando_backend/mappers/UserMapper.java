@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
+/** Convierte los datos mediante to entity.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public UserEntity toEntity(UserDto.Create request) {
         var entity = new UserEntity();
         var baseData = request.data();
@@ -20,6 +24,10 @@ public class UserMapper {
         return entity;
     }
 
+/** Convierte los datos mediante to public dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public UserDto.UserPublic toPublicDto(UserEntity entity) {
         if(entity == null) {
             return null;
@@ -33,6 +41,10 @@ public class UserMapper {
         );
     }
 
+/** Convierte los datos mediante to dto.
+ * @param entity parametro de entrada.
+ * @return resultado de la operacion.
+ */
     public UserDto.Response toDto(UserEntity entity) {
         if(entity == null) {
             return null;

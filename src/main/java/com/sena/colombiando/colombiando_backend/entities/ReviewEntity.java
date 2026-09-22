@@ -10,6 +10,10 @@ import java.util.UUID;
 @Table(
         name = "reviews",
         uniqueConstraints = {
+/** Ejecuta la operacion unique constraint.
+ * @param uq_review_booking parametro de entrada.
+ * @param booking_id parametro de entrada.
+ */
                 @UniqueConstraint(
                         name = "uq_review_booking",
                         columnNames = {"booking_id"}
@@ -60,46 +64,78 @@ public class ReviewEntity {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+/** Inicializa la instancia.
+ */
     public ReviewEntity() {}
 
     // Getters & Setters
 
+/** Consulta id.
+ * @return resultado de la operacion.
+ */
     public UUID getId() {
         return id;
     }
 
+/** Consulta user.
+ * @return resultado de la operacion.
+ */
     public UserEntity getUser() {
         return user;
     }
 
+/** Actualiza user.
+ * @param user parametro de entrada.
+ */
     public void setUser(UserEntity user) {
         this.user = user;
     }
 
+/** Consulta booking.
+ * @return resultado de la operacion.
+ */
     public BookingEntity getBooking() {
         return booking;
     }
 
+/** Actualiza booking.
+ * @param booking parametro de entrada.
+ */
     public void setBooking(BookingEntity booking) {
         this.booking = booking;
     }
 
+/** Consulta rating.
+ * @return resultado de la operacion.
+ */
     public int getRating() {
         return rating;
     }
 
+/** Actualiza rating.
+ * @param rating parametro de entrada.
+ */
     public void setRating(int rating) {
         this.rating = rating;
     }
 
+/** Consulta review.
+ * @return resultado de la operacion.
+ */
     public String getReview() {
         return review;
     }
 
+/** Actualiza review.
+ * @param review parametro de entrada.
+ */
     public void setReview(String review) {
         this.review = review;
     }
 
+/** Consulta created at.
+ * @return resultado de la operacion.
+ */
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

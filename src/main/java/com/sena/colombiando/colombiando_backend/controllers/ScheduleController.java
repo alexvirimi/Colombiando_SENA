@@ -17,10 +17,21 @@ import java.util.UUID;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
+/** Inicializa la instancia.
+ * @param scheduleService parametro de entrada.
+ */
     public ScheduleController(ScheduleService scheduleService) {
         this.scheduleService = scheduleService;
     }
 
+/** Consulta all schedules.
+ * @param guideId parametro de entrada.
+ * @param placeId parametro de entrada.
+ * @param status parametro de entrada.
+ * @param startDate parametro de entrada.
+ * @param endDate parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @GetMapping
     public ResponseEntity<List<ScheduleDto.Response>> getAllSchedules(
             @RequestParam(required = false) UUID guideId,
@@ -32,6 +43,10 @@ public class ScheduleController {
         return ResponseEntity.ok(scheduleService.searchSchedules(guideId, placeId, status, startDate, endDate));
     }
 
+/** Crea schedule.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @PostMapping
     public ResponseEntity<ScheduleDto.Response> createSchedule(
             @Valid @RequestBody ScheduleDto.Create request
@@ -40,6 +55,14 @@ public class ScheduleController {
         return ResponseEntity.created(URI.create("/api/schedules/" + created.id())).body(created);
     }
 
+/** Ejecuta la operacion patch mapping.
+ * @param id parametro de entrada.
+ */
+/** Actualiza .
+ * @param id parametro de entrada.
+ * @param request parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @PatchMapping("/{id}")
     public ResponseEntity<ScheduleDto.Response> update(
             @PathVariable UUID id,
@@ -48,6 +71,13 @@ public class ScheduleController {
         return ResponseEntity.ok(scheduleService.updateSchedule(id, request));
     }
 
+/** Ejecuta la operacion delete mapping.
+ * @param id parametro de entrada.
+ */
+/** Elimina .
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
     @DeleteMapping("/{id}")
     public ResponseEntity<ScheduleDto.Response> delete(
             @PathVariable UUID id
