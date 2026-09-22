@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface UserDto {
 
+    @Schema(name = "UserBase")
     public record Base(
             String name,
             String lastName,
@@ -15,6 +16,7 @@ public interface UserDto {
             String phone
     ) {}
 
+    @Schema(name = "UserPublic")
     public record UserPublic(
             UUID id,
             String name,
@@ -34,11 +36,13 @@ public interface UserDto {
             UserStatusEnum status
     ) {}
 
+    @Schema(name = "UserChangePassword")
     public record ChangePassword(
             String currentPassword,
             String newPassword
     ) {}
 
+    @Schema(name = "UserResponse")
     public record Response(
             UUID id,
             Base data,

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface PlaceDto {
 
-    @Schema(name = "PaymentBase")
+    @Schema(name = "PlaceBase")
     public record Base(
             @NotNull(message = "El nombre del lugar es obligatorio.")
             String name,
@@ -31,14 +31,14 @@ public interface PlaceDto {
             Base data
     ) {}
 
-    @Schema(name = "PaymentPublic")
+    @Schema(name = "PlacePublic")
     public record PlacePublic(
             UUID id,
             Base data,
             AddressDto.Response address
     ) {}
 
-    @Schema(name = "PaymentResponse")
+    @Schema(name = "PlaceResponse")
     public record Response(
             UUID id,
             Base data,
