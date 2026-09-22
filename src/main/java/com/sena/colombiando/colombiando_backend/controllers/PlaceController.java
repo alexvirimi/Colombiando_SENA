@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/places/")
+@RequestMapping("/places")
 public class PlaceController {
 
     private final PlaceService placeService;

@@ -32,7 +32,8 @@ public class PlaceService {
     public PlaceDto.Response createPlace(PlaceDto.Create request) {
         PlaceEntity placeEntity = placeMapper.toEntity(request);
 
-        AddressEntity address = addressRepository.getReferenceById(request.addressID());
+        AddressEntity address = addressRepository.findById(request.addressID())
+                .orElseThrow(() -> new EntityNotFoundException("Dirección no encontrada."));
         placeEntity.setAddress(address);
 
         placeRepository.save(placeEntity);
