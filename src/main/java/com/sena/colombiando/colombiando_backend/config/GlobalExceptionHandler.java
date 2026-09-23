@@ -61,6 +61,8 @@ public class GlobalExceptionHandler {
     }
 
 /** Maneja credenciales inválidas en login.
+ * @param ex parametro de entrada.
+ * @return resultado de la operacion.
  */
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<Map<String, String>> handleInvalidCredentials(InvalidCredentialsException ex) {
@@ -70,6 +72,8 @@ public class GlobalExceptionHandler {
     }
 
 /** Maneja intento de crear/registrar un recurso que ya existe.
+ * @param ex parametro de entrada.
+ * @return resultado de la operacion.
  */
     @ExceptionHandler(EntityExistsException.class)
     public ResponseEntity<Map<String, String>> handleEntityExists(EntityExistsException ex) {
