@@ -14,10 +14,10 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(length = 150,  nullable = false)
+    @Column(length = 150)
     private String name;
 
-    @Column(name = "last_name", length = 150, nullable = false)
+    @Column(name = "last_name", length = 150)
     private String lastName; // Changed to camelCase to follow Java naming conventions
 
     @Column(length = 150, unique = true, nullable = false)
@@ -140,15 +140,6 @@ public class UserEntity {
  */
     public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-/** Actualiza name last name phone password to null.
- */
-    public void setNameLastNamePhonePasswordToNull() {
-        this.name = null;
-        this.lastName = null;
-        this.phone = null;
-        this.password = null;
     }
 
 }

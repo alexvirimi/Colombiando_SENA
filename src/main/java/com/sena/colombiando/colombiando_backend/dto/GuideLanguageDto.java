@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface GuideLanguageDto {
 
         @Schema(name = "GuideLanguageCreate")
-        public record Create (
+        record Create (
                 @NotNull(message = "El ID del guía es obligatorio.")
                 UUID guideId,
 
@@ -22,12 +22,12 @@ public interface GuideLanguageDto {
         ) {}
 
         @Schema(name = "GuideLanguageUpdate")
-        public record Update(
+        record Update(
                 GuideLanguagesLevelEnum level
         ) {}
 
         @Schema(name = "GuideLanguageResponse")
-        public record Response(
+        record Response(
                 GuideLanguageId id,
                 GuideDto.GuidePublic guide,
                 LanguageDto.Response language,

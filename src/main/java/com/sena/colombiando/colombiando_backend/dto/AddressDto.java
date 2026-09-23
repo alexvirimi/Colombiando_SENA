@@ -1,6 +1,7 @@
 package com.sena.colombiando.colombiando_backend.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -10,8 +11,8 @@ import java.util.UUID;
 public interface AddressDto {
 
         @Schema(name = "AddressBase")
-        public record Base(
-                @NotNull(message = "La dirección es obligatoria.")
+        record Base(
+                @NotBlank(message = "La dirección es obligatoria.")
                 String addressText,
 
                 String countryCode,
@@ -32,17 +33,17 @@ public interface AddressDto {
         }
 
         @Schema(name = "AddressCreate")
-        public record Create(
+        record Create(
                 Base data
         ) {}
 
         @Schema(name = "AddressUpdate")
-        public record Update(
+        record Update(
                 Base data
         ) {}
 
         @Schema(name = "AddressResponse")
-        public record Response(
+        record Response(
                 UUID id,
                 Base data
         ) {}

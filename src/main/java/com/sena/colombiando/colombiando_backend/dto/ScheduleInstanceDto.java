@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface ScheduleInstanceDto {
 
     @Schema(name = "ScheduleInstanceBase")
-    public record Base(
+    record Base(
             @NotNull()
             LocalDate date,
 
@@ -20,19 +20,19 @@ public interface ScheduleInstanceDto {
     ){}
 
     @Schema(name = "ScheduleInstanceCreate")
-    public record Create(
+    record Create(
             UUID scheduleId,
             Base data
     ) {}
 
     @Schema(name = "ScheduleInstanceUpdate")
-    public record Update(
+    record Update(
             Integer maxCapacity,
             ScheduleInstanceStateEnum state
     ) {}
 
     @Schema(name = "ScheduleInstanceResponse")
-    public record Response(
+    record Response(
             UUID id,
             ScheduleDto.Response schedule,
             Base data,

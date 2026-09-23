@@ -67,7 +67,7 @@ public class PlaceController {
  * @param addressId parametro de entrada.
  * @return resultado de la operacion.
  */
-    @GetMapping("/by-address/{id}")
+    @GetMapping("/by-address/{addressId}")
     public ResponseEntity<PlaceDto.Response> findByAddress(@PathVariable UUID addressId) {
         return ResponseEntity.ok(placeService.getPlaceByAddressId(addressId));
     }

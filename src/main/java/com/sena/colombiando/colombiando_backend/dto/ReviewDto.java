@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface ReviewDto {
 
     @Schema(name = "ReviewBase")
-    public record Base(
+    record Base(
             @Size(min = 0, max = 5, message = "La calificación debe estar entre 0 y 5.")
             Integer rating,
 
@@ -18,14 +18,14 @@ public interface ReviewDto {
     ) {}
 
     @Schema(name = "ReviewCreate")
-    public record Create(
+    record Create(
             @NotNull(message = "El ID del usuario es obligatorio.")
             UUID userId,
 
             @NotNull(message = "El ID de la reserva es obligatorio.")
             UUID bookingId,
 
-            @NotNull()
+            @NotNull(message = "La calificación es obligatoria.")
             @Size(min = 0, max = 5, message = "La calificación debe estar entre 0 y 5.")
             Integer rating,
 
@@ -33,12 +33,12 @@ public interface ReviewDto {
     ) {}
 
     @Schema(name = "ReviewUpdate")
-    public record Update(
+    record Update(
             Base data
     ) {}
 
     @Schema(name = "ReviewResponse")
-    public record Response(
+    record Response(
             UUID id,
             UserDto.UserPublic user,
             BookingDto.BookingPublic booking,

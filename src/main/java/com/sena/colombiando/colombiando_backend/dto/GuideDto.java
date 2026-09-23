@@ -2,7 +2,7 @@ package com.sena.colombiando.colombiando_backend.dto;
 
 import com.sena.colombiando.colombiando_backend.entities.GuideStatusEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -10,11 +10,11 @@ import java.util.UUID;
 public interface GuideDto {
 
         @Schema(name = "GuideBase")
-        public record Base(
-                @NotNull(message = "El nombre del guía es obligatorio.")
+        record Base(
+                @NotBlank(message = "El nombre del guía es obligatorio.")
                 String name,
 
-                @NotNull(message = "El apellido del guía es obligatorio.")
+                @NotBlank(message = "El apellido del guía es obligatorio.")
                 String lastName,
 
                 String bio,
@@ -25,18 +25,18 @@ public interface GuideDto {
         ) {}
 
         @Schema(name = "GuideCreate")
-        public record Create(
+        record Create(
                 Base data
         ) {}
 
         @Schema(name = "GuideUpdate")
-        public record Update(
+        record Update(
                 Base data,
                 GuideStatusEnum status
         ) {}
 
         @Schema(name = "GuidePublic")
-        public record GuidePublic(
+        record GuidePublic(
                 UUID id,
                 String name,
                 String lastName,
@@ -46,7 +46,7 @@ public interface GuideDto {
         ) {}
 
         @Schema(name = "GuideResponse")
-        public record Response(
+        record Response(
                 UUID id,
                 Base data,
                 GuideStatusEnum status,
