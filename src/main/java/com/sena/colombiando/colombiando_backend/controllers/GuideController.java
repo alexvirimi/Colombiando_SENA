@@ -3,6 +3,9 @@ package com.sena.colombiando.colombiando_backend.controllers;
 import com.sena.colombiando.colombiando_backend.dto.GuideDto;
 import com.sena.colombiando.colombiando_backend.entities.GuideStatusEnum;
 import com.sena.colombiando.colombiando_backend.services.GuideService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/guides")
+@Tag(name = "Guides", description = "Gestión de guías turísticos")
 public class GuideController {
 
     private final GuideService guideService;
@@ -29,6 +33,8 @@ public class GuideController {
  * @param guideStatus parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Listar guías", description = "Consulta guías con filtros opcionales.")
+    @ApiResponse(responseCode = "200", description = "Guías consultados correctamente.")
     @GetMapping
     public ResponseEntity<List<GuideDto.Response>> findAll(
             @RequestParam(required = false) String name,
@@ -52,6 +58,8 @@ public class GuideController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Crear guía")
+    @ApiResponse(responseCode = "201", description = "Guía creado correctamente.")
     @PostMapping
     public ResponseEntity<GuideDto.Response> create(
             @Valid @RequestBody GuideDto.Create request
@@ -67,6 +75,8 @@ public class GuideController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Consultar guía por ID")
+    @ApiResponse(responseCode = "200", description = "Guía consultado correctamente.")
     @GetMapping("/{id}")
     public ResponseEntity<GuideDto.Response> getById(
             @PathVariable UUID id
@@ -82,6 +92,8 @@ public class GuideController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Actualizar guía")
+    @ApiResponse(responseCode = "200", description = "Guía actualizado correctamente.")
     @PatchMapping("/{id}")
     public ResponseEntity<GuideDto.Response> update(
             @PathVariable UUID id,
@@ -97,6 +109,8 @@ public class GuideController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Eliminar guía")
+    @ApiResponse(responseCode = "200", description = "Guía eliminado correctamente.")
     @DeleteMapping("/{id}")
     public ResponseEntity<GuideDto.Response> delete(
             @PathVariable UUID id

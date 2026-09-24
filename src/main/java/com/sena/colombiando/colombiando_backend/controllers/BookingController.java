@@ -3,6 +3,9 @@ package com.sena.colombiando.colombiando_backend.controllers;
 import com.sena.colombiando.colombiando_backend.dto.BookingDto;
 import com.sena.colombiando.colombiando_backend.entities.BookingStatusEnum;
 import com.sena.colombiando.colombiando_backend.services.BookingService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/bookings")
+@Tag(name = "Bookings", description = "Gestión de reservas")
 public class BookingController {
 
     private final BookingService bookingService;
@@ -32,6 +36,8 @@ public class BookingController {
  * @param toDate parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Listar reservas", description = "Consulta reservas con filtros opcionales.")
+    @ApiResponse(responseCode = "200", description = "Reservas consultadas correctamente.")
     @GetMapping
     public ResponseEntity<List<BookingDto.Response>> getAllBookings(
             @RequestParam(required = false) UUID userId,
@@ -47,6 +53,8 @@ public class BookingController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Crear reserva")
+    @ApiResponse(responseCode = "201", description = "Reserva creada correctamente.")
     @PostMapping
     public ResponseEntity<BookingDto.Response> create(
             @Valid @RequestBody BookingDto.Create request
@@ -62,6 +70,8 @@ public class BookingController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Consultar reserva por ID")
+    @ApiResponse(responseCode = "200", description = "Reserva consultada correctamente.")
     @GetMapping("/{id}")
     public ResponseEntity<BookingDto.Response> getBooking(
             @PathVariable UUID id
@@ -77,6 +87,8 @@ public class BookingController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Actualizar reserva")
+    @ApiResponse(responseCode = "200", description = "Reserva actualizada correctamente.")
     @PatchMapping("/{id}")
     public ResponseEntity<BookingDto.Response> update(
             @PathVariable UUID id,
@@ -92,6 +104,8 @@ public class BookingController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Eliminar reserva")
+    @ApiResponse(responseCode = "200", description = "Reserva eliminada correctamente.")
     @DeleteMapping("/{id}")
     public ResponseEntity<BookingDto.Response> delete(
             @PathVariable UUID id

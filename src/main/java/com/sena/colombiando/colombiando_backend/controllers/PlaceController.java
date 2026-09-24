@@ -2,6 +2,9 @@ package com.sena.colombiando.colombiando_backend.controllers;
 
 import com.sena.colombiando.colombiando_backend.dto.PlaceDto;
 import com.sena.colombiando.colombiando_backend.services.PlaceService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/places")
+@Tag(name = "Places", description = "Gestión de lugares turísticos")
 public class PlaceController {
 
     private final PlaceService placeService;
@@ -26,6 +30,8 @@ public class PlaceController {
  * @param containing parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Listar lugares", description = "Consulta lugares y permite filtrar por nombre.")
+    @ApiResponse(responseCode = "200", description = "Lugares consultados correctamente.")
     @GetMapping
     public ResponseEntity<List<PlaceDto.Response>> findAll(
             @RequestParam(required = false) String containing
@@ -40,6 +46,8 @@ public class PlaceController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Crear lugar")
+    @ApiResponse(responseCode = "201", description = "Lugar creado correctamente.")
     @PostMapping
     public ResponseEntity<PlaceDto.Response> create(
             @Valid @RequestBody PlaceDto.Create request
@@ -55,6 +63,8 @@ public class PlaceController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Consultar lugar por ID")
+    @ApiResponse(responseCode = "200", description = "Lugar consultado correctamente.")
     @GetMapping("/{id}")
     public ResponseEntity<PlaceDto.Response> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(placeService.getPlace(id));
@@ -67,6 +77,8 @@ public class PlaceController {
  * @param addressId parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Consultar lugar por dirección")
+    @ApiResponse(responseCode = "200", description = "Lugar consultado correctamente.")
     @GetMapping("/by-address/{addressId}")
     public ResponseEntity<PlaceDto.Response> findByAddress(@PathVariable UUID addressId) {
         return ResponseEntity.ok(placeService.getPlaceByAddressId(addressId));
@@ -80,6 +92,8 @@ public class PlaceController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Actualizar lugar")
+    @ApiResponse(responseCode = "200", description = "Lugar actualizado correctamente.")
     @PatchMapping("/{id}")
     public ResponseEntity<PlaceDto.Response> update(
             @PathVariable UUID id,
@@ -95,6 +109,8 @@ public class PlaceController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Eliminar lugar")
+    @ApiResponse(responseCode = "200", description = "Lugar eliminado correctamente.")
     @DeleteMapping("/{id}")
     public ResponseEntity<PlaceDto.Response> delete(
             @PathVariable UUID id
