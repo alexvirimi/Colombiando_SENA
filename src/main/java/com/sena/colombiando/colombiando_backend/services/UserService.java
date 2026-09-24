@@ -124,7 +124,6 @@ public class UserService {
 
         user.setStatus(UserStatusEnum.DELETED);
         user.setEmail(deletedEmail);
-        user.setNameLastNamePhonePasswordToNull();
 
         userRepository.save(user);
         return userMapper.toDto(user);

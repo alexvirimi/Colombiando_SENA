@@ -3,6 +3,9 @@ package com.sena.colombiando.colombiando_backend.controllers;
 import com.sena.colombiando.colombiando_backend.dto.ScheduleInstanceDto;
 import com.sena.colombiando.colombiando_backend.entities.ScheduleInstanceStateEnum;
 import com.sena.colombiando.colombiando_backend.services.ScheduleInstanceService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/schedule-instances")
+@Tag(name = "Schedule Instances", description = "Gestión de instancias de horarios")
 public class ScheduleInstanceController {
 
     private final ScheduleInstanceService scheduleInstanceService;
@@ -32,6 +36,8 @@ public class ScheduleInstanceController {
  * @param minCapacity parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Listar instancias de horarios", description = "Consulta instancias con filtros opcionales.")
+    @ApiResponse(responseCode = "200", description = "Instancias consultadas correctamente.")
     @GetMapping
     public ResponseEntity<List<ScheduleInstanceDto.Response>> getAllScheduleInstances(
             @RequestParam(required = false) UUID scheduleID,
@@ -53,6 +59,8 @@ public class ScheduleInstanceController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Crear instancia de horario")
+    @ApiResponse(responseCode = "201", description = "Instancia creada correctamente.")
     @PostMapping
     public ResponseEntity<ScheduleInstanceDto.Response> create(
             @RequestBody ScheduleInstanceDto.Create request
@@ -68,6 +76,8 @@ public class ScheduleInstanceController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Consultar instancia por ID")
+    @ApiResponse(responseCode = "200", description = "Instancia consultada correctamente.")
     @GetMapping("/{id}")
     public ResponseEntity<ScheduleInstanceDto.Response> getScheduleInstance(
             @PathVariable UUID id
@@ -83,6 +93,8 @@ public class ScheduleInstanceController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Actualizar instancia de horario")
+    @ApiResponse(responseCode = "200", description = "Instancia actualizada correctamente.")
     @PatchMapping("/{id}")
     public ResponseEntity<ScheduleInstanceDto.Response> update(
             @PathVariable UUID id,
@@ -100,6 +112,8 @@ public class ScheduleInstanceController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Eliminar instancia de horario")
+    @ApiResponse(responseCode = "200", description = "Instancia eliminada correctamente.")
     @DeleteMapping("/{id}")
     public ResponseEntity<ScheduleInstanceDto.Response> deleteScheduleInstance(
             @PathVariable UUID id

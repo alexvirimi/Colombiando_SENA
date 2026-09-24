@@ -3,6 +3,9 @@ package com.sena.colombiando.colombiando_backend.controllers;
 import com.sena.colombiando.colombiando_backend.dto.PaymentDto;
 import com.sena.colombiando.colombiando_backend.entities.PaymentStatusEnum;
 import com.sena.colombiando.colombiando_backend.services.PaymentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.EntityResponse;
@@ -13,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/payments")
+@Tag(name = "Payments", description = "Gestión de pagos")
 public class PaymentController {
 
     private final PaymentService paymentService;
@@ -28,6 +32,8 @@ public class PaymentController {
  * @param status parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Listar pagos", description = "Consulta pagos con filtros opcionales.")
+    @ApiResponse(responseCode = "200", description = "Pagos consultados correctamente.")
     @GetMapping
     public ResponseEntity<List<PaymentDto.Response>> getPayments(
             @RequestParam(required = false) UUID bookingId,
@@ -40,6 +46,8 @@ public class PaymentController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Crear pago")
+    @ApiResponse(responseCode = "201", description = "Pago creado correctamente.")
     @PostMapping
     public ResponseEntity<PaymentDto.Response> createPayment(
             @RequestBody PaymentDto.Create request
@@ -55,6 +63,8 @@ public class PaymentController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Consultar pago por ID")
+    @ApiResponse(responseCode = "200", description = "Pago consultado correctamente.")
     @GetMapping("/{id}")
     public ResponseEntity<PaymentDto.Response> getPayment(
             @PathVariable UUID id
@@ -70,6 +80,8 @@ public class PaymentController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Actualizar pago")
+    @ApiResponse(responseCode = "200", description = "Pago actualizado correctamente.")
     @PatchMapping("/{id}")
     public ResponseEntity<PaymentDto.Response> update(
             @PathVariable UUID id,
@@ -85,6 +97,8 @@ public class PaymentController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Eliminar pago")
+    @ApiResponse(responseCode = "200", description = "Pago eliminado correctamente.")
     @DeleteMapping("/{id}")
     public ResponseEntity<PaymentDto.Response> deletePayment(
             @PathVariable UUID id

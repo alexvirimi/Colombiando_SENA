@@ -2,6 +2,9 @@ package com.sena.colombiando.colombiando_backend.controllers;
 
 import com.sena.colombiando.colombiando_backend.dto.ReviewDto;
 import com.sena.colombiando.colombiando_backend.services.ReviewService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/reviews")
+@Tag(name = "Reviews", description = "Gestión de reseñas")
 public class ReviewController {
 
     private final ReviewService reviewService;
@@ -25,6 +29,8 @@ public class ReviewController {
 /** Consulta all reviews.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Listar reseñas")
+    @ApiResponse(responseCode = "200", description = "Reseñas consultadas correctamente.")
     @GetMapping
     public ResponseEntity<List<ReviewDto.Response>> getAllReviews() {
         return ResponseEntity.ok(reviewService.getAllReviews());
@@ -34,6 +40,8 @@ public class ReviewController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Crear reseña")
+    @ApiResponse(responseCode = "201", description = "Reseña creada correctamente.")
     @PostMapping
     public ResponseEntity<ReviewDto.Response> create(
             @Valid @RequestBody ReviewDto.Create request
@@ -49,6 +57,8 @@ public class ReviewController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Consultar reseña por ID")
+    @ApiResponse(responseCode = "200", description = "Reseña consultada correctamente.")
     @GetMapping("/{id}")
     public ResponseEntity<ReviewDto.Response> getReviewById(@PathVariable UUID id) {
         return ResponseEntity.ok(reviewService.getReviewById(id));
@@ -62,6 +72,8 @@ public class ReviewController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Actualizar reseña")
+    @ApiResponse(responseCode = "200", description = "Reseña actualizada correctamente.")
     @PatchMapping("/{id}")
     public ResponseEntity<ReviewDto.Response> update(
             @PathVariable UUID id,
@@ -77,6 +89,8 @@ public class ReviewController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Eliminar reseña")
+    @ApiResponse(responseCode = "200", description = "Reseña eliminada correctamente.")
     @DeleteMapping("/{id}")
     public ResponseEntity<ReviewDto.Response> deleteReviewById(@PathVariable UUID id) {
         return ResponseEntity.ok(reviewService.deleteReview(id));
@@ -89,6 +103,8 @@ public class ReviewController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Consultar calificación promedio")
+    @ApiResponse(responseCode = "200", description = "Calificación promedio consultada correctamente.")
     @GetMapping("/average-rating/{id}")
     public ResponseEntity<Double> getAverageRating(
             @PathVariable UUID id

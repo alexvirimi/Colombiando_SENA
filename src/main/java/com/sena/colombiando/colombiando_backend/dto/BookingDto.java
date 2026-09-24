@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface BookingDto {
 
         @Schema(name = "BookingCreate")
-        public record Create(
+        record Create(
                 @NotNull(message = "El ID del usuario es obligatorio.")
                 UUID userId,
 
@@ -25,7 +25,7 @@ public interface BookingDto {
         ) {}
 
         @Schema(name = "BookingUpdate")
-        public record Update(
+        record Update(
                 @Min(value = 1, message = "Mínimo 1 persona.")
                 Integer numPeople,
 
@@ -33,14 +33,14 @@ public interface BookingDto {
         ) {}
 
         @Schema(name = "BookingPublic")
-        public record BookingPublic(
+        record BookingPublic(
                 UUID id,
                 BookingStatusEnum status,
                 LocalDateTime createdAt
         ) {}
 
         @Schema(name = "BookingResponse")
-        public record Response(
+        record Response(
                 UUID id,
                 Integer numPeople,
                 UserDto.UserPublic user,

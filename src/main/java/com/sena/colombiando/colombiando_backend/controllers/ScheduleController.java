@@ -3,6 +3,9 @@ package com.sena.colombiando.colombiando_backend.controllers;
 import com.sena.colombiando.colombiando_backend.dto.ScheduleDto;
 import com.sena.colombiando.colombiando_backend.entities.ScheduleStatusEnum;
 import com.sena.colombiando.colombiando_backend.services.ScheduleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/schedules")
+@Tag(name = "Schedules", description = "Gestión de horarios")
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
@@ -32,6 +36,8 @@ public class ScheduleController {
  * @param endDate parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Listar horarios", description = "Consulta horarios con filtros opcionales.")
+    @ApiResponse(responseCode = "200", description = "Horarios consultados correctamente.")
     @GetMapping
     public ResponseEntity<List<ScheduleDto.Response>> getAllSchedules(
             @RequestParam(required = false) UUID guideId,
@@ -47,6 +53,8 @@ public class ScheduleController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Crear horario")
+    @ApiResponse(responseCode = "201", description = "Horario creado correctamente.")
     @PostMapping
     public ResponseEntity<ScheduleDto.Response> createSchedule(
             @Valid @RequestBody ScheduleDto.Create request
@@ -63,6 +71,8 @@ public class ScheduleController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Actualizar horario")
+    @ApiResponse(responseCode = "200", description = "Horario actualizado correctamente.")
     @PatchMapping("/{id}")
     public ResponseEntity<ScheduleDto.Response> update(
             @PathVariable UUID id,
@@ -78,6 +88,8 @@ public class ScheduleController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Eliminar horario")
+    @ApiResponse(responseCode = "200", description = "Horario eliminado correctamente.")
     @DeleteMapping("/{id}")
     public ResponseEntity<ScheduleDto.Response> delete(
             @PathVariable UUID id

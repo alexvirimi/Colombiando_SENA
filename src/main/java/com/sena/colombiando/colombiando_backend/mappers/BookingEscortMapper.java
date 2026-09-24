@@ -38,7 +38,7 @@ public class BookingEscortMapper {
         entity.setLastName(dataBase.lastName());
         entity.setDocumentType(dataBase.documentType());
         entity.setIdNumber(dataBase.idNumber());
-        entity.setBirthDate(dataBase.birthDate());
+        entity.setBirthDate(request.birthDate());
 
         return entity;
     }
@@ -56,13 +56,13 @@ public class BookingEscortMapper {
                 entity.getName(),
                 entity.getLastName(),
                 entity.getDocumentType(),
-                entity.getIdNumber(),
-                entity.getBirthDate()
+                entity.getIdNumber()
         );
 
         return new BookingEscortDto.Response(
                 entity.getId(),
                 dataBase,
+                entity.getBirthDate(),
                 bookingMapper.toPublicDto(entity.getBooking())
         );
     }

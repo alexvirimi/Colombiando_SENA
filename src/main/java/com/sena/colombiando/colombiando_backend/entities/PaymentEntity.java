@@ -50,7 +50,7 @@ public class PaymentEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @org.hibernate.annotations.ColumnDefault("'PENDING'")
-    private PaymentStatusEnum status;
+    private PaymentStatusEnum status = PaymentStatusEnum.PENDING;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

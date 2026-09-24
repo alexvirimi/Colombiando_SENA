@@ -13,7 +13,7 @@ import java.util.UUID;
 public interface PaymentDto {
 
     @Schema(name = "PaymentCreate")
-    public record Create(
+    record Create(
             @NotNull(message = "El ID de la reserva es obligatorio.")
             UUID bookingId,
 
@@ -34,7 +34,7 @@ public interface PaymentDto {
     }
 
     @Schema(name = "PaymentUpdate")
-    public record Update(
+    record Update(
             BigDecimal amountToPay,
             String currency,
             PaymentMethodEnum paymentMethod,
@@ -42,7 +42,7 @@ public interface PaymentDto {
     ) {}
 
     @Schema(name = "PaymentResponse")
-    public record Response(
+    record Response(
             UUID id,
             BookingDto.BookingPublic booking,
             BigDecimal amountToPay,

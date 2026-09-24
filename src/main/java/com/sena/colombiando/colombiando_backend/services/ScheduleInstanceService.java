@@ -100,6 +100,7 @@ public class ScheduleInstanceService {
                 .orElseThrow(() -> new EntityNotFoundException("Instancia de horario no encontrada."));
 
         scheduleInstance.setState(ScheduleInstanceStateEnum.CANCELLED);
+        scheduleInstance.setSchedule(null);
         scheduleInstanceRepository.save(scheduleInstance);
         return scheduleInstanceMapper.toDto(scheduleInstance);
     }

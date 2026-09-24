@@ -13,7 +13,7 @@ import java.util.UUID;
 public interface ScheduleDto {
 
     @Schema(name = "ScheduleBase")
-    public record Base(
+    record Base(
             @NotNull(message = "El tiempo de inicio es obligatorio.")
             LocalTime startTime,
 
@@ -28,7 +28,7 @@ public interface ScheduleDto {
     ) {}
 
     @Schema(name = "ScheduleCreate")
-    public record Create(
+    record Create(
             @NotNull(message = "El ID del guía es obligatorio.")
             UUID guideId,
 
@@ -47,7 +47,7 @@ public interface ScheduleDto {
     ) {}
 
     @Schema(name = "ScheduleUpdate")
-    public record Update(
+    record Update(
             Base data,
 
             @Min(value = 1, message = "La capacidad máxima debe ser mayor a 1.")
@@ -60,7 +60,7 @@ public interface ScheduleDto {
     ) {}
 
     @Schema(name = "ScheduleResponse")
-    public record Response(
+    record Response(
             UUID id,
             GuideDto.GuidePublic guide,
             PlaceDto.PlacePublic place,

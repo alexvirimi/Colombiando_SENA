@@ -58,6 +58,12 @@ public class ScheduleService {
         scheduleEntity.setGuide(guide);
         scheduleEntity.setPlace(place);
 
+        if (scheduleEntity.getStartDate().isAfter(scheduleEntity.getEndDate())) {
+            throw new IllegalArgumentException(
+                    "La fecha de inicio no puede ser posterior a la fecha de finalización."
+            );
+        }
+
         scheduleRepository.save(scheduleEntity);
         return scheduleMapper.toDto(scheduleEntity);
     }
@@ -81,6 +87,12 @@ public class ScheduleService {
         Optional.ofNullable(dataBase.endTime()).ifPresent(schedule::setEndTime);
         Optional.ofNullable(dataBase.startDate()).ifPresent(schedule::setStartDate);
         Optional.ofNullable(dataBase.endDate()).ifPresent(schedule::setEndDate);
+
+        if (schedule.getStartDate().isAfter(schedule.getEndDate())) {
+            throw new IllegalArgumentException(
+                    "La fecha de inicio no puede ser posterior a la fecha de finalización."
+            );
+        }
 
         scheduleRepository.save(schedule);
         return scheduleMapper.toDto(schedule);

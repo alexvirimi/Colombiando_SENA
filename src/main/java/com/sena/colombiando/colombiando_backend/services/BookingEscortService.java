@@ -43,7 +43,6 @@ public class BookingEscortService {
  */
     @Transactional
     public BookingEscortDto.Response createBookingEscort(BookingEscortDto.Create request) {
-        var dataBase = request.data();
         BookingEntity booking = bookingRepository.getReferenceById(request.bookingId());
 
         BookingEscortEntity bookingEscort = bookingEscortMapper.toEntity(request);
@@ -68,7 +67,7 @@ public class BookingEscortService {
         Optional.ofNullable(dataBase.lastName()).ifPresent(bookingEscort::setLastName);
         Optional.ofNullable(dataBase.documentType()).ifPresent(bookingEscort::setDocumentType);
         Optional.ofNullable(dataBase.idNumber()).ifPresent(bookingEscort::setIdNumber);
-        Optional.ofNullable(dataBase.birthDate()).ifPresent(bookingEscort::setBirthDate);
+        Optional.ofNullable(request.birthDate()).ifPresent(bookingEscort::setBirthDate);
 
         bookingEscortRepository.save(bookingEscort);
         return bookingEscortMapper.toDto(bookingEscort);

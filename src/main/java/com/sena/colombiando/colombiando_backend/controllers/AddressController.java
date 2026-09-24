@@ -2,6 +2,9 @@ package com.sena.colombiando.colombiando_backend.controllers;
 
 import com.sena.colombiando.colombiando_backend.dto.AddressDto;
 import com.sena.colombiando.colombiando_backend.services.AddressService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/addresses")
+@Tag(name = "Addresses", description = "Gestión de direcciones")
 public class AddressController {
 
     private final AddressService addressService;
@@ -27,6 +31,8 @@ public class AddressController {
  * @param municipality parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Listar direcciones", description = "Consulta todas las direcciones o filtra por país o municipio.")
+    @ApiResponse(responseCode = "200", description = "Direcciones consultadas correctamente.")
     @GetMapping
     public ResponseEntity<List<AddressDto.Response>> getAllAddresses(
             @RequestParam(required = false) String countryCode,
@@ -45,6 +51,8 @@ public class AddressController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Crear dirección")
+    @ApiResponse(responseCode = "201", description = "Dirección creada correctamente.")
     @PostMapping
     public ResponseEntity<AddressDto.Response> create(
             @Valid @RequestBody AddressDto.Create request
@@ -60,6 +68,8 @@ public class AddressController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Consultar dirección por ID")
+    @ApiResponse(responseCode = "200", description = "Dirección consultada correctamente.")
     @GetMapping("/{id}")
     public ResponseEntity<AddressDto.Response> getById(@PathVariable UUID id) {
         return ResponseEntity.ok(addressService.getAddress(id));
@@ -73,6 +83,8 @@ public class AddressController {
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Actualizar dirección")
+    @ApiResponse(responseCode = "200", description = "Dirección actualizada correctamente.")
     @PatchMapping("/{id}")
     public ResponseEntity<AddressDto.Response> update(
             @PathVariable UUID id,
@@ -88,6 +100,8 @@ public class AddressController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
+    @Operation(summary = "Eliminar dirección")
+    @ApiResponse(responseCode = "200", description = "Dirección eliminada correctamente.")
     @DeleteMapping("/{id}")
     public ResponseEntity<AddressDto.Response> delete(@PathVariable UUID id) {
         return ResponseEntity.ok(addressService.deleteAddress(id));

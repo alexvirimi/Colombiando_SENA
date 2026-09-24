@@ -116,11 +116,11 @@ public class GuideLanguageService {
         return guideLanguageMapper.toDto(guideLanguage);
     }
 
-/** Consulta search guide languages.
- * @param guideId parametro de entrada.
- * @param languageId parametro de entrada.
- * @return resultado de la operacion.
- */
+    /** Consulta search guide languages.
+    * @param guideId parametro de entrada.
+    * @param languageId parametro de entrada.
+    * @return resultado de la operacion.
+    */
     @Transactional
     public List<GuideLanguageDto.Response> searchGuideLanguages(
             UUID guideId, UUID languageId
@@ -129,19 +129,41 @@ public class GuideLanguageService {
         return responses(guideLanguages);
     }
 
-/** Consulta guide language by guide id and language id.
- * @param guideId parametro de entrada.
- * @param languageId parametro de entrada.
- * @return resultado de la operacion.
- */
+    /** Consulta guide language by guide id and language id.
+    * @param guideId parametro de entrada.
+    * @param languageId parametro de entrada.
+    * @return resultado de la operacion.
+    */
     @Transactional
     public GuideLanguageDto.Response getGuideLanguageByGuideIdAndLanguageId(
             UUID guideId, UUID languageId
     ) {
         GuideLanguageEntity guideLanguage = guideLanguageRepository.findByGuideIdAndLanguageId(guideId, languageId);
         if  (guideLanguage == null) {
-            return null;
+            throw new EntityNotFoundException();
         }
+        return guideLanguageMapper.toDto(guideLanguage);
+    }
+
+    /** Actualiza guide language.
+    * @param guideId parametro de entrada.
+    * @param languageId parametro de entrada.
+    * @param request parametro de entrada.
+    * @return resultado de la operacion.
+    */
+    @Transactional
+    public GuideLanguageDto.Response updateGuideLanguageByGuideIdAndLanguageId(
+            UUID guideId, UUID languageId,
+            GuideLanguageDto.Update request
+    ) {
+        GuideLanguageEntity guideLanguage = guideLanguageRepository.findByGuideIdAndLanguageId(guideId, languageId);
+        if  (guideLanguage == null) {
+            throw new EntityNotFoundException();
+        }
+
+        Optional.ofNullable(request.level()).ifPresent(guideLanguage::setLevel);
+
+        guideLanguageRepository.save(guideLanguage);
         return guideLanguageMapper.toDto(guideLanguage);
     }
 
@@ -152,9 +174,12 @@ public class GuideLanguageService {
  */
     @Transactional
     public GuideLanguageDto.Response deleteGuideLanguageByGuideIdAndLanguageId(UUID guideId, UUID languageId) {
-        GuideLanguageDto.Response guideLanguageToBeDeleted = getGuideLanguageByGuideIdAndLanguageId(guideId, languageId);
+        GuideLanguageEntity guideLanguage = guideLanguageRepository.findByGuideIdAndLanguageId(guideId, languageId);
+        if  (guideLanguage == null) {
+            throw new EntityNotFoundException();
+        }
         guideLanguageRepository.deleteByGuideIdAndLanguageId(guideId, languageId);
-        return guideLanguageToBeDeleted;
+        return guideLanguageMapper.toDto(guideLanguage);
     }
 
 }
