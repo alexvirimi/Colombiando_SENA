@@ -63,12 +63,26 @@ public class GuideController {
 /** Ejecuta la operacion get mapping.
  * @param id parametro de entrada.
  */
+/** Consulta payment.
+ * @param id parametro de entrada.
+ * @return resultado de la operacion.
+ */
+    @GetMapping("/{id}")
+    public ResponseEntity<GuideDto.Response> getById(
+            @PathVariable UUID id
+    ) {
+        return ResponseEntity.ok(guideService.getGuide(id));
+    }
+
+/** Ejecuta la operacion patch mapping.
+ * @param id parametro de entrada.
+ */
 /** Actualiza .
  * @param id parametro de entrada.
  * @param request parametro de entrada.
  * @return resultado de la operacion.
  */
-    @GetMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<GuideDto.Response> update(
             @PathVariable UUID id,
             @RequestBody GuideDto.Update request

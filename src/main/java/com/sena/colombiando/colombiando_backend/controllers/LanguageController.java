@@ -33,8 +33,10 @@ public class LanguageController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
-    @GetMapping("/id")
-    public ResponseEntity<LanguageDto.Response> getById(@PathVariable UUID id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<LanguageDto.Response> getById(
+            @PathVariable UUID id
+    ) {
         return ResponseEntity.ok(languageService.getById(id));
     }
 
@@ -64,7 +66,7 @@ public class LanguageController {
  * @param id parametro de entrada.
  * @return resultado de la operacion.
  */
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<LanguageDto.Response> deleteById(@PathVariable UUID id) {
         return ResponseEntity.ok(languageService.deleteLanguage(id));
     }

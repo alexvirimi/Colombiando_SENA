@@ -98,6 +98,25 @@ public class GuideLanguageController {
         ));
     }
 
+    /** Ejecuta la operacion patch mapping.
+     * @param id parametro de entrada.
+     */
+    /** Actualiza .
+     * @param guideId parametro de entrada.
+     * @param languageId parametro de entrada.
+     * @param request parametro de entrada.
+     * @return resultado de la operacion.
+     */
+    @PatchMapping("/by-guide/{guideId}/by-language/{languageId}")
+    public ResponseEntity<GuideLanguageDto.Response> updateByGuideAndLanguage(
+            @PathVariable UUID guideId, @PathVariable UUID languageId,
+            @RequestBody GuideLanguageDto.Update request
+    ) {
+        return ResponseEntity.ok(guideLanguageService.updateGuideLanguageByGuideIdAndLanguageId(
+                guideId, languageId, request
+        ));
+    }
+
 /** Ejecuta la operacion delete mapping.
  * @param id parametro de entrada.
  */

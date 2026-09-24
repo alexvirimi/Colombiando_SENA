@@ -36,7 +36,6 @@ public class ScheduleInstanceEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "schedule_id",
-            nullable = false,
             foreignKey = @ForeignKey(
                     name = "fk_schedule",
                     foreignKeyDefinition = "FOREIGN KEY (schedule_id) " +

@@ -76,7 +76,7 @@ public class ScheduleEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @org.hibernate.annotations.ColumnDefault("'ACTIVE'")
-    private ScheduleStatusEnum status;
+    private ScheduleStatusEnum status = ScheduleStatusEnum.ACTIVE;
 
 /** Inicializa la instancia.
  */
