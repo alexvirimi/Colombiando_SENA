@@ -63,14 +63,24 @@ public class ScheduleController {
         return ResponseEntity.created(URI.create("/api/schedules/" + created.id())).body(created);
     }
 
-/** Ejecuta la operacion patch mapping.
- * @param id parametro de entrada.
- */
-/** Actualiza .
- * @param id parametro de entrada.
- * @param request parametro de entrada.
- * @return resultado de la operacion.
- */
+    @Operation(summary = "Consultar horario por ID")
+    @ApiResponse(responseCode = "200", description = "Horario consultado correctamente.")
+    @ApiResponse(responseCode = "404", description = "Horario no encontrado.")
+    @GetMapping("/{id}")
+    public ResponseEntity<ScheduleDto.Response> getSchedule(
+            @PathVariable UUID id
+    ) {
+        return ResponseEntity.ok(scheduleService.getSchedule(id));
+    }
+
+    /** Ejecuta la operacion patch mapping.
+     * @param id parametro de entrada.
+     */
+    /** Actualiza .
+     * @param id parametro de entrada.
+     * @param request parametro de entrada.
+     * @return resultado de la operacion.
+     */
     @Operation(summary = "Actualizar horario")
     @ApiResponse(responseCode = "200", description = "Horario actualizado correctamente.")
     @PatchMapping("/{id}")

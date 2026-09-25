@@ -2,6 +2,7 @@ package com.sena.colombiando.colombiando_backend.dto;
 
 import com.sena.colombiando.colombiando_backend.entities.ScheduleStatusEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
@@ -43,6 +44,7 @@ public interface ScheduleDto {
             @Min(value = 1, message = "La capacidad máxima debe ser mayor a 1.")
             BigDecimal pricePerPerson,
 
+            @Valid
             Base data
     ) {}
 

@@ -2,6 +2,7 @@ package com.sena.colombiando.colombiando_backend.dto;
 
 import com.sena.colombiando.colombiando_backend.entities.ScheduleInstanceStateEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,6 +23,7 @@ public interface ScheduleInstanceDto {
     @Schema(name = "ScheduleInstanceCreate")
     record Create(
             UUID scheduleId,
+            @Valid
             Base data
     ) {}
 

@@ -2,7 +2,9 @@ package com.sena.colombiando.colombiando_backend.dto;
 
 import com.sena.colombiando.colombiando_backend.entities.UserStatusEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,7 +15,8 @@ public interface UserDto {
     record Base(
             String name,
             String lastName,
-            @Email()
+            @NotBlank(message = "El correo es obligatorio.")
+            @Email(message = "El correo no tiene un formato válido.")
             String email,
             String phone
     ) {}
@@ -28,6 +31,7 @@ public interface UserDto {
 
     @Schema(name = "UserCreate")
     record Create(
+            @Valid
             Base data,
             String password
     ) {}

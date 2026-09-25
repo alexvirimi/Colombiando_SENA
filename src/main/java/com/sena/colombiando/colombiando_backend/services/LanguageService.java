@@ -62,6 +62,9 @@ public class LanguageService {
     @Transactional
     public LanguageDto.Response findByCode(String code) {
         var entity = languageRepository.findByCode(code);
+        if (entity == null) {
+           throw new EntityNotFoundException("Idioma no encontrado.");
+        }
         return languageMapper.toDto(entity);
     }
 

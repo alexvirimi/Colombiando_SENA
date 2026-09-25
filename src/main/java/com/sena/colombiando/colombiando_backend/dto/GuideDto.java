@@ -2,6 +2,7 @@ package com.sena.colombiando.colombiando_backend.dto;
 
 import com.sena.colombiando.colombiando_backend.entities.GuideStatusEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ public interface GuideDto {
 
         @Schema(name = "GuideCreate")
         record Create(
+                @Valid
                 Base data
         ) {}
 
