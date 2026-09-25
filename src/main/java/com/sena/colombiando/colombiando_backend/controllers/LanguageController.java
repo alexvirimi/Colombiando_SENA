@@ -69,7 +69,9 @@ public class LanguageController {
     @Operation(summary = "Crear idioma")
     @ApiResponse(responseCode = "201", description = "Idioma creado correctamente.")
     @PostMapping
-    public ResponseEntity<LanguageDto.Response> create(LanguageDto.Create request) {
+    public ResponseEntity<LanguageDto.Response> create(
+            @RequestBody LanguageDto.Create request
+    ) {
         LanguageDto.Response created = languageService.createLanguage(request);
         return ResponseEntity.created(URI.create("/api/languages/" + created.id())).body(created);
     }

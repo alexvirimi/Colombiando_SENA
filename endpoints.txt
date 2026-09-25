@@ -1,0 +1,112 @@
+COLOMBIANDO BACKEND
+========================================================
+
+AUTH (/auth)
+------------
+POST   /auth/register
+POST   /auth/login
+
+USUARIOS (/users)
+------------------
+GET    /users
+POST   /users
+GET    /users/{id}
+GET    /users/by-email/{email}
+PATCH  /users/{id}
+PATCH  /users/change-password/{id}
+DELETE /users/{id}
+
+DIRECCIONES (/addresses)
+--------------------------
+GET    /addresses
+POST   /addresses
+GET    /addresses/{id}
+PATCH  /addresses/{id}
+DELETE /addresses/{id}
+
+LUGARES TURISTICOS (/places)
+------------------------------
+GET    /places
+POST   /places
+GET    /places/{id}
+GET    /places/by-address/{addressId}
+PATCH  /places/{id}
+DELETE /places/{id}
+
+GUIAS (/guides)
+-----------------
+GET    /guides
+POST   /guides
+GET    /guides/{id}
+PATCH  /guides/{id}
+DELETE /guides/{id}
+
+IDIOMAS (/languages)
+-----------------------
+GET    /languages
+POST   /languages
+GET    /languages/{id}
+GET    /languages/by-code/{code}
+DELETE /languages/{id}
+
+IDIOMAS DEL GUIA (/guide-languages)
+--------------------------------------
+GET    /guide-languages
+POST   /guide-languages
+GET    /guide-languages/{id}
+GET    /guide-languages/by-guide/{guideId}/by-language/{languageId}
+PATCH  /guide-languages/{id}
+PATCH  /guide-languages/by-guide/{guideId}/by-language/{languageId}
+DELETE /guide-languages/{id}
+DELETE /guide-languages/by-guide/{guideId}/by-language/{languageId}
+
+HORARIOS (/schedules)
+------------------------
+GET    /schedules
+POST   /schedules
+PATCH  /schedules/{id}
+DELETE /schedules/{id}
+
+INSTANCIAS DE HORARIO (/schedule-instances)
+-----------------------------------------------
+GET    /schedule-instances
+POST   /schedule-instances
+GET    /schedule-instances/{id}
+PATCH  /schedule-instances/{id}
+DELETE /schedule-instances/{id}
+
+RESERVAS (/bookings)
+-----------------------
+GET    /bookings
+POST   /bookings
+GET    /bookings/{id}
+PATCH  /bookings/{id}
+DELETE /bookings/{id}
+
+ACOMPANANTES DE RESERVA (/booking-escorts)
+-----------------------------------------------
+GET    /booking-escorts
+POST   /booking-escorts
+GET    /booking-escorts/{id}
+GET    /booking-escorts/by-booking/{bookingId}
+GET    /booking-escorts/count-escorts/{bookingId}
+PATCH  /booking-escorts/{id}
+DELETE /booking-escorts/{id}
+DELETE /booking-escorts/by-booking/{id}
+
+PAGOS (/payments)
+--------------------
+GET    /payments
+POST   /payments
+GET    /payments/{id}
+PATCH  /payments/{id}
+DELETE /payments/{id}
+
+RESENAS (/reviews)
+---------------------
+GET    /reviews
+POST   /reviews
+GET    /reviews/{id}
+PATCH  /reviews/{id}
+DELETE /reviews/{id}
+GET    /reviews/average-rating/{id}

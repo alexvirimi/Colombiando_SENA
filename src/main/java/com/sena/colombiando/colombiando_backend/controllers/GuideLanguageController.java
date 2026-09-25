@@ -20,18 +20,18 @@ import java.util.UUID;
 public class GuideLanguageController {
 
     private final GuideLanguageService guideLanguageService;
-/** Inicializa la instancia.
- * @param guideLanguageService parametro de entrada.
- */
+    /** Inicializa la instancia.
+     * @param guideLanguageService parametro de entrada.
+     */
     public GuideLanguageController(GuideLanguageService guideLanguageService) {
         this.guideLanguageService = guideLanguageService;
     }
 
-/** Consulta all.
- * @param guideId parametro de entrada.
- * @param languageId parametro de entrada.
- * @return resultado de la operacion.
- */
+    /** Consulta all.
+     * @param guideId parametro de entrada.
+     * @param languageId parametro de entrada.
+     * @return resultado de la operacion.
+     */
     @Operation(summary = "Listar idiomas de guías")
     @ApiResponse(responseCode = "200", description = "Relaciones consultadas correctamente.")
     @GetMapping
@@ -42,10 +42,10 @@ public class GuideLanguageController {
         return ResponseEntity.ok(guideLanguageService.searchGuideLanguages(guideId, languageId));
     }
 
-/** Crea .
- * @param request parametro de entrada.
- * @return resultado de la operacion.
- */
+    /** Crea .
+     * @param request parametro de entrada.
+     * @return resultado de la operacion.
+     */
     @Operation(summary = "Asignar idioma a un guía")
     @ApiResponse(responseCode = "201", description = "Idioma asignado correctamente.")
     @PostMapping
@@ -56,30 +56,14 @@ public class GuideLanguageController {
         return ResponseEntity.created(URI.create("/api/guide-languages/" + created.id())).body(created);
     }
 
-/** Ejecuta la operacion get mapping.
- * @param id parametro de entrada.
- */
-/** Consulta one.
- * @param id parametro de entrada.
- * @return resultado de la operacion.
- */
-    @Operation(summary = "Consultar idioma de guía")
-    @ApiResponse(responseCode = "200", description = "Relación consultada correctamente.")
-    @GetMapping("/{id}")
-    public ResponseEntity<GuideLanguageDto.Response> getOne(
-            @PathVariable GuideLanguageId id
-    ) {
-        return ResponseEntity.ok(guideLanguageService.getGuideLanguage(id));
-    }
-
-/** Ejecuta la operacion get mapping.
- * @param languageId parametro de entrada.
- */
-/** Consulta by guide and language.
- * @param guideId parametro de entrada.
- * @param languageId parametro de entrada.
- * @return resultado de la operacion.
- */
+    /** Ejecuta la operacion get mapping.
+     * @param languageId parametro de entrada.
+     */
+    /** Consulta by guide and language.
+     * @param guideId parametro de entrada.
+     * @param languageId parametro de entrada.
+     * @return resultado de la operacion.
+     */
     @Operation(summary = "Consultar relación por guía e idioma")
     @ApiResponse(responseCode = "200", description = "Relación consultada correctamente.")
     @GetMapping("/by-guide/{guideId}/by-language/{languageId}")
@@ -90,26 +74,6 @@ public class GuideLanguageController {
         return ResponseEntity.ok(guideLanguageService
                 .getGuideLanguageByGuideIdAndLanguageId(guideId, languageId)
         );
-    }
-
-/** Ejecuta la operacion patch mapping.
- * @param id parametro de entrada.
- */
-/** Actualiza .
- * @param id parametro de entrada.
- * @param request parametro de entrada.
- * @return resultado de la operacion.
- */
-    @Operation(summary = "Actualizar idioma de guía")
-    @ApiResponse(responseCode = "200", description = "Relación actualizada correctamente.")
-    @PatchMapping("/{id}")
-    public ResponseEntity<GuideLanguageDto.Response> update(
-            @PathVariable GuideLanguageId id,
-            @RequestBody GuideLanguageDto.Update request
-    ) {
-        return ResponseEntity.ok(guideLanguageService.updateGuideLanguage(
-                id, request
-        ));
     }
 
     /** Ejecuta la operacion patch mapping.
@@ -133,30 +97,14 @@ public class GuideLanguageController {
         ));
     }
 
-/** Ejecuta la operacion delete mapping.
- * @param id parametro de entrada.
- */
-/** Elimina .
- * @param id parametro de entrada.
- * @return resultado de la operacion.
- */
-    @Operation(summary = "Eliminar idioma de guía")
-    @ApiResponse(responseCode = "200", description = "Relación eliminada correctamente.")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<GuideLanguageDto.Response> delete(
-            @PathVariable GuideLanguageId id
-    ) {
-        return ResponseEntity.ok(guideLanguageService.deleteGuideLanguage(id));
-    }
-
-/** Ejecuta la operacion delete mapping.
- * @param languageId parametro de entrada.
- */
-/** Elimina by guide and language.
- * @param guideId parametro de entrada.
- * @param languageId parametro de entrada.
- * @return resultado de la operacion.
- */
+    /** Ejecuta la operacion delete mapping.
+     * @param languageId parametro de entrada.
+     */
+    /** Elimina by guide and language.
+     * @param guideId parametro de entrada.
+     * @param languageId parametro de entrada.
+     * @return resultado de la operacion.
+     */
     @Operation(summary = "Eliminar relación por guía e idioma")
     @ApiResponse(responseCode = "200", description = "Relación eliminada correctamente.")
     @DeleteMapping("/by-guide/{guideId}/by-language/{languageId}")

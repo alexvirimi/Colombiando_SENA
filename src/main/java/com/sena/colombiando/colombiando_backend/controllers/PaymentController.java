@@ -6,6 +6,7 @@ import com.sena.colombiando.colombiando_backend.services.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.EntityResponse;
@@ -50,7 +51,7 @@ public class PaymentController {
     @ApiResponse(responseCode = "201", description = "Pago creado correctamente.")
     @PostMapping
     public ResponseEntity<PaymentDto.Response> createPayment(
-            @RequestBody PaymentDto.Create request
+            @Valid @RequestBody PaymentDto.Create request
     ) {
         PaymentDto.Response created = paymentService.createPayment(request);
         return ResponseEntity.created(URI.create("/api/payments/" + created.id())).body(created);
