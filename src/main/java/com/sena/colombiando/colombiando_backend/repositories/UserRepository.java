@@ -17,4 +17,6 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
  * @return resultado de la operacion.
  */
     public boolean existsByEmail(String email);
+
+    boolean existsByEmailAndIdNot(String email, UUID id);
 }

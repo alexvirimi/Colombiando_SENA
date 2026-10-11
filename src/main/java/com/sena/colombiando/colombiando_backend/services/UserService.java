@@ -70,6 +70,12 @@ public class UserService {
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado."));
 
+        if (dataRequest.email() != null
+                && !dataRequest.email().equals(user.getEmail())
+                && userRepository.existsByEmailAndIdNot(dataRequest.email(), id)) {
+            throw new EntityExistsException("Ya existe un usuario con ese correo.");
+        }
+
         Optional.ofNullable(dataRequest.name())
                 .ifPresent(user::setName);
         Optional.ofNullable(dataRequest.lastName())
