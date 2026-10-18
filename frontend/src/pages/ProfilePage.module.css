@@ -1,0 +1,91 @@
+.sub {
+  color: var(--clr-gris-600);
+  font-size: var(--fs-200);
+  margin-top: var(--size-50);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--size-100);
+  color: var(--clr-gris-400);
+}
+
+/* ReservaCard */
+.card {
+  position: relative;
+  border: 1.5px solid var(--clr-negro);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow .2s;
+}
+.card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.1); }
+
+.cancelButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--clr-rojo, #b42318);
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s, transform .2s;
+}
+.card:hover .cancelButton,
+.card:focus-within .cancelButton {
+  opacity: 1;
+  pointer-events: auto;
+}
+.cancelButton:hover:not(:disabled) { transform: scale(1.08); }
+.cancelButton:disabled { cursor: wait; opacity: .7; }
+.refundNote {
+  color: var(--clr-gris-600);
+  font-size: var(--fs-100);
+  margin: 0;
+}
+
+.cardHeader { background: var(--clr-gris-200); }
+.cardFig {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ff-gloock);
+  font-size: var(--fs-300);
+  color: var(--clr-gris-600);
+  margin: 0;
+}
+
+.cardBody {
+  padding: var(--size-100);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-50);
+}
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cardTour { font-weight: 700; font-size: var(--fs-300); }
+.cardMeta { font-size: var(--fs-100); color: var(--clr-gris-400); }
+.cardTotal { font-weight: 700; color: var(--clr-verde); font-size: var(--fs-300); }
+
+.cardActions {
+  display: flex;
+  gap: var(--size-50);
+  flex-wrap: wrap;
+  margin-top: var(--size-50);
+}
+.btnSm { padding: 6px 14px !important; font-size: var(--fs-100) !important; }
