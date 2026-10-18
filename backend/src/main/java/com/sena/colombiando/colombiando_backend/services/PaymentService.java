@@ -4,6 +4,7 @@ import com.sena.colombiando.colombiando_backend.dto.PaymentDto;
 import com.sena.colombiando.colombiando_backend.entities.BookingEntity;
 import com.sena.colombiando.colombiando_backend.entities.PaymentEntity;
 import com.sena.colombiando.colombiando_backend.entities.PaymentStatusEnum;
+import com.sena.colombiando.colombiando_backend.entities.BookingStatusEnum;
 import com.sena.colombiando.colombiando_backend.mappers.PaymentMapper;
 import com.sena.colombiando.colombiando_backend.repositories.BookingRepository;
 import com.sena.colombiando.colombiando_backend.repositories.PaymentRepository;
@@ -48,8 +49,11 @@ public class PaymentService {
 
         PaymentEntity payment = paymentMapper.toEntity(request);
         payment.setBooking(booking);
+        payment.setStatus(PaymentStatusEnum.COMPLETED);
+        booking.setStatus(BookingStatusEnum.CONFIRMED);
 
         paymentRepository.save(payment);
+        bookingRepository.save(booking);
         return paymentMapper.toDto(payment);
     }
 
@@ -106,7 +110,7 @@ public class PaymentService {
     public List<PaymentDto.Response> searchPayments(
             UUID bookingId, PaymentStatusEnum status
     ){
-        List<PaymentEntity> payments = paymentRepository.findAll();
+        List<PaymentEntity> payments = paymentRepository.search(bookingId, status);
         List<PaymentDto.Response> responses = new ArrayList<>();
 
         for (PaymentEntity payment : payments) {

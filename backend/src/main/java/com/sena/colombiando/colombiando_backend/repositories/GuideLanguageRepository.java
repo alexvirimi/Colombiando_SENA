@@ -14,8 +14,8 @@ import java.util.UUID;
 public interface GuideLanguageRepository extends JpaRepository<GuideLanguageEntity, GuideLanguageId> {
     @Query("""
     SELECT gl FROM GuideLanguageEntity gl
-    WHERE (:guideId IS NULL OR gl.guide.id = :guideId)
-      AND (:languageId IS NULL OR gl.language.id = :languageId)
+    WHERE (:guideId IS NULL OR gl.id.guideId = :guideId)
+      AND (:languageId IS NULL OR gl.id.languageId = :languageId)
     """)
 /** Consulta search.
  * @param guideId parametro de entrada.

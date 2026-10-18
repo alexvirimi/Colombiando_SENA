@@ -125,7 +125,8 @@ public class GuideLanguageService {
     public List<GuideLanguageDto.Response> searchGuideLanguages(
             UUID guideId, UUID languageId
     ) {
-        List<GuideLanguageEntity>  guideLanguages = guideLanguageRepository.findAll();
+        List<GuideLanguageEntity> guideLanguages =
+                guideLanguageRepository.search(guideId, languageId);
         return responses(guideLanguages);
     }
 
