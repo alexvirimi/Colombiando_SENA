@@ -16,6 +16,14 @@ services:
       timeout: 5s
       retries: 20
 
+  apache:
+    build:
+      context: ./apache
+    ports:
+      - "8081:80"
+    depends_on:
+      - frontend
+
   backend:
     build:
       context: ./backend
