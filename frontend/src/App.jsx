@@ -15,6 +15,12 @@ import PaymentPage     from './pages/PaymentPage';
 import ProfilePage     from './pages/ProfilePage';
 import ReviewPage      from './pages/ReviewPage';
 import NotFoundPage    from './pages/NotFoundPage';
+import {
+  SettingsLayout,
+  AccountPage,
+  ContactPage,
+  DeleteAccountPage,
+} from './pages/SettingsPages';
 
 /**
  * App — componente raíz.
@@ -26,6 +32,7 @@ import NotFoundPage    from './pages/NotFoundPage';
  *                  /login | /registro | /recuperar
  * Rutas privadas:  /reservas/nueva | /pagos/nueva
  *                  /perfil | /calificar
+ *                  /perfil/cuenta | /perfil/contacto | /perfil/eliminar
  */
 export default function App() {
   return (
@@ -81,6 +88,19 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+
+              {/* Configuración de usuario (menú lateral + Outlet) */}
+              <Route
+                element={
+                  <PrivateRoute>
+                    <SettingsLayout />
+                  </PrivateRoute>
+                }
+              >
+                <Route path="perfil/cuenta"   element={<AccountPage />} />
+                <Route path="perfil/contacto" element={<ContactPage />} />
+                <Route path="perfil/eliminar" element={<DeleteAccountPage />} />
+              </Route>
 
               {/* 404 */}
               <Route path="*" element={<NotFoundPage />} />

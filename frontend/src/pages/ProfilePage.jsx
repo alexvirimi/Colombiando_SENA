@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { bookingService } from '../services/otrosServices';
-import { Spinner, Alert, EstadoBadge, Button } from '../components/ui/UI';
+import { bookingService, bookingEscortService, paymentService } from '../services/otrosServices';
+import { Spinner, Alert, EstadoBadge, Button, Modal } from '../components/ui/UI';
 import styles from './ProfilePage.module.css';
+
+const pesos = n =>
+  new Intl.NumberFormat('es-CO', {
+    style: 'currency', currency: 'COP', maximumFractionDigits: 0,
+  }).format(n);
 
 /**
  * ProfilePage — perfil del cliente logueado.
  * Replica mi-perfil.html: saludo → tours activos → tours pasados.
+ * Al hacer clic en un tour activo se abre un pop up con el detalle.
  * Ruta protegida por PrivateRoute.
  */
 export default function ProfilePage() {
@@ -18,6 +24,7 @@ export default function ProfilePage() {
   const [error,      setError]      = useState('');
   const [cancelando, setCancelando] = useState(null);
   const [mensaje,    setMensaje]    = useState('');
+  const [detalle,    setDetalle]    = useState(null);
 
   useEffect(() => {
     if (!usuario?.idUsuario) return;
@@ -80,6 +87,11 @@ export default function ProfilePage() {
             {usuario?.correo}
             {usuario?.telefono && ` • ${usuario.telefono}`}
           </p>
+          <div className={styles.configBtn}>
+            <Button variante="outline" onClick={() => navigate('/perfil/cuenta')}>
+              Configurar mi cuenta
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -109,6 +121,7 @@ export default function ProfilePage() {
                     key={r.idReserva}
                     reserva={r}
                     mostrarGuia
+                    onDetalle={() => setDetalle(r)}
                     onCancelar={() => cancelarReserva(r)}
                     cancelando={cancelando === r.idReserva}
                     onPagar={() => navigate(`/pagos/nueva?idReserva=${r.idReserva}`)}
@@ -143,7 +156,122 @@ export default function ProfilePage() {
           </div>
         </section>
       )}
+
+      {/* ── POP UP DETALLE DE LA RESERVA ───────────────── */}
+      <Modal
+        abierto={!!detalle}
+        onCerrar={() => setDetalle(null)}
+        titulo={`Tour ${detalle?.lugarNombre || 'sin nombre'}`}
+      >
+        {detalle && (
+          <ReservaDetalle
+            reserva={detalle}
+            onPagar={() => navigate(`/pagos/nueva?idReserva=${detalle.idReserva}`)}
+          />
+        )}
+      </Modal>
     </>
+  );
+}
+
+/* ── ReservaDetalle — contenido del pop up ── */
+function ReservaDetalle({ reserva, onPagar }) {
+  const [acompanantes, setAcompanantes] = useState([]);
+  const [pagos,        setPagos]        = useState([]);
+  const [cargando,     setCargando]     = useState(true);
+  const [aviso,        setAviso]        = useState('');
+
+  useEffect(() => {
+    let vigente = true;
+    setCargando(true);
+    setAviso('');
+    Promise.allSettled([
+      bookingEscortService.listarPorReserva(reserva.idReserva),
+      paymentService.listarPorReserva(reserva.idReserva),
+    ]).then(([esc, pag]) => {
+      if (!vigente) return;
+      if (esc.status === 'fulfilled') setAcompanantes(esc.value.data ?? []);
+      if (pag.status === 'fulfilled') setPagos(pag.value.data ?? []);
+      if (esc.status === 'rejected' || pag.status === 'rejected') {
+        setAviso('No se pudo cargar toda la información de la reserva.');
+      }
+      setCargando(false);
+    });
+    return () => { vigente = false; };
+  }, [reserva.idReserva]);
+
+  const pagado = pagos
+    .filter(p => p.estado === 'COMPLETED')
+    .reduce((suma, p) => suma + p.monto, 0);
+  const pendiente = Math.max(0, reserva.totalReserva - pagado);
+
+  const filas = [
+    ['Fecha del tour', reserva.fechaReserva ?? '—'],
+    ['Guía', reserva.guia
+      ? `${reserva.guia.nombre} ${reserva.guia.apellido}`
+      : 'Guía por confirmar'],
+    ['Pasajeros', reserva.numeroPasajeros],
+    ['Total de la reserva', pesos(reserva.totalReserva)],
+    ['Total pagado', pesos(pagado)],
+    ['Saldo pendiente', pesos(pendiente)],
+  ];
+
+  return (
+    <div className={styles.detalle}>
+      <div className={styles.detalleRow}>
+        <span className={styles.detalleKey}>Estado</span>
+        <EstadoBadge estado={reserva.estado} />
+      </div>
+      {filas.map(([k, v]) => (
+        <div key={k} className={styles.detalleRow}>
+          <span className={styles.detalleKey}>{k}</span>
+          <strong>{v}</strong>
+        </div>
+      ))}
+
+      {cargando && <Spinner />}
+      {aviso && <Alert tipo="error">{aviso}</Alert>}
+
+      {!cargando && (
+        <>
+          <h3 className={styles.detalleTitulo}>Acompañantes</h3>
+          {acompanantes.length === 0 ? (
+            <p className={styles.detalleVacio}>Esta reserva no tiene acompañantes registrados.</p>
+          ) : (
+            <ul className={styles.detalleLista} role="list">
+              {acompanantes.map(a => (
+                <li key={a.idAcompanante} className={styles.detalleItem}>
+                  <strong>{a.nombre} {a.apellido}</strong>
+                  <span>
+                    {a.tipoDocumento} {a.numeroDocumento}
+                    {a.fechaNacimiento && ` · Nac. ${a.fechaNacimiento}`}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <h3 className={styles.detalleTitulo}>Pagos</h3>
+          {pagos.length === 0 ? (
+            <p className={styles.detalleVacio}>Aún no has registrado pagos.</p>
+          ) : (
+            <ul className={styles.detalleLista} role="list">
+              {pagos.map(p => (
+                <li key={p.idPago} className={styles.detalleItem}>
+                  <strong>{pesos(p.monto)}</strong>
+                  <span>{p.metodoPago}</span>
+                  <EstadoBadge estado={p.estado} />
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      )}
+
+      {pendiente > 0 && reserva.estado === 'PENDING' && (
+        <Button ancho onClick={onPagar}>Registrar pago</Button>
+      )}
+    </div>
   );
 }
 
@@ -151,23 +279,34 @@ export default function ProfilePage() {
 function ReservaCard({
   reserva,
   mostrarGuia = false,
+  onDetalle,
   onPagar,
   onCancelar,
   cancelando,
   onCalificar,
 }) {
-  const pesos = n =>
-    new Intl.NumberFormat('es-CO', {
-      style: 'currency', currency: 'COP', maximumFractionDigits: 0,
-    }).format(n);
+  function teclado(e) {
+    if (e.target !== e.currentTarget) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onDetalle();
+    }
+  }
 
   return (
-    <div className={styles.card}>
+    <div
+      className={`${styles.card} ${onDetalle ? styles.cardClickable : ''}`}
+      onClick={onDetalle}
+      onKeyDown={onDetalle ? teclado : undefined}
+      role={onDetalle ? 'button' : undefined}
+      tabIndex={onDetalle ? 0 : undefined}
+      aria-label={onDetalle ? `Ver detalle del tour ${reserva.lugarNombre || 'sin nombre'}` : undefined}
+    >
       {onCancelar && (
         <button
           type="button"
           className={styles.cancelButton}
-          onClick={onCancelar}
+          onClick={e => { e.stopPropagation(); onCancelar(); }}
           disabled={cancelando}
           aria-label={`Cancelar reserva ${reserva.idReserva}`}
           title="Cancelar reserva"
@@ -203,8 +342,8 @@ function ReservaCard({
           <p className={styles.cardTotal}>{pesos(reserva.totalReserva)}</p>
         )}
 
-        {/* Acciones */}
-        <div className={styles.cardActions}>
+        {/* Acciones (no deben abrir el pop up) */}
+        <div className={styles.cardActions} onClick={e => e.stopPropagation()}>
           {onPagar && (
             <Button variante="primary" onClick={onPagar} className={styles.btnSm}>
               Registrar pago

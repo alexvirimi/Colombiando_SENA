@@ -3,6 +3,7 @@
   font-size: var(--fs-200);
   margin-top: var(--size-50);
 }
+.configBtn { margin-top: var(--size-100); }
 
 .empty {
   display: flex;
@@ -23,6 +24,8 @@
   transition: box-shadow .2s;
 }
 .card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.1); }
+.cardClickable { cursor: pointer; }
+.cardClickable:focus-visible { outline: 2px solid var(--clr-verde); outline-offset: 2px; }
 
 .cancelButton {
   position: absolute;
@@ -87,5 +90,37 @@
   gap: var(--size-50);
   flex-wrap: wrap;
   margin-top: var(--size-50);
+  cursor: default;
 }
 .btnSm { padding: 6px 14px !important; font-size: var(--fs-100) !important; }
+
+/* Pop up de detalle */
+.detalle { display: flex; flex-direction: column; gap: var(--size-50); }
+.detalleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .35rem 0;
+  border-bottom: 1px solid var(--clr-gris-200);
+  font-size: var(--fs-200);
+}
+.detalleKey { color: var(--clr-gris-600); }
+.detalleTitulo {
+  font-weight: 700;
+  font-size: var(--fs-300);
+  margin-top: var(--size-100);
+}
+.detalleVacio { font-size: var(--fs-100); color: var(--clr-gris-400); }
+.detalleLista { display: flex; flex-direction: column; gap: var(--size-50); }
+.detalleItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--size-50) var(--size-100);
+  justify-content: space-between;
+  padding: var(--size-50) var(--size-100);
+  border: 1px solid var(--clr-gris-200);
+  border-radius: 10px;
+  font-size: var(--fs-200);
+}
+.detalleItem span { color: var(--clr-gris-600); font-size: var(--fs-100); }

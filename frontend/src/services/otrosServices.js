@@ -35,6 +35,25 @@ export const authService = {
     ),
 };
 
+/* NUEVO — configuración de cuenta (UserService: update / changePassword / delete) */
+export const userService = {
+  actualizar: (id, datos) =>
+    api.patch(`/users/${id}`, {
+      data: {
+        name: datos.nombre,
+        lastName: datos.apellido,
+        phone: datos.telefono,
+        email: datos.correo,
+      },
+    }),
+  cambiarPassword: (id, datos) =>
+    api.patch(`/users/change-password/${id}`, {
+      currentPassword: datos.currentPassword,
+      newPassword: datos.newPassword,
+    }),
+  eliminar: (id) => api.delete(`/users/${id}`),
+};
+
 export const bookingService = {
   crear: async (datos) => {
     const response = await api.post("/bookings", {
@@ -89,7 +108,24 @@ export const bookingEscortService = {
         idNumber: datos.numeroDocumento,
       },
     }),
+  /* NUEVO — acompañantes de una reserva (BookingEscortService.getAllBookingsByBookingId) */
+  listarPorReserva: async (id) => {
+    const response = await api.get(`/booking-escorts/by-booking/${id}`);
+    return { ...response, data: response.data.map(mapEscort) };
+  },
 };
+
+function mapEscort(escort) {
+  const d = escort.data ?? escort;
+  return {
+    idAcompanante: escort.id,
+    nombre: d.name,
+    apellido: d.lastName,
+    tipoDocumento: d.documentType,
+    numeroDocumento: d.idNumber,
+    fechaNacimiento: escort.birthDate,
+  };
+}
 
 export const paymentService = {
   registrar: (datos) =>
