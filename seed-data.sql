@@ -383,6 +383,80 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (_binary '½[–\Þ1Iœ-Ftž’_„','2026-10-18 02:29:26.572331','camila.torres@example.com','Torres','Camila','$2a$10$ZnZG0sU7rPovwzj.5gjzhOf3tYbTM.FjLH39n9us6BFRxGhG6MK3.','+573001234508','ACTIVE'),(_binary '0»\Ò*DÜ\öo†/\Û\Ü','2026-10-18 02:30:43.683726','felipe.moreno@example.com','Moreno','Felipe','$2a$10$oF7tm5chCyRj.5FWAT3RIexmdEOPDBg6ZYmt44zsD9HRmtQ8CfZnS','+573001234515','ACTIVE'),(_binary '1¾DV@‹«>¸` ž\ÄB','2026-10-18 02:30:12.457630','isabella.ortiz@example.com','Ortiz','Isabella','$2a$10$Vnd30QuKUkR.H8ZVx8QjwO/ISdL5fZxlLmBanDnncJtuNWfWrwecG','+573001234512','ACTIVE'),(_binary '4O=‹\ÉGCßŽ\Ü@\ÉgÆŒ','2026-10-18 02:28:43.487974','laura.martinez@example.com','MartÃ­nez','Laura','$2a$10$ebt61d/4TycLm3Gz2jS5Iurb81wcveXhGCWvSRT0INPw3sh/zFqN.','+573001234504','ACTIVE'),(_binary 'NLOÒ²N{·¤ÿd\ê\÷','2026-10-18 02:30:20.941390','mateo.mendoza@example.com','Mendoza','Mateo','$2a$10$8dNi.ZlsxCE0gOLnr/NgF.DWcR./7rpQMVVFejCWAzEJGuDOfSc5y','+573001234513','ACTIVE'),(_binary 'Rµ\ö¤Š`E\î¦USr\É4e`','2026-10-18 02:30:35.116226','daniela.jimenez@example.com','JimÃ©nez','Daniela','$2a$10$lChmQ2yuaTTFhqMWCftJauBOfzgaQsLVYqmtA0Msaul1tsXksMX0O','+573001234514','ACTIVE'),(_binary 'Y\Ý;v™úI4Ÿ$\Ö2\Í\Ü&ž','2026-10-18 02:29:16.544492','santiago.garcia@example.com','GarcÃ­a','Santiago','$2a$10$XM9FE77dkOeUKyyMq6Sr8ed11UO7BGV6AEeA642f.vSa8eZzlACa2','+573001234507','ACTIVE'),(_binary 'u6ü\Z¹G\î§\'\Z\ë`\÷\r','2026-10-18 02:28:35.800398','andres.rodriguez@example.com','RodrÃ­guez','AndrÃ©s','$2a$10$WBbtLJs9.Y.fS0dZPaHGTecx6O9oLHntCM6jY.Cxj3gJwejfKOxGK','+573001234503','ACTIVE'),(_binary 'ƒšJ\ãz‡Hn¶‰QiRy','2026-10-18 02:28:58.001149','juan.hernandez@example.com','HernÃ¡ndez','Juan','$2a$10$NzTghF/pfA4JD.00MB39ZOHQBEnB6UqlWwMHX7SIVICmNvZa/2NG6','+573001234505','ACTIVE'),(_binary '–Ð¯¡\Û}EÌ‡ú·\Ðo\'j','2026-10-18 02:29:35.774677','daniel.ramirez@example.com','RamÃ­rez','Daniel','$2a$10$dwl/ygFgLePykTvMNw.NauN5VuB43/MIzvgWwIK35K8DSulgCJX0m','+573001234509','ACTIVE'),(_binary 'µq\Åh‚N$ˆ7\Ò\æDXc','2026-10-18 02:28:23.742959','maria.gomez@example.com','GÃ³mez','MarÃ­a','$2a$10$rfNB07aoB2zkD53nny4Emuq6z/LmVCWlJlSr9FD59wB9.PDdqtsXC','+573001234502','ACTIVE'),(_binary '¹±3j\àIý˜¡\÷e‹!n','2026-10-18 02:29:52.522389','sofia.vargas@example.com','Vargas','SofÃ­a','$2a$10$IjMy/M69V4q5mtqf86i.3eZM2aX2UKX0obtPedEoRvt8f/w7Cwg2.','+573001234510','ACTIVE'),(_binary '\óž\ëÜ£bLÄ›ÿ\ÉÙ¯DÑ˜','2026-10-18 02:30:02.402276','sebastian.castro@example.com','Castro','SebastiÃ¡n','$2a$10$q.ZV/j4iamPAQZBr6ir4WeDEWzPW6MElhXLi/etF17I.aMmO/pwIy','+573001234511','ACTIVE'),(_binary '\õpgn@ë€’ªPH','2026-10-18 02:29:07.293301','valentina.lopez@example.com','LÃ³pez','Valentina','$2a$10$rXHOetEzdAwFOA0o3GDRDOLSwBTFkhhNklw5DzK2nRJ6fipUFAgWi','+573001234506','ACTIVE'),(_binary '\õjaF°H@”7.\Z¶K‚','2026-10-18 02:28:10.632323','carlos.perez@example.com','PÃ©rez','Carlos','$2a$10$KRId.Uza8ielBTgkdqKjNOot51AWMZa88wHK2W1id/0ALxfY1yOh2','+573001234501','ACTIVE');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+-- ============================================================
+-- Datos adicionales de prueba
+--   correo:     resenas@example.com
+--   contraseÃ±a: Colombiando123
+-- Incluye: reserva COMPLETED (para reseÃ±ar) y reserva CONFIRMED
+-- con 2 acompaÃ±antes (para probar el pop up de tours activos).
+-- ============================================================
+
+SET @user_id     = UUID_TO_BIN(UUID());
+SET @schedule_id = UUID_TO_BIN(UUID());
+SET @instance_id = UUID_TO_BIN(UUID());
+SET @booking_ok  = UUID_TO_BIN(UUID());
+SET @booking_act = UUID_TO_BIN(UUID());
+
+SET @place_id = (SELECT id FROM places WHERE name = 'Ensenada Coral Secreto' LIMIT 1);
+SET @guide_id = (SELECT id FROM guides WHERE name = 'Natalia' LIMIT 1);
+
+INSERT INTO users (id, created_at, email, last_name, name, password, phone, status)
+VALUES (
+  @user_id, NOW(6), 'resenas@example.com', 'Prueba', 'Viajero',
+  '$2a$10$sma4hfqkjCyJO/IvCryGc.WpTtbwAU5AIkfx9VnymeaJzRVipkzd6',
+  '3001234599', 'ACTIVE'
+);
+
+-- Horario e instancia pasados (schedule_instances tiene UNIQUE(schedule_id))
+INSERT INTO schedules
+  (id, end_date, end_time, max_capacity, price_per_person, start_date, start_time, status, guide_id, place_id)
+VALUES
+  (@schedule_id, '2026-09-03', '14:00:00', 10, 120000.00, '2026-09-01', '08:00:00', 'ACTIVE', @guide_id, @place_id);
+
+-- CANCELLED para que no salga en el catalogo publico (solo lista ACTIVE)
+INSERT INTO schedule_instances (id, available_capacity, `date`, max_capacity, state, schedule_id)
+VALUES (@instance_id, 8, '2026-09-02', 10, 'CANCELLED', @schedule_id);
+
+-- Reserva COMPLETED + pago (el usuario puede calificarla)
+INSERT INTO bookings (id, created_at, num_people, status, total_price, instance_id, user_id)
+VALUES (@booking_ok, '2026-08-20 10:00:00.000000', 2, 'COMPLETED', 240000.00, @instance_id, @user_id);
+
+INSERT INTO payments (id, amount_to_pay, created_at, currency, payment_method, status, booking_id)
+VALUES (UUID_TO_BIN(UUID()), 240000.00, '2026-08-20 10:05:00.000000', 'COP', 'CARD', 'COMPLETED', @booking_ok);
+
+-- Reserva CONFIRMED (3 personas) en una instancia futura del mismo lugar
+SET @future_instance = (
+  SELECT si.id
+  FROM schedule_instances si
+  JOIN schedules s ON s.id = si.schedule_id
+  WHERE s.place_id = @place_id
+    AND si.state = 'ACTIVE'
+    AND si.`date` > CURDATE()
+    AND si.available_capacity >= 3
+  ORDER BY si.`date`
+  LIMIT 1
+);
+
+INSERT INTO bookings (id, created_at, num_people, status, total_price, instance_id, user_id)
+SELECT @booking_act, NOW(6), 3, 'CONFIRMED', s.price_per_person * 3, si.id, @user_id
+FROM schedule_instances si
+JOIN schedules s ON s.id = si.schedule_id
+WHERE si.id = @future_instance;
+
+UPDATE schedule_instances
+SET available_capacity = available_capacity - 3
+WHERE id = @future_instance;
+
+INSERT INTO payments (id, amount_to_pay, created_at, currency, payment_method, status, booking_id)
+SELECT UUID_TO_BIN(UUID()), total_price, NOW(6), 'COP', 'TRANSFER', 'COMPLETED', id
+FROM bookings WHERE id = @booking_act;
+
+INSERT INTO booking_escorts (id, birth_date, document_type, id_number, last_name, name, booking_id)
+VALUES
+  (UUID_TO_BIN(UUID()), '1992-04-13', 'CC', '1056743001', 'Prueba', 'Marcela', @booking_act),
+  (UUID_TO_BIN(UUID()), '2012-09-30', 'TI', '1100200300', 'Prueba', 'Samuel',  @booking_act);
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
