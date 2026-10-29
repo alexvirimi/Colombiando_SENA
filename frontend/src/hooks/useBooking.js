@@ -25,7 +25,7 @@ export function useBooking() {
       return data;
     } catch (e) {
       const msg = e.response?.data?.mensaje || 'Error al crear la reserva.';
-      setError(msg); throw new Error(msg);
+      setError(msg); throw new Error(msg, { cause: e });
     } finally { setCargando(false); }
   }
 

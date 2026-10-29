@@ -19,7 +19,9 @@ export function useTours() {
     }
   }
 
-  useEffect(() => { cargar(); }, []);
+  useEffect(() => {
+    Promise.resolve().then(cargar);
+  }, []);
   return { tours, cargando, error, recargar: cargar };
 }
 
@@ -30,7 +32,7 @@ export function useTourDetalle(id) {
 
   useEffect(() => {
     if (!id) return;
-    setCargando(true);
+    Promise.resolve().then(() => setCargando(true));
     tourService.obtenerPorId(id)
       .then(({ data }) => setTour(data))
       .catch(e => setError(e.response?.data?.mensaje || 'Tour no encontrado.'))

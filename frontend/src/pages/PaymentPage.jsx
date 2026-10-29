@@ -29,11 +29,7 @@ export default function PaymentPage() {
   const [exitoPago, setExitoPago] = useState(false);
 
   useEffect(() => {
-    if (!idReserva) {
-      setError("ID de reserva no válido.");
-      setCargando(false);
-      return;
-    }
+    if (!idReserva) return;
     Promise.all([
       bookingService.obtenerPorId(idReserva),
       paymentService.listarPorReserva(idReserva),
@@ -48,6 +44,12 @@ export default function PaymentPage() {
       .finally(() => setCargando(false));
   }, [idReserva]);
 
+  if (!idReserva)
+    return (
+      <div className="padding-block-250 container">
+        <Alert tipo="error">ID de reserva no válido.</Alert>
+      </div>
+    );
   if (cargando)
     return (
       <div className="padding-block-250 container">

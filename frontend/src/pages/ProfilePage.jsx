@@ -183,8 +183,11 @@ function ReservaDetalle({ reserva, onPagar }) {
 
   useEffect(() => {
     let vigente = true;
-    setCargando(true);
-    setAviso('');
+    Promise.resolve().then(() => {
+      if (!vigente) return;
+      setCargando(true);
+      setAviso('');
+    });
     Promise.allSettled([
       bookingEscortService.listarPorReserva(reserva.idReserva),
       paymentService.listarPorReserva(reserva.idReserva),
